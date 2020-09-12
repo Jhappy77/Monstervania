@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+          [
+            "yxy",
+            "xyx",
+            "yxy"
+          ],
+  "key": {
+    "x": {
+      "item": "monstervania:wrappings"
+    },
+    "y": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "result": {
+    "item": "monstervania:bandages",
+    "count": 2
+  }
+}

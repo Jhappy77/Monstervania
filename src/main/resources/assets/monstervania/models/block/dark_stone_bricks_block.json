@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "monstervania:blocks/dark_stone_bricks_block"
+  }
+}

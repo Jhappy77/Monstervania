@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "monstervania:block/dark_stone_bricks_slab"
+    },
+    "type=double": {
+      "model": "monstervania:block/dark_stone_bricks_block"
+    },
+    "type=top": {
+      "model": "monstervania:block/dark_stone_bricks_slab_top"
+    }
+  }
+}
