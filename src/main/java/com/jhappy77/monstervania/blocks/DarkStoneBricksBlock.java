@@ -11,10 +11,9 @@ public class DarkStoneBricksBlock extends Block {
         super(Block.Properties.create(Material.ROCK)
                 .hardnessAndResistance(1.5f, 6.0f)
                 .sound(SoundType.STONE)
-                .harvestLevel(1)
+                .harvestLevel(0)
                 .harvestTool(ToolType.PICKAXE)
-                //set requires tool
-                .func_235861_h_()
+                .setRequiresTool()
         );
     }
 }

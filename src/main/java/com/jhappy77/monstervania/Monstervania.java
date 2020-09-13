@@ -1,13 +1,17 @@
 package com.jhappy77.monstervania;
 
+import com.jhappy77.monstervania.entities.VampireEntity;
+import com.jhappy77.monstervania.init.ModEntityTypes;
 import com.jhappy77.monstervania.util.RegistryHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -42,7 +46,9 @@ public class Monstervania
 
     private void setup(final FMLCommonSetupEvent event)
     {
-
+        DeferredWorkQueue.runLater(()->{
+            GlobalEntityTypeAttributes.put(ModEntityTypes.VAMPIRE.get(), VampireEntity.setCustomAttributes().create());
+        });
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) {
