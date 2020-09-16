@@ -30,7 +30,7 @@ import java.util.stream.Collectors;
 public class Monstervania
 {
     // Directly reference a log4j logger.
-    private static final Logger LOGGER = LogManager.getLogger();
+    public static final Logger LOGGER = LogManager.getLogger();
     public static final String MOD_ID = "monstervania";
     public Monstervania() {
 
@@ -39,7 +39,7 @@ public class Monstervania
 
         RegistryHandler.init();
 
-
+        ModEntityTypes.ENTITY_TYPES.register(FMLJavaModLoadingContext.get().getModEventBus());
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
     }

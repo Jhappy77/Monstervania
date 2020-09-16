@@ -18,7 +18,7 @@ public class Bandages extends Item {
                 .food(new Food.Builder()
                 .hunger(0)
                 .saturation(0)
-                .effect(() -> new EffectInstance(Effects.INSTANT_HEALTH, 10, 0), 1)
+                .effect(() -> new EffectInstance(Effects.INSTANT_HEALTH, 10, -1), 1)
                         .setAlwaysEdible()
                         .fastToEat()
                         .build())

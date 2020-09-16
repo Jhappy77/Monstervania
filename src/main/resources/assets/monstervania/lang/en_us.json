@@ -5,6 +5,11 @@
   "item.monstervania.wrappings": "Wrappings",
   "item.monstervania.bandages": "Bandages",
 
+  "item.monstervania.vampire_voodoo_doll": "Vampire Voodoo Doll",
+
   "block.monstervania.dark_stone_bricks_block": "Dark Stone Bricks",
-  "block.monstervania.dark_stone_bricks_slab": "Dark Stone Brick Slab"
+  "block.monstervania.dark_stone_bricks_slab": "Dark Stone Brick Slab",
+  "block.monstervania.dark_stone_brick_stairs": "Dark Stone Brick Stairs",
+
+  "entity.monstervania.vampire": "Vampire"
 }

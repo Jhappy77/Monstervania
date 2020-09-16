@@ -8,6 +8,7 @@ import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.monster.MonsterEntity;
+import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
@@ -17,6 +18,8 @@ import net.minecraft.world.World;
 
 public class VampireEntity extends MonsterEntity {
 
+
+
     public VampireEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
         super(type, worldIn);
     }
@@ -25,10 +28,11 @@ public class VampireEntity extends MonsterEntity {
     public static AttributeModifierMap.MutableAttribute setCustomAttributes(){
         return MobEntity.func_233666_p_()
                 .createMutableAttribute(Attributes.MAX_HEALTH, 20)
-                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.6)
-                .createMutableAttribute(Attributes.ATTACK_DAMAGE, 1)
+                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.5)
+                .createMutableAttribute(Attributes.ATTACK_DAMAGE, 2)
                 .createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 1)
-                .createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 0.25);
+                .createMutableAttribute(Attributes.ATTACK_SPEED, 1.5)
+                .createMutableAttribute(Attributes.FOLLOW_RANGE, 35.0D);
     }
 
     // The lower the priority number, the more likely mob is to do task
@@ -36,10 +40,13 @@ public class VampireEntity extends MonsterEntity {
     protected void registerGoals(){
         super.registerGoals();
         this.goalSelector.addGoal(0, new SwimGoal(this));
-        this.goalSelector.addGoal(7, new PanicGoal(this, 1.25));
-        this.goalSelector.addGoal(2, new WaterAvoidingRandomWalkingGoal(this, 1.8D));
+        this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.0f,true));
+        //this.goalSelector.addGoal(7, new PanicGoal(this, 1.25));
+        this.goalSelector.addGoal(4, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
         this.goalSelector.addGoal(8, new LookAtGoal(this, PlayerEntity.class, 8.0F));
+        this.goalSelector.addGoal(8, new LookRandomlyGoal(this));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolemEntity.class, true));
     }
 
     protected SoundEvent getAmbientSound() {
@@ -68,3 +75,4 @@ public class VampireEntity extends MonsterEntity {
 
 
 }
+
