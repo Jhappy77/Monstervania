@@ -10,6 +10,7 @@ import com.jhappy77.monstervania.items.Bandages;
 import com.jhappy77.monstervania.items.ItemBase;
 import com.jhappy77.monstervania.items.ModSpawnEggItem;
 import net.minecraft.block.Block;
+import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -21,6 +22,9 @@ public class RegistryHandler {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Monstervania.MOD_ID);
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Monstervania.MOD_ID);
 
+    public static RegistryObject<ModSpawnEggItem> registerSpawnEgg(String name, RegistryObject type, int primaryHex, int secondaryHex){
+        return ITEMS.register(name, ()-> new ModSpawnEggItem(type, primaryHex, secondaryHex, new Item.Properties().group(Monstervania.TAB)));
+    }
 
     public static void init(){
         ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
@@ -31,8 +35,17 @@ public class RegistryHandler {
     public static final RegistryObject<Item> VAMPIRE_FANG = ITEMS.register("vampire_fang", ItemBase::new);
     public static final RegistryObject<Item> WRAPPINGS = ITEMS.register("wrappings", ItemBase::new);
     public static final RegistryObject<Bandages> BANDAGES = ITEMS.register("bandages", Bandages::new);
+    public static final RegistryObject<Item> LIGHTNING_ROD = ITEMS.register("lightning_rod", ItemBase::new);
+    public static final RegistryObject<Item> VOLT_DUST = ITEMS.register("volt_dust", ItemBase::new);
+    public static final RegistryObject<Item> VAMPIRE_DUST = ITEMS.register("vampire_dust", ItemBase::new);
+    public static final RegistryObject<Item> RAT_TAIL = ITEMS.register("rat_tail", ItemBase::new);
 
-    public static final RegistryObject<ModSpawnEggItem> VAMPIRE_VOODOO_DOLL = ITEMS.register("vampire_voodoo_doll", ()-> new ModSpawnEggItem(ModEntityTypes.VAMPIRE, 0x478E88, 0x303030, new Item.Properties().group(Monstervania.TAB)));
+    public static final RegistryObject<ModSpawnEggItem> VAMPIRE_VOODOO_DOLL = registerSpawnEgg("vampire_voodoo_doll", ModEntityTypes.VAMPIRE, 0x478E88, 0x303030);
+    public static final RegistryObject<ModSpawnEggItem> SUMMON_FRANKENGOLEM = registerSpawnEgg("summon_frankengolem",ModEntityTypes.FRANKENGOLEM, 0x626D39, 0x0A1500);
+    public static final RegistryObject<ModSpawnEggItem> SUMMON_FROST_SPIDER = registerSpawnEgg("summon_frost_spider", ModEntityTypes.FROST_SPIDER, 0xffffff, 0x00C6B9);
+    public static final RegistryObject<ModSpawnEggItem> SUMMON_MUMMIFIED_CREEPER = registerSpawnEgg("summon_mummified_creeper", ModEntityTypes.MUMMIFIED_CREEPER, 0xE5E1D0, 0x514E42);
+    public static final RegistryObject<ModSpawnEggItem> SUMMON_RAT = registerSpawnEgg("summon_rat", ModEntityTypes.RAT, 0x2C3039, 0xC39990);
+
 
     // Blocks
     public static final RegistryObject<Block> DARK_STONE_BRICKS_BLOCK = BLOCKS.register("dark_stone_bricks_block", DarkStoneBricksBlock::new);

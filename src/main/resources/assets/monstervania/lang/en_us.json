@@ -4,12 +4,24 @@
   "item.monstervania.vampire_fang": "Vampire Fang",
   "item.monstervania.wrappings": "Wrappings",
   "item.monstervania.bandages": "Bandages",
+  "item.monstervania.volt_dust": "Volt Dust",
+  "item.monstervania.vampire_dust": "Vampire Dust",
+  "item.monstervania.rat_tail": "Rat Tail",
 
   "item.monstervania.vampire_voodoo_doll": "Vampire Voodoo Doll",
+  "item.monstervania.summon_frankengolem": "Summon Frankengolem",
+  "item.monstervania.summon_frost_spider": "Summon Frost Spider",
+  "item.monstervania.summon_mummified_creeper": "Summon Mummified Creeper",
+  "item.monstervania.summon_rat": "Summon Rat",
+
 
   "block.monstervania.dark_stone_bricks_block": "Dark Stone Bricks",
   "block.monstervania.dark_stone_bricks_slab": "Dark Stone Brick Slab",
   "block.monstervania.dark_stone_brick_stairs": "Dark Stone Brick Stairs",
 
-  "entity.monstervania.vampire": "Vampire"
+  "entity.monstervania.vampire": "Vampire",
+  "entity.monstervania.frankengolem": "Frankengolem",
+  "entity.monstervania.frost_spider": "Frost Spider",
+  "entity.monstervania.mummified_creeper": "Mummified Creeper",
+  "entity.monstervania.rat": "Rat"
 }

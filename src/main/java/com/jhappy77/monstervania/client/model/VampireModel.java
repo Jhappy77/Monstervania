@@ -1,5 +1,6 @@
 package com.jhappy77.monstervania.client.model;
 
+import com.jhappy77.monstervania.Monstervania;
 import com.jhappy77.monstervania.entities.VampireEntity;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
@@ -58,6 +59,19 @@ public class VampireModel<T extends VampireEntity> extends EntityModel<T> {
 
         }
 
+    public void setLivingAnimations(T entityIn, float limbSwing, float limbSwingAmount, float partialTick) {
+        int i = entityIn.getAttackTimer();
+        if (i > 0) {
+            this.right_arm.rotateAngleX = -2.0F + 1.5F * MathHelper.func_233021_e_((float)i - partialTick, 10.0F);
+            this.left_arm.rotateAngleX = -2.0F + 1.5F * MathHelper.func_233021_e_((float)i - partialTick, 10.0F);
+            Monstervania.LOGGER.debug("vampu attacku");
+        } else {
+//            this.golemRightArm.rotateAngleX = (-0.2F + 1.5F * MathHelper.func_233021_e_(limbSwing, 13.0F)) * limbSwingAmount;
+//            this.golemLeftArm.rotateAngleX = (-0.2F - 1.5F * MathHelper.func_233021_e_(limbSwing, 13.0F)) * limbSwingAmount;
+        }
+    }
+
+
     @Override
     public void setRotationAngles(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) { boolean flag = entityIn.getTicksElytraFlying() > 4;
         boolean flag1 = entityIn.isActualySwimming();
@@ -92,27 +106,13 @@ public class VampireModel<T extends VampireEntity> extends EntityModel<T> {
             f = 1.0F;
         }
 
-//        this.right_arm.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 2.0F * limbSwingAmount * 0.5F / f;
-//        this.left_arm.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 2.0F * limbSwingAmount * 0.5F / f;
-//        this.right_arm.rotateAngleZ = 0.0F;
-//        this.left_arm.rotateAngleZ = 0.0F;
-
         this.right_leg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount / f;
         this.left_leg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount / f;
         this.right_leg.rotateAngleY = 0.0F;
         this.left_leg.rotateAngleY = 0.0F;
         this.right_leg.rotateAngleZ = 0.0F;
         this.left_leg.rotateAngleZ = 0.0F;
-//        if (this.isSitting) {
-//            this.right_arm.rotateAngleX += (-(float)Math.PI / 5F);
-//            this.left_arm.rotateAngleX += (-(float)Math.PI / 5F);
-//            this.right_leg.rotateAngleX = -1.4137167F;
-//            this.right_leg.rotateAngleY = ((float)Math.PI / 10F);
-//            this.right_leg.rotateAngleZ = 0.07853982F;
-//            this.left_leg.rotateAngleX = -1.4137167F;
-//            this.left_leg.rotateAngleY = (-(float)Math.PI / 10F);
-//            this.left_leg.rotateAngleZ = -0.07853982F;
-//        }
+
 
         this.right_arm.rotateAngleY = 0.0F;
         this.left_arm.rotateAngleY = 0.0F;

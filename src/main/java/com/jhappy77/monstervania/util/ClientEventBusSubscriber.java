@@ -1,7 +1,7 @@
 package com.jhappy77.monstervania.util;
 
 import com.jhappy77.monstervania.Monstervania;
-import com.jhappy77.monstervania.client.render.VampireRenderer;
+import com.jhappy77.monstervania.client.render.*;
 import com.jhappy77.monstervania.init.ModEntityTypes;
 import com.jhappy77.monstervania.items.ModSpawnEggItem;
 import net.minecraft.entity.EntityType;
@@ -18,6 +18,10 @@ public class ClientEventBusSubscriber {
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event){
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.VAMPIRE.get(), VampireRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.FRANKENGOLEM.get(), FrankengolemRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.FROST_SPIDER.get(), FrostSpiderRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.MUMMIFIED_CREEPER.get(), MummifiedCreeperRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.RAT.get(), RatRenderer::new);
     }
 
     @SubscribeEvent

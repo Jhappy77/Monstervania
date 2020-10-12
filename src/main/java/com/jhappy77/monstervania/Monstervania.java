@@ -1,7 +1,11 @@
 package com.jhappy77.monstervania;
 
+import com.jhappy77.monstervania.entities.FrankengolemEntity;
+import com.jhappy77.monstervania.entities.FrostSpiderEntity;
+import com.jhappy77.monstervania.entities.MummifiedCreeperEntity;
 import com.jhappy77.monstervania.entities.VampireEntity;
 import com.jhappy77.monstervania.init.ModEntityTypes;
+import com.jhappy77.monstervania.lists.ParticleList;
 import com.jhappy77.monstervania.util.RegistryHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -10,6 +14,7 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.InterModComms;
@@ -34,12 +39,15 @@ public class Monstervania
     public static final String MOD_ID = "monstervania";
     public Monstervania() {
 
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
+        final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+
+        modEventBus.addListener(this::setup);
+        modEventBus.addListener(this::doClientStuff);
 
         RegistryHandler.init();
 
-        ModEntityTypes.ENTITY_TYPES.register(FMLJavaModLoadingContext.get().getModEventBus());
+        ParticleList.PARTICLES.register(modEventBus);
+        ModEntityTypes.ENTITY_TYPES.register(modEventBus);
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
     }
@@ -48,6 +56,10 @@ public class Monstervania
     {
         DeferredWorkQueue.runLater(()->{
             GlobalEntityTypeAttributes.put(ModEntityTypes.VAMPIRE.get(), VampireEntity.setCustomAttributes().create());
+            GlobalEntityTypeAttributes.put(ModEntityTypes.FRANKENGOLEM.get(), FrankengolemEntity.setCustomAttributes().create());
+            GlobalEntityTypeAttributes.put(ModEntityTypes.FROST_SPIDER.get(), FrostSpiderEntity.setCustomAttributes().create());
+            GlobalEntityTypeAttributes.put(ModEntityTypes.MUMMIFIED_CREEPER.get(), MummifiedCreeperEntity.setCustomAttributes().create());
+            GlobalEntityTypeAttributes.put(ModEntityTypes.RAT.get(), MummifiedCreeperEntity.setCustomAttributes().create());
         });
     }
 

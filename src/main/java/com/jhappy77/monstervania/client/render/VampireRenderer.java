@@ -2,6 +2,7 @@ package com.jhappy77.monstervania.client.render;
 
 import com.jhappy77.monstervania.Monstervania;
 import com.jhappy77.monstervania.client.model.VampireModel;
+import com.jhappy77.monstervania.client.render.layers.VampireEyesLayer;
 import com.jhappy77.monstervania.entities.VampireEntity;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
@@ -13,6 +14,7 @@ public class VampireRenderer extends MobRenderer<VampireEntity, VampireModel<Vam
 
     public VampireRenderer(EntityRendererManager rendererManagerIn){
         super(rendererManagerIn, new VampireModel<>(), 0.8f);
+        this.addLayer(new VampireEyesLayer<>(this));
     }
 
     @Override
