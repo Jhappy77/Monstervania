@@ -4,6 +4,7 @@ import com.jhappy77.monstervania.lists.ParticleList;
 import com.jhappy77.monstervania.util.MvDamageModifiable;
 import com.jhappy77.monstervania.util.MvDamageModifier;
 import com.jhappy77.monstervania.util.MvDamageModifierType;
+import com.jhappy77.monstervania.util.MvSpawnCondition;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.renderer.entity.model.IronGolemModel;
 import net.minecraft.entity.CreatureAttribute;
@@ -26,6 +27,9 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class FrankengolemEntity extends MonsterEntity implements MvDamageModifiable {
@@ -82,7 +86,7 @@ public class FrankengolemEntity extends MonsterEntity implements MvDamageModifia
     }
 
     private void spawnEnergyParticles(){
-        int j = this.world.rand.nextInt(8);
+        int j = this.world.rand.nextInt(10) + 20;
         for(int i=0; i<j; i++) {
             float f1 = (float) ((this.world.rand.nextInt(10)) / 4 * Math.pow(-1, this.world.rand.nextInt(2)));
             float f2 = (float) ((this.world.rand.nextInt(10)) / 4 * Math.pow(-1, this.world.rand.nextInt(2)));
@@ -150,7 +154,7 @@ public class FrankengolemEntity extends MonsterEntity implements MvDamageModifia
     }
 
     protected void playHurtSound(DamageSource sourceIn){
-        this.playSound(this.getHurtSound(sourceIn), 6F, 0.05F);
+        this.playSound(this.getHurtSound(sourceIn), 0.15F, 0.05F);
     }
 
     protected void playAttackSound(){ this.playSound(SoundEvents.ENTITY_IRON_GOLEM_ATTACK, 1.0F, 0.4F);}
@@ -173,6 +177,12 @@ public class FrankengolemEntity extends MonsterEntity implements MvDamageModifia
 
     public CreatureAttribute getCreatureAttribute() {
         return CreatureAttribute.UNDEFINED;
+    }
+
+    public static List<MvSpawnCondition> spawnConditions() {
+        ArrayList<MvSpawnCondition> conditions = new ArrayList<>();
+        conditions.add(new MvSpawnCondition(5, 1, 1).restrictToLand().restrictToOverworld());
+        return conditions;
     }
 }
 

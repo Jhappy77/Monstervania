@@ -31,7 +31,7 @@ public class LivingDamageEventReaction {
 
 
         Item enemyItem = null;
-        Entity entitySource = null;
+        Entity entitySource;
 
         // Gets enemy's item, if applicable
         Monstervania.LOGGER.debug("Damage type is: " + source.getDamageType());
@@ -69,11 +69,11 @@ public class LivingDamageEventReaction {
                     }
                     break;
                 case FALL:
-                    if(source.damageType == "fall"){
+                    if(source.damageType.equals("fall")){
                         amount *= m.getMultiplier();
                     }
                 case ELECTRIC:
-                    if(source.damageType == "lightningBolt"){
+                    if(source.damageType.equals("lightningBolt")){
                         amount *= m.getMultiplier();
                     }
                 default:

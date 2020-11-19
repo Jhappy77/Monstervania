@@ -19,11 +19,13 @@ public class ElectricParticle extends SpriteTexturedParticle {
 
         this.setSize(0.2f, 0.2f);
         this.particleScale *= this.rand.nextFloat() + 0.6F;
-        this.maxAge =(int)(20/(Math.random() + 0.1));
+        this.maxAge =(int)(10/(Math.random() + 0.1));
 
-        this.motionX *= 0.1D;
-        this.motionY *= 0.1D;
-        this.motionZ *= 0.1D;
+        float speedModifier = this.rand.nextFloat() / 2;
+        this.motionX *= (0.1D+speedModifier);
+        this.motionY *= (0.1D+speedModifier);
+        this.motionZ *= (0.1D+speedModifier);
+
     }
 
     // Handles particle's motion, deletes when necessary
@@ -39,7 +41,7 @@ public class ElectricParticle extends SpriteTexturedParticle {
             //this.motionY -= 0.04D * (double)this.particleGravity;
             this.move(this.motionX, this.motionY, this.motionZ);
             double multiplier = 0.98;
-            if(this.age % 20 == 0)
+            if(this.age % 10 == 0)
                 multiplier *= -1;
             this.motionX *= multiplier;
             this.motionY *= multiplier;
@@ -49,6 +51,7 @@ public class ElectricParticle extends SpriteTexturedParticle {
                 this.motionZ *= (double)0.7F;
             }
         }
+
         //Particle.java's tick method
         //super.tick();
 
@@ -73,7 +76,7 @@ public class ElectricParticle extends SpriteTexturedParticle {
         public Particle makeParticle(BasicParticleType typeIn, ClientWorld worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
             ElectricParticle p = new ElectricParticle(worldIn, x, y, z, xSpeed, ySpeed, zSpeed);
             p.setColor(1.0f, 1.0f, 1.0f);
-            p.selectSpriteRandomly(this.spriteSet);
+            p.selectSpriteRandomly(spriteSet);
             return p;
         }
     }

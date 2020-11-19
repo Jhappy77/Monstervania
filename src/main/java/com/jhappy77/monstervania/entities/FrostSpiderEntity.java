@@ -1,6 +1,7 @@
 package com.jhappy77.monstervania.entities;
 
 import com.jhappy77.monstervania.Monstervania;
+import com.jhappy77.monstervania.util.MvSpawnCondition;
 import net.minecraft.client.renderer.entity.HuskRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -12,6 +13,9 @@ import net.minecraft.entity.monster.SpiderEntity;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.world.World;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class FrostSpiderEntity extends SpiderEntity {
 
@@ -43,6 +47,14 @@ public class FrostSpiderEntity extends SpiderEntity {
             }
         }
         return super.attackEntityAsMob(entityIn);
+    }
+
+    public static List<MvSpawnCondition> spawnConditions() {
+        ArrayList<MvSpawnCondition> conditions = new ArrayList<>();
+        conditions.add(new MvSpawnCondition(100, 1, 1).restrictToOverworld().restrictToLand().addBiomeSpawnClause(
+                new MvSpawnCondition.BiomeTemperatureClause().setMaxTemp(0.05f)
+        ));
+        return conditions;
     }
 
 }

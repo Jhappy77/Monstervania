@@ -13,7 +13,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.ResourceLocation;
 //public class FrostSpiderEyesLayer<T extends Entity, M extends SpiderModel<T>>  extends SpiderEyesLayer<T, M>
 
-public class FrostSpiderEyesLayer<T extends FrostSpiderEntity, M extends FrostSpiderModel<T>>  extends AbstractEyesLayer<T, M> {
+public class FrostSpiderEyesLayer<T extends FrostSpiderEntity, M extends SpiderModel<T>>  extends AbstractEyesLayer<T, M> {
 
     protected static final ResourceLocation TEXTURE =  new ResourceLocation(Monstervania.MOD_ID, "textures/entity/layers/frost_spider_eyes.png");
 

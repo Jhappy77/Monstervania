@@ -14,17 +14,17 @@ import net.minecraft.client.renderer.entity.model.SpiderModel;
 import net.minecraft.entity.monster.SpiderEntity;
 import net.minecraft.util.ResourceLocation;
 
-public class FrostSpiderRenderer extends MobRenderer<FrostSpiderEntity, FrostSpiderModel<FrostSpiderEntity>>{
+public class FrostSpiderRenderer<T extends FrostSpiderEntity> extends MobRenderer<T, SpiderModel<T>>{
     protected static final ResourceLocation TEXTURE =  new ResourceLocation(Monstervania.MOD_ID, "textures/entity/frost_spider.png");
 
     public FrostSpiderRenderer(EntityRendererManager rendererManagerIn){
         //super(rendererManagerIn);
-        super(rendererManagerIn, new FrostSpiderModel<>(), 0.8f);
-        this.addLayer(new FrostSpiderEyesLayer<>(this));
 
+        super(rendererManagerIn, new SpiderModel<>(), 0.8f);
+        this.addLayer(new FrostSpiderEyesLayer<>(this));
     }
 
-    public ResourceLocation getEntityTexture(FrostSpiderEntity entity) {
+    public ResourceLocation getEntityTexture(T entity) {
         return TEXTURE;
     }
 }

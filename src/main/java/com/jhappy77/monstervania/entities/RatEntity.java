@@ -1,5 +1,7 @@
 package com.jhappy77.monstervania.entities;
 
+import com.jhappy77.monstervania.util.MvSpawnCondition;
+import com.jhappy77.monstervania.util.MvSpawnable;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
@@ -7,6 +9,7 @@ import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.monster.MonsterEntity;
+import net.minecraft.entity.monster.SlimeEntity;
 import net.minecraft.entity.monster.SpiderEntity;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -21,7 +24,10 @@ import software.bernie.geckolib.entity.IAnimatedEntity;
 import software.bernie.geckolib.event.AnimationTestEvent;
 import software.bernie.geckolib.manager.EntityAnimationManager;
 
-public class RatEntity extends MonsterEntity implements IAnimatedEntity {
+import java.util.ArrayList;
+import java.util.List;
+
+public class RatEntity extends MonsterEntity implements IAnimatedEntity, MvSpawnable {
 
     private EntityAnimationManager manager = new EntityAnimationManager();
     private AnimationController controller = new EntityAnimationController(this, "moveController",20, this::animationPredicate);
@@ -67,6 +73,20 @@ public class RatEntity extends MonsterEntity implements IAnimatedEntity {
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolemEntity.class, true));
     }
+
+    public static List<MvSpawnCondition> spawnConditions() {
+        ArrayList<MvSpawnCondition> conditions = new ArrayList<>();
+        conditions.add(new MvSpawnCondition(50, 1, 4).restrictToOverworld().restrictToLand()
+        .addWorldSpawnClause(
+                new MvSpawnCondition.PositionAltitudeClause().setMaxY(50)
+        ));
+        return conditions;
+    }
+
+    public List<MvSpawnCondition> getSpawnConditions(){
+        return spawnConditions();
+    }
+
 
     protected SoundEvent getAmbientSound() {
         return SoundEvents.ENTITY_BAT_AMBIENT;

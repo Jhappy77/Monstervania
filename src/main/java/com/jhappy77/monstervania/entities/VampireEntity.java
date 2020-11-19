@@ -1,9 +1,9 @@
 package com.jhappy77.monstervania.entities;
 
 import com.jhappy77.monstervania.Monstervania;
-import com.jhappy77.monstervania.util.MvDamageModifiable;
-import com.jhappy77.monstervania.util.MvDamageModifier;
-import com.jhappy77.monstervania.util.MvDamageModifierType;
+import com.jhappy77.monstervania.goals.FleeSunEarlyGoal;
+import com.jhappy77.monstervania.lists.ParticleList;
+import com.jhappy77.monstervania.util.*;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.Entity;
@@ -16,18 +16,35 @@ import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class VampireEntity extends MonsterEntity implements MvDamageModifiable {
+import java.util.ArrayList;
+import java.util.List;
+
+public class VampireEntity extends MonsterEntity implements MvDamageModifiable, MvSpawnable {
 
     private int attackTimer = 0;
+    private int deathTicks = 0;
+    private int ticksLightCountdown = 0;
 
     public VampireEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
         super(type, worldIn);
+    }
+
+
+    public static List<MvSpawnCondition> spawnConditions() {
+        ArrayList<MvSpawnCondition> conditions = new ArrayList<>();
+        conditions.add(new MvSpawnCondition(80, 1, 1).restrictToOverworld().restrictToLand());
+        return conditions;
+    }
+
+    public List<MvSpawnCondition> getSpawnConditions(){
+        return spawnConditions();
     }
 
     // func_233666_p_ = registerAttributes
@@ -41,13 +58,15 @@ public class VampireEntity extends MonsterEntity implements MvDamageModifiable {
                 .createMutableAttribute(Attributes.FOLLOW_RANGE, 35.0D);
     }
 
+
     // The lower the priority number, the more likely mob is to do task
     @Override
     protected void registerGoals(){
         super.registerGoals();
         this.goalSelector.addGoal(0, new SwimGoal(this));
         this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.0f,true));
-        //this.goalSelector.addGoal(7, new PanicGoal(this, 1.25));
+        this.goalSelector.addGoal(0, new RestrictSunGoal(this));
+        this.goalSelector.addGoal(1, new FleeSunEarlyGoal(this, 1.0f));
         this.goalSelector.addGoal(5, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
         this.goalSelector.addGoal(8, new LookAtGoal(this, PlayerEntity.class, 8.0F));
         this.goalSelector.addGoal(8, new LookRandomlyGoal(this));
@@ -73,10 +92,41 @@ public class VampireEntity extends MonsterEntity implements MvDamageModifiable {
         if (this.attackTimer > 0) {
             --this.attackTimer;
         }
+        checkIfInDaylight();
         super.livingTick();
     }
 
+    public void checkIfInDaylight(){
+        if(this.isInDaylight()){
+            if(ticksLightCountdown == 30){
+                this.setHealth(0);
+            }
+            //ParticleType.EXPLOSION
+            for(int i=0; i<30; i++) {
+                Monstervania.LOGGER.debug("Should be spawning vamp particles");
+                float f11 = (this.rand.nextFloat() - 0.5F) * 2.0F;
+                float f13 = (this.rand.nextFloat() - 0.5F) * 1.5F;
+                float f14 = (this.rand.nextFloat() - 0.5F) * 2.0F;
+                this.world.addParticle(ParticleList.ELECTRIC_PARTICLE.get(), this.getPosX() + (double) f11, this.getPosY() + 2.0D + (double) f13, this.getPosZ() + (double) f14, 0.0D, 0.0D, 0.0D);
+            }
+            ticksLightCountdown++;
+        } else{
+            ticksLightCountdown = 0;
+        }
+    }
+
     public int getAttackTimer(){return attackTimer;}
+
+//    protected void onDeathUpdate(){
+//        ++this.deathTicks;
+//        if (this.deathTicks >= 180 && this.deathTicks <= 200) {
+//            float f = (this.rand.nextFloat() - 0.5F) * 2.0F;
+//            float f1 = (this.rand.nextFloat() - 0.5F) * 1.0F;
+//            float f2 = (this.rand.nextFloat() - 0.5F) * 2.0F;
+//            this.world.addParticle(ParticleTypes.EXPLOSION_EMITTER, this.getPosX() + (double)f, this.getPosY() + 2.0D + (double)f1, this.getPosZ() + (double)f2, 0.0D, 0.0D, 0.0D);
+//        }
+//        super.onDeathUpdate();
+//    }
 
     protected SoundEvent getAmbientSound() {
         return SoundEvents.ENTITY_ZOMBIE_AMBIENT;

@@ -1,5 +1,6 @@
 package com.jhappy77.monstervania.entities;
 
+import com.jhappy77.monstervania.util.MvSpawnCondition;
 import net.minecraft.entity.AreaEffectCloudEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.MobEntity;
@@ -12,8 +13,11 @@ import net.minecraft.potion.Effects;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public class MummifiedCreeperEntity extends CreeperEntity {
 
@@ -23,7 +27,7 @@ public class MummifiedCreeperEntity extends CreeperEntity {
 
 
     public static AttributeModifierMap.MutableAttribute setCustomAttributes(){
-        return CreeperEntity.func_234278_m_();
+        return CreeperEntity.registerAttributes();
     }
 
     private int explosionRadius = 3;
@@ -78,6 +82,14 @@ public class MummifiedCreeperEntity extends CreeperEntity {
             areaeffectcloudentity.addEffect(new EffectInstance(Effects.WITHER, 80, 2));
             this.world.addEntity(areaeffectcloudentity);
         }
+
+    public static List<MvSpawnCondition> spawnConditions() {
+        ArrayList<MvSpawnCondition> conditions = new ArrayList<>();
+        conditions.add(new MvSpawnCondition(100, 1, 1).addBiomeSpawnClause(
+                new MvSpawnCondition.BiomeCategorySpawnClause().addCategory(Biome.Category.DESERT)
+        ));
+        return conditions;
+    }
 
     }
 // Creeper Stats

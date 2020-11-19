@@ -14,7 +14,7 @@ public class RatRenderer extends MobRenderer<RatEntity, RatModel<RatEntity>> {
     public RatRenderer(EntityRendererManager rendererManagerIn){
 
         super(rendererManagerIn, new RatModel<>(), 0.8f);
-        this.addLayer(new RatEyesLayer<>(this));
+        //this.addLayer(new RatEyesLayer<RatEntity, RatModel<RatEntity>>(this));
     }
 
     @Override

@@ -1,5 +1,14 @@
 {
   "textures": [
-    "monstervania:electric_particle"
+    "monstervania:eparticle/electric_particle1",
+    "monstervania:eparticle/electric_particle2",
+    "monstervania:eparticle/electric_particle3",
+    "monstervania:eparticle/electric_particle4",
+    "monstervania:eparticle/electric_particle5",
+    "monstervania:eparticle/electric_particle6",
+    "monstervania:eparticle/electric_particle7",
+    "monstervania:eparticle/electric_particle8",
+    "monstervania:eparticle/electric_particle9",
+    "monstervania:eparticle/electric_particle10"
   ]
 }
