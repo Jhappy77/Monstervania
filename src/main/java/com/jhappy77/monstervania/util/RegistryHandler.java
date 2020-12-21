@@ -9,6 +9,7 @@ import com.jhappy77.monstervania.init.ModEntityTypes;
 import com.jhappy77.monstervania.items.Bandages;
 import com.jhappy77.monstervania.items.ItemBase;
 import com.jhappy77.monstervania.items.ModSpawnEggItem;
+import com.jhappy77.monstervania.items.RatTailItem;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
@@ -38,7 +39,7 @@ public class RegistryHandler {
     public static final RegistryObject<Item> LIGHTNING_ROD = ITEMS.register("lightning_rod", ItemBase::new);
     public static final RegistryObject<Item> VOLT_DUST = ITEMS.register("volt_dust", ItemBase::new);
     public static final RegistryObject<Item> VAMPIRE_DUST = ITEMS.register("vampire_dust", ItemBase::new);
-    public static final RegistryObject<Item> RAT_TAIL = ITEMS.register("rat_tail", ItemBase::new);
+    public static final RegistryObject<Item> RAT_TAIL = ITEMS.register("rat_tail", RatTailItem::new);
 
     public static final RegistryObject<ModSpawnEggItem> VAMPIRE_VOODOO_DOLL = registerSpawnEgg("vampire_voodoo_doll", ModEntityTypes.VAMPIRE, 0x478E88, 0x303030);
     public static final RegistryObject<ModSpawnEggItem> SUMMON_FRANKENGOLEM = registerSpawnEgg("summon_frankengolem",ModEntityTypes.FRANKENGOLEM, 0x626D39, 0x0A1500);

@@ -16,6 +16,7 @@ import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.particles.IParticleData;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
@@ -92,28 +93,51 @@ public class VampireEntity extends MonsterEntity implements MvDamageModifiable, 
         if (this.attackTimer > 0) {
             --this.attackTimer;
         }
-        checkIfInDaylight();
+        if(this.isInDaylight()){
+            spawnDissolveParticles();
+        }
         super.livingTick();
     }
 
-    public void checkIfInDaylight(){
-        if(this.isInDaylight()){
-            if(ticksLightCountdown == 30){
-                this.setHealth(0);
-            }
-            //ParticleType.EXPLOSION
-            for(int i=0; i<30; i++) {
-                Monstervania.LOGGER.debug("Should be spawning vamp particles");
-                float f11 = (this.rand.nextFloat() - 0.5F) * 2.0F;
-                float f13 = (this.rand.nextFloat() - 0.5F) * 1.5F;
-                float f14 = (this.rand.nextFloat() - 0.5F) * 2.0F;
-                this.world.addParticle(ParticleList.ELECTRIC_PARTICLE.get(), this.getPosX() + (double) f11, this.getPosY() + 2.0D + (double) f13, this.getPosZ() + (double) f14, 0.0D, 0.0D, 0.0D);
-            }
-            ticksLightCountdown++;
-        } else{
-            ticksLightCountdown = 0;
+    private void spawnDissolveParticles(){
+        Monstervania.LOGGER.debug("Should be spawning vamp particles");
+        int j = this.world.rand.nextInt(10) + 20;
+        for(int i=0; i<j; i++) {
+            float f1 = (float) ((this.world.rand.nextInt(10)) / 4 * Math.pow(-1, this.world.rand.nextInt(2)));
+            float f2 = (float) ((this.world.rand.nextInt(10)) / 4 * Math.pow(-1, this.world.rand.nextInt(2)));
+            float f3 = (float) ((this.world.rand.nextInt(10)) / 4 * Math.pow(-1, this.world.rand.nextInt(2)));
+            this.world.addParticle(this.getEnergyParticle(), this.getPosX() + f1, this.getPosY() + 1.0F + f2, this.getPosZ() + f3, 0.0D, 0.0D, 0.0D);
         }
     }
+
+//    public void checkIfInDaylight(){
+//        if(this.isInDaylight()){
+//
+//            if(ticksLightCountdown == 30){
+//                this.setHealth(0);
+//            } else{
+//                Monstervania.LOGGER.debug("Should be spawning vamp particles");
+//                int j = this.world.rand.nextInt(10) + 20;
+//                for(int i=0; i<j; i++) {
+//                    float f1 = (float) ((this.world.rand.nextInt(10)) / 4 * Math.pow(-1, this.world.rand.nextInt(2)));
+//                    float f2 = (float) ((this.world.rand.nextInt(10)) / 4 * Math.pow(-1, this.world.rand.nextInt(2)));
+//                    float f3 = (float) ((this.world.rand.nextInt(10)) / 4 * Math.pow(-1, this.world.rand.nextInt(2)));
+//                    this.world.addParticle(this.getEnergyParticle(), this.getPosX() + f1, this.getPosY() + 1.0F + f2, this.getPosZ() + f3, 0.0D, 0.0D, 0.0D);
+//                }
+//                ticksLightCountdown++;
+//            }
+//
+//            //ParticleType.EXPLOSION
+//
+//        } else{
+//            ticksLightCountdown = 0;
+//        }
+//    }
+
+    protected IParticleData getEnergyParticle() {
+        return ParticleList.ELECTRIC_PARTICLE.get();
+    }
+
 
     public int getAttackTimer(){return attackTimer;}
 
