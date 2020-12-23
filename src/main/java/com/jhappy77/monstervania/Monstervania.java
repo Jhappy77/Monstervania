@@ -92,7 +92,6 @@ public class Monstervania
 
     public static final ItemGroup TAB = new ItemGroup("monstervaniaTab"){
         // Sets the icon to the vampire fang
-
         @Override
         public ItemStack createIcon(){
             return new ItemStack(RegistryHandler.VAMPIRE_FANG.get());

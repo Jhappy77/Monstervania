@@ -100,14 +100,16 @@ public class VampireEntity extends MonsterEntity implements MvDamageModifiable, 
     }
 
     private void spawnDissolveParticles(){
-        Monstervania.LOGGER.debug("Should be spawning vamp particles");
+
         int j = this.world.rand.nextInt(10) + 20;
         for(int i=0; i<j; i++) {
             float f1 = (float) ((this.world.rand.nextInt(10)) / 4 * Math.pow(-1, this.world.rand.nextInt(2)));
             float f2 = (float) ((this.world.rand.nextInt(10)) / 4 * Math.pow(-1, this.world.rand.nextInt(2)));
             float f3 = (float) ((this.world.rand.nextInt(10)) / 4 * Math.pow(-1, this.world.rand.nextInt(2)));
             this.world.addParticle(this.getEnergyParticle(), this.getPosX() + f1, this.getPosY() + 1.0F + f2, this.getPosZ() + f3, 0.0D, 0.0D, 0.0D);
+            Monstervania.LOGGER.debug("Should be spawning vamp particles");
         }
+        this.damageEntity(DamageSource.ON_FIRE, 0.5f);
     }
 
 //    public void checkIfInDaylight(){

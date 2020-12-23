@@ -10,9 +10,9 @@ import net.minecraft.potion.Effects;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 
-public class Bandages extends Item {
+public class BandagesItem extends Item {
 
-    public Bandages(){
+    public BandagesItem(){
         super(new Item.Properties()
         .group(Monstervania.TAB)
                 .food(new Food.Builder()
@@ -42,4 +42,7 @@ public class Bandages extends Item {
     public SoundEvent getEatSound() {
         return SoundEvents.BLOCK_WOOL_HIT;
     }
+
+    @Override
+    public SoundEvent getDrinkSound(){return SoundEvents.BLOCK_WOOL_PLACE;}
 }

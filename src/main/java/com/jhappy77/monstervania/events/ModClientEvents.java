@@ -49,7 +49,7 @@ public class ModClientEvents {
             // Only apply spawn restrictions to mobs spawning naturally or from chunk generation
             if(l.getSpawnReason() == SpawnReason.NATURAL || l.getSpawnReason() == SpawnReason.CHUNK_GENERATION) {
                 BlockPos position = new BlockPos(l.getX(), l.getY(), l.getZ());
-                Monstervania.LOGGER.info("Assessing if " + livingEntity.getEntityString() + " can spawn at " + position.toString());
+                //Monstervania.LOGGER.info("Assessing if " + livingEntity.getEntityString() + " can spawn at " + position.toString());
                 MvSpawnable spawnableEntity = (MvSpawnable) livingEntity;
                 IWorld world = l.getWorld();
 
@@ -62,7 +62,7 @@ public class ModClientEvents {
                 }
 
                 if (!canSpawn) {
-                    Monstervania.LOGGER.info("Cancelled spawn for " + livingEntity.getEntityString() + " at " + position.toString());
+                    //Monstervania.LOGGER.info("Cancelled spawn for " + livingEntity.getEntityString() + " at " + position.toString());
                     l.setResult(Event.Result.DENY);
                 }
             }
