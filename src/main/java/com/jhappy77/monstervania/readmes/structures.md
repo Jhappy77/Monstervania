@@ -32,3 +32,18 @@ Place all nbt files in the following directory:
 ```
 src/main/resources/data/structures
 ```
+
+Create a new file in World/Structures/Pieces for your structure pieces. You can base this code off of
+FrostSpiderPitPieces.java, and everywhere there is a TODO comment indicating you will need to replace some code,
+replace the code with an analogous line for your structure.
+
+Then, repeat this process, but now using FrostSpiderPitStructure. 
+
+The next step is to add your structure to UnconfiguredStructures.java. Follow the pattern indicated by VampireTower
+and FrostSpiderPit to add the structure, register it, add mapping, and register all pieces.
+
+Next, add boilerplate code in ConfiguredStructures.java.
+
+Finally, add a line of code in Monstervania.java in the addDimensionalSpacing function for your structure.
+
+To get your structures to spawn, add lines in BiomeLoadReaction.java

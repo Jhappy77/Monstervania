@@ -45,6 +45,7 @@ public class BiomeLoadReaction {
 
     public static void addStructures(BiomeLoadingEvent b){
         b.getGeneration().getStructures().add(()-> ConfiguredStructures.CONFIGURED_VAMPIRE_TOWER);
+        b.getGeneration().getStructures().add(()-> ConfiguredStructures.CONFIGURED_FROST_SPIDER_PIT);
     }
 
 }

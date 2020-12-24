@@ -5,12 +5,10 @@ import com.jhappy77.monstervania.entities.FrostSpiderEntity;
 import com.jhappy77.monstervania.entities.MummifiedCreeperEntity;
 import com.jhappy77.monstervania.entities.VampireEntity;
 import com.jhappy77.monstervania.init.ConfiguredStructures;
-import com.jhappy77.monstervania.init.FeaturesInit;
+import com.jhappy77.monstervania.init.UnconfiguredStructures;
 import com.jhappy77.monstervania.init.ModEntityTypes;
 import com.jhappy77.monstervania.lists.ParticleList;
 import com.jhappy77.monstervania.util.RegistryHandler;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -26,15 +24,10 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DeferredWorkQueue;
-import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
-import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
-import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
@@ -44,7 +37,6 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod("monstervania")
@@ -105,7 +97,7 @@ public class Monstervania
         // Registers the structures.
         // If you don't do this, bad things might happen... very bad things... Spooky...
         Monstervania.LOGGER.log(Level.INFO, "Beginning to register structures...");
-        FeaturesInit.registerStructures(event);
+        UnconfiguredStructures.registerStructures(event);
         Monstervania.LOGGER.log(Level.INFO, "Registering configured structures...");
         ConfiguredStructures.registerConfiguredStructures();
         Monstervania.LOGGER.log(Level.INFO, "structures registered.");
@@ -134,7 +126,8 @@ public class Monstervania
             }
 
             Map<Structure<?>, StructureSeparationSettings> tempMap = new HashMap<>(serverWorld.getChunkProvider().generator.func_235957_b_().func_236195_a_());
-            tempMap.put(FeaturesInit.VAMPIRE_TOWER, DimensionStructuresSettings.field_236191_b_.get(FeaturesInit.VAMPIRE_TOWER));
+            tempMap.put(UnconfiguredStructures.VAMPIRE_TOWER, DimensionStructuresSettings.field_236191_b_.get(UnconfiguredStructures.VAMPIRE_TOWER));
+            tempMap.put(UnconfiguredStructures.FROST_SPIDER_PIT, DimensionStructuresSettings.field_236191_b_.get(UnconfiguredStructures.FROST_SPIDER_PIT));
             serverWorld.getChunkProvider().generator.func_235957_b_().field_236193_d_ = tempMap;
         }
     }

@@ -3,7 +3,9 @@ package com.jhappy77.monstervania.init;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.jhappy77.monstervania.Monstervania;
+import com.jhappy77.monstervania.world.structures.FrostSpiderPitStructure;
 import com.jhappy77.monstervania.world.structures.VampireTowerStructure;
+import com.jhappy77.monstervania.world.structures.pieces.FrostSpiderPitPieces;
 import com.jhappy77.monstervania.world.structures.pieces.VampireTowerPieces;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
@@ -16,11 +18,15 @@ import net.minecraftforge.event.RegistryEvent;
 
 
 //@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, modid = Monstervania.MOD_ID)
-public class FeaturesInit {
+public class UnconfiguredStructures {
 
     // Vampire Tower
     public static Structure<NoFeatureConfig> VAMPIRE_TOWER = new VampireTowerStructure(NoFeatureConfig.field_236558_a_);
     public static IStructurePieceType VAMPIRE_TOWER_PIECE = VampireTowerPieces.Piece::new;
+
+    // Frost Spider Pit
+    public static Structure<NoFeatureConfig> FROST_SPIDER_PIT = new FrostSpiderPitStructure(NoFeatureConfig.field_236558_a_);
+    public static IStructurePieceType FROST_SPIDER_PIT_PIECE = FrostSpiderPitPieces.Piece::new;
 
 
     /*
@@ -30,6 +36,7 @@ public class FeaturesInit {
 
         // Registers the structure (our helper method attaches the modid to the front of the Structure's ResourceLocation)
         Monstervania.register(event.getRegistry(), VAMPIRE_TOWER, "vampire_tower");
+        Monstervania.register(event.getRegistry(), FROST_SPIDER_PIT, "frost_spider_pit");
 
         /*
          * Do not change names of structures or else they will be corrupted
@@ -40,6 +47,13 @@ public class FeaturesInit {
                         10 /* minimum distance apart in chunks between spawn attempts */,
                         667711991 /* this modifies the seed of the structure so no two structures always spawn over each-other. Make this large and unique. */),
                 false);
+
+        registerStructure(
+                FROST_SPIDER_PIT,
+                new StructureSeparationSettings(30,
+                        10,
+                        667711992),
+                    false);
 
         registerAllPieces();
     }
@@ -86,6 +100,7 @@ public class FeaturesInit {
      */
     public static void registerAllPieces() {
         registerStructurePiece(VAMPIRE_TOWER_PIECE, new ResourceLocation(Monstervania.MOD_ID, "vampire_tower_piece"));
+        registerStructurePiece(FROST_SPIDER_PIT_PIECE, new ResourceLocation(Monstervania.MOD_ID, "frost_spider_pit_piece"));
     }
 
     /*
