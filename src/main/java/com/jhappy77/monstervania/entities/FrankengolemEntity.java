@@ -1,10 +1,7 @@
 package com.jhappy77.monstervania.entities;
 
 import com.jhappy77.monstervania.lists.ParticleList;
-import com.jhappy77.monstervania.util.MvDamageModifiable;
-import com.jhappy77.monstervania.util.MvDamageModifier;
-import com.jhappy77.monstervania.util.MvDamageModifierType;
-import com.jhappy77.monstervania.util.MvSpawnCondition;
+import com.jhappy77.monstervania.util.*;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.renderer.entity.model.IronGolemModel;
 import net.minecraft.entity.CreatureAttribute;
@@ -179,9 +176,9 @@ public class FrankengolemEntity extends MonsterEntity implements MvDamageModifia
         return CreatureAttribute.UNDEFINED;
     }
 
-    public static List<MvSpawnCondition> spawnConditions() {
-        ArrayList<MvSpawnCondition> conditions = new ArrayList<>();
-        conditions.add(new MvSpawnCondition(5, 1, 1).restrictToLand().restrictToOverworld());
+    public static List<MvSpawnCondition<MvMobSpawnInfo>> spawnConditions() {
+        ArrayList<MvSpawnCondition<MvMobSpawnInfo>> conditions = new ArrayList<>();
+        conditions.add(new MvSpawnCondition<MvMobSpawnInfo>(new MvMobSpawnInfo(5, 1, 1)).restrictToLand().restrictToOverworld());
         return conditions;
     }
 }

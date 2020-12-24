@@ -1,5 +1,6 @@
 package com.jhappy77.monstervania.entities;
 
+import com.jhappy77.monstervania.util.MvMobSpawnInfo;
 import com.jhappy77.monstervania.util.MvSpawnCondition;
 import net.minecraft.entity.AreaEffectCloudEntity;
 import net.minecraft.entity.EntityType;
@@ -83,9 +84,9 @@ public class MummifiedCreeperEntity extends CreeperEntity {
             this.world.addEntity(areaeffectcloudentity);
         }
 
-    public static List<MvSpawnCondition> spawnConditions() {
-        ArrayList<MvSpawnCondition> conditions = new ArrayList<>();
-        conditions.add(new MvSpawnCondition(100, 1, 1).addBiomeSpawnClause(
+    public static List<MvSpawnCondition<MvMobSpawnInfo>> spawnConditions() {
+        ArrayList<MvSpawnCondition<MvMobSpawnInfo>> conditions = new ArrayList<>();
+        conditions.add(new MvSpawnCondition(new MvMobSpawnInfo(100, 1, 1)).addBiomeSpawnClause(
                 new MvSpawnCondition.BiomeCategorySpawnClause().addCategory(Biome.Category.DESERT)
         ));
         return conditions;

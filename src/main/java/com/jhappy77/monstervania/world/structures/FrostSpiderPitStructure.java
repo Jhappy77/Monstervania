@@ -1,6 +1,9 @@
 package com.jhappy77.monstervania.world.structures;
 
 import com.jhappy77.monstervania.Monstervania;
+import com.jhappy77.monstervania.util.MvSpawnCondition;
+import com.jhappy77.monstervania.util.MvStructureSpawnInfo;
+import com.jhappy77.monstervania.util.MvStructureSpawnable;
 import com.jhappy77.monstervania.world.structures.pieces.FrostSpiderPitPieces;
 import com.mojang.serialization.Codec;
 import net.minecraft.util.ResourceLocation;
@@ -18,7 +21,10 @@ import net.minecraft.world.gen.feature.structure.StructureStart;
 import net.minecraft.world.gen.feature.template.TemplateManager;
 import org.apache.logging.log4j.Level;
 
-public class FrostSpiderPitStructure extends Structure<NoFeatureConfig> {
+import java.util.ArrayList;
+import java.util.List;
+
+public class FrostSpiderPitStructure extends Structure<NoFeatureConfig> implements MvStructureSpawnable {
 
     public FrostSpiderPitStructure(Codec<NoFeatureConfig> codec) {
         super(codec);
@@ -73,6 +79,22 @@ public class FrostSpiderPitStructure extends Structure<NoFeatureConfig> {
             //TODO: Change every time you add a new structure!
             Monstervania.LOGGER.log(Level.DEBUG, "Frost spider pit at: " + (blockpos.getX()) + " " + blockpos.getY() + " " + (blockpos.getZ()));
         }
+    }
+
+    // Structure Spawn Info - Used to determine which biomes to add this structure to!
+    @Override
+    public List<MvSpawnCondition<MvStructureSpawnInfo>> getSpawnConditions() {
+        return spawnConditions;
+    }
+
+    public static List<MvSpawnCondition<MvStructureSpawnInfo>> spawnConditions = new ArrayList<MvSpawnCondition<MvStructureSpawnInfo>>();
+
+    static {
+        spawnConditions.add(new MvSpawnCondition<>(new MvStructureSpawnInfo()).restrictToOverworld().restrictToLand()
+                .addBiomeSpawnClause(new MvSpawnCondition.BiomeTemperatureClause().setMaxTemp(0.01f))
+                // no beaches / coasts
+                .addBiomeSpawnClause(new MvSpawnCondition.notBiomeSpawnClause(new MvSpawnCondition.BiomeCategorySpawnClause().addCategory(Biome.Category.BEACH)))
+        );
     }
 
 }

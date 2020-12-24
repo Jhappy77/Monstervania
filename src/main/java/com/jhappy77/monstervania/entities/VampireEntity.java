@@ -27,7 +27,7 @@ import net.minecraft.world.World;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VampireEntity extends MonsterEntity implements MvDamageModifiable, MvSpawnable {
+public class VampireEntity extends MonsterEntity implements MvDamageModifiable, MvEntitySpawnable {
 
     private int attackTimer = 0;
     private int deathTicks = 0;
@@ -38,13 +38,13 @@ public class VampireEntity extends MonsterEntity implements MvDamageModifiable, 
     }
 
 
-    public static List<MvSpawnCondition> spawnConditions() {
-        ArrayList<MvSpawnCondition> conditions = new ArrayList<>();
-        conditions.add(new MvSpawnCondition(80, 1, 1).restrictToOverworld().restrictToLand());
+    public static List<MvSpawnCondition<MvMobSpawnInfo>> spawnConditions() {
+        ArrayList<MvSpawnCondition<MvMobSpawnInfo>> conditions = new ArrayList<>();
+        conditions.add(new MvSpawnCondition(new MvMobSpawnInfo(80, 1, 1)).restrictToOverworld().restrictToLand());
         return conditions;
     }
 
-    public List<MvSpawnCondition> getSpawnConditions(){
+    public List<MvSpawnCondition<MvMobSpawnInfo>> getSpawnConditions(){
         return spawnConditions();
     }
 

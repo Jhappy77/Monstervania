@@ -8,7 +8,80 @@ import net.minecraftforge.event.world.BiomeLoadingEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MvSpawnCondition {
+public class MvSpawnCondition <T> {
+
+    public MvSpawnCondition(T spawnInfoType){
+        this.theSpawnInfo = spawnInfoType;
+        biomeSpawnClauses = new ArrayList<>();
+        worldSpawnClauses = new ArrayList<>();
+    }
+
+    //theSpawnInfo will vary based on what you are spawning.
+    //For mobs, it will be MvMobSpawnInfo (min, max, weight) - info that shows how often something spawns.
+    private T theSpawnInfo;
+
+    /**
+     * Returns the information of what will be spawned.
+     * For mobs, it will be MvMobSpawnInfo (min, max, weight) - info that allows you to
+     * @return
+     */
+    public T getSpawnInformation(){
+        return theSpawnInfo;
+    }
+
+    // The clauses which depend on biomes to spawn
+    private List<BiomeSpawnClause> biomeSpawnClauses;
+    // The clauses which depend on a specific location/time in the world to spawn
+    private List<WorldSpawnClause> worldSpawnClauses;
+
+    /**
+     * Adds a biome spawn clause, returns the object to allow chaining
+     */
+    public MvSpawnCondition addBiomeSpawnClause(BiomeSpawnClause bsc){
+        biomeSpawnClauses.add(bsc);
+        return this;
+    }
+
+    /**
+     * Adds a world spawn clause, returns the object to allow chaining
+     */
+    public MvSpawnCondition addWorldSpawnClause(WorldSpawnClause wsc){
+        worldSpawnClauses.add(wsc);
+        return this;
+    }
+
+    /**
+     * Checks all the biome spawn clauses to determine if the spawned thing should be added to this BiomeLoadingEvent's spawns
+     * @param bEvent Event which contains the info about the biome we are checking
+     * @return True if we want it to spawn in this biome, false otherwise
+     */
+    public boolean evaluateBiomeSpawnClauses(BiomeLoadingEvent bEvent){
+        boolean canSpawn = true;
+        for (BiomeSpawnClause bClause : biomeSpawnClauses){
+            if(!bClause.evaluateClause(bEvent)){
+                canSpawn = false;
+                break;
+            }
+        }
+        return canSpawn;
+    }
+
+    /**
+     * Checks all the world spawn clauses to determine if the spawnable should be allowed to spawn in this position
+     * @return True if it can spawn in this position in the given world, false otherwise
+     */
+    public boolean evaluateWorldClauses(IWorld worldIn, BlockPos pos){
+        boolean canSpawn = true;
+        WorldClauseInfo winfo = new WorldClauseInfo(worldIn, pos);
+        for (WorldSpawnClause wClause : worldSpawnClauses){
+            if(!wClause.evaluateClause(winfo)){
+                canSpawn = false;
+                break;
+            }
+        }
+        return canSpawn;
+    }
+
 
     // Clauses which determine if the spawnable is added to a particular biome's spawn list
     private interface BiomeSpawnClause{
@@ -161,81 +234,8 @@ public class MvSpawnCondition {
         return this;
     }
 
-
-    private int weight;
-    private int mincount;
-    private int maxcount;
-    public MvSpawnCondition(int weight, int mincount, int maxcount){
-        this.weight = weight;
-        this.mincount = mincount;
-        this.maxcount = maxcount;
-        biomeSpawnClauses = new ArrayList<>();
-        worldSpawnClauses = new ArrayList<>();
-    }
-
-    public int getWeight(){
-        return weight;
-    }
-    public int getMincount(){
-        return mincount;
-    }
-    public int getMaxcount(){
-        return maxcount;
-    }
-
-    private List<BiomeSpawnClause> biomeSpawnClauses;
-    private List<WorldSpawnClause> worldSpawnClauses;
-
     /**
-     * Adds a biome spawn clause, returns the object to allow chaining
-     */
-    public MvSpawnCondition addBiomeSpawnClause(BiomeSpawnClause bsc){
-        biomeSpawnClauses.add(bsc);
-        return this;
-    }
-
-    /**
-     * Adds a world spawn clause, returns the object to allow chaining
-     */
-    public MvSpawnCondition addWorldSpawnClause(WorldSpawnClause wsc){
-        worldSpawnClauses.add(wsc);
-        return this;
-    }
-
-    /**
-     * Checks all the biome spawn clauses to determine if the spawned thing should be added to this BiomeLoadingEvent's spawns
-     * @param bEvent Event which contains the info about the biome we are checking
-     * @return True if we want it to spawn in this biome, false otherwise
-     */
-    public boolean evaluateBiomeSpawnClauses(BiomeLoadingEvent bEvent){
-        boolean canSpawn = true;
-        for (BiomeSpawnClause bClause : biomeSpawnClauses){
-            if(!bClause.evaluateClause(bEvent)){
-                canSpawn = false;
-                break;
-            }
-        }
-        return canSpawn;
-    }
-
-    /**
-     * Checks all the world spawn clauses to determine if the spawnable should be allowed to spawn in this position
-     * @return True if it can spawn in this position in the given world, false otherwise
-     */
-    public boolean evaluateWorldClauses(IWorld worldIn, BlockPos pos){
-        boolean canSpawn = true;
-        WorldClauseInfo winfo = new WorldClauseInfo(worldIn, pos);
-        for (WorldSpawnClause wClause : worldSpawnClauses){
-            if(!wClause.evaluateClause(winfo)){
-                canSpawn = false;
-                break;
-            }
-        }
-        return canSpawn;
-    }
-
-    /**
-     * A utility class which provides what WorldSpawnClauses must be promised in order to perform their checks
+     * A utility class that is passed to WorldSpawnClauses so they can perform their checks
      */
     private static class WorldClauseInfo{
         public WorldClauseInfo(IWorld worldIn, BlockPos pos){

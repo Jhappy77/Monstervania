@@ -1,17 +1,17 @@
 package com.jhappy77.monstervania.world.structures;
 
 import com.jhappy77.monstervania.Monstervania;
+import com.jhappy77.monstervania.util.MvSpawnCondition;
+import com.jhappy77.monstervania.util.MvStructureSpawnInfo;
+import com.jhappy77.monstervania.util.MvStructureSpawnable;
 import com.jhappy77.monstervania.world.structures.pieces.VampireTowerPieces;
 import com.mojang.serialization.Codec;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Rotation;
-import net.minecraft.util.SharedSeedRandom;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.util.registry.DynamicRegistries;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.provider.BiomeProvider;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.Heightmap;
@@ -21,9 +21,13 @@ import net.minecraft.world.gen.feature.structure.StructureStart;
 import net.minecraft.world.gen.feature.template.TemplateManager;
 import org.apache.logging.log4j.Level;
 
-// Inspiration from https://github.com/TelepathicGrunt/StructureTutorialMod
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
-public class VampireTowerStructure extends Structure<NoFeatureConfig> {
+// Code and inspiration from https://github.com/TelepathicGrunt/StructureTutorialMod
+
+public class VampireTowerStructure extends Structure<NoFeatureConfig> implements MvStructureSpawnable {
 
 
     public VampireTowerStructure(Codec<NoFeatureConfig> codec) {
@@ -99,9 +103,9 @@ public class VampireTowerStructure extends Structure<NoFeatureConfig> {
 
     }
 
-    //    @Override
+//    @Override
 //    public boolean func_225558_a_(BiomeManager arg0, ChunkGenerator arg1, Random arg2, int arg3, int arg4, Biome arg5){
-//        return false;
+//        return true;
 //    }
 //    @Override
 //    public boolean canBeGenerated(BiomeManager manager, ChunkGenerator generator, Random rand, int chunkX, int chunkZ, Biome biome){
@@ -114,5 +118,18 @@ public class VampireTowerStructure extends Structure<NoFeatureConfig> {
 //        return false;
 //    }
 
+    // Structure Spawn Info - Used to determine which biomes to add this structure to!
+    @Override
+    public List<MvSpawnCondition<MvStructureSpawnInfo>> getSpawnConditions() {
+        return spawnConditions;
+    }
+
+    public static List<MvSpawnCondition<MvStructureSpawnInfo>> spawnConditions = new ArrayList<MvSpawnCondition<MvStructureSpawnInfo>>();
+
+    static {
+        spawnConditions.add(new MvSpawnCondition<>(new MvStructureSpawnInfo()).restrictToOverworld().restrictToLand()
+                .addBiomeSpawnClause(new MvSpawnCondition.notBiomeSpawnClause(new MvSpawnCondition.BiomeCategorySpawnClause().addCategory(Biome.Category.BEACH)))
+        );
+    }
 
 }

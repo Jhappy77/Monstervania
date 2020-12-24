@@ -1,7 +1,8 @@
 package com.jhappy77.monstervania.entities;
 
+import com.jhappy77.monstervania.util.MvEntitySpawnable;
+import com.jhappy77.monstervania.util.MvMobSpawnInfo;
 import com.jhappy77.monstervania.util.MvSpawnCondition;
-import com.jhappy77.monstervania.util.MvSpawnable;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
@@ -27,7 +28,7 @@ import software.bernie.geckolib.manager.EntityAnimationManager;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RatEntity extends MonsterEntity implements IAnimatedEntity, MvSpawnable {
+public class RatEntity extends MonsterEntity implements IAnimatedEntity, MvEntitySpawnable {
 
     private EntityAnimationManager manager = new EntityAnimationManager();
     private AnimationController controller = new EntityAnimationController(this, "moveController",20, this::animationPredicate);
@@ -74,16 +75,16 @@ public class RatEntity extends MonsterEntity implements IAnimatedEntity, MvSpawn
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolemEntity.class, true));
     }
 
-    public static List<MvSpawnCondition> spawnConditions() {
-        ArrayList<MvSpawnCondition> conditions = new ArrayList<>();
-        conditions.add(new MvSpawnCondition(50, 1, 4).restrictToOverworld().restrictToLand()
+    public static List<MvSpawnCondition<MvMobSpawnInfo>> spawnConditions() {
+        ArrayList<MvSpawnCondition<MvMobSpawnInfo>> conditions = new ArrayList<>();
+        conditions.add(new MvSpawnCondition(new MvMobSpawnInfo(50, 1, 4)).restrictToOverworld().restrictToLand()
         .addWorldSpawnClause(
                 new MvSpawnCondition.PositionAltitudeClause().setMaxY(50)
         ));
         return conditions;
     }
 
-    public List<MvSpawnCondition> getSpawnConditions(){
+    public List<MvSpawnCondition<MvMobSpawnInfo>> getSpawnConditions(){
         return spawnConditions();
     }
 

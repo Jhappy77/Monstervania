@@ -2,8 +2,8 @@ package com.jhappy77.monstervania.init;
 
 import com.jhappy77.monstervania.Monstervania;
 import com.jhappy77.monstervania.entities.*;
+import com.jhappy77.monstervania.util.MvMobSpawnInfo;
 import com.jhappy77.monstervania.util.MvSpawnCondition;
-import com.jhappy77.monstervania.util.MvSpawnable;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -23,7 +23,7 @@ public class ModEntityTypes {
 
     public static DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITIES, Monstervania.MOD_ID);
 
-    public static Map<String, List<MvSpawnCondition>> spawnables = new HashMap<>();
+    public static Map<String, List<MvSpawnCondition<MvMobSpawnInfo>>> spawnables = new HashMap<>();
     public static Map<String, RegistryObject> registrymap = new HashMap<String, RegistryObject>();
 
     public static final RegistryObject<EntityType<VampireEntity>> VAMPIRE = new
@@ -128,7 +128,7 @@ public class ModEntityTypes {
 //            return this;
 //        }
 
-        public EntityRegistrar addSpawnConditions(List<MvSpawnCondition> spawnConditionList){
+        public EntityRegistrar addSpawnConditions(List<MvSpawnCondition<MvMobSpawnInfo>> spawnConditionList){
             if(spawnables.containsKey(name)){
                 spawnables.get(name).addAll(spawnConditionList);
             }else{
