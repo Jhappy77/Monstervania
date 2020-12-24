@@ -96,16 +96,4 @@ public class FeaturesInit {
         Registry.register(Registry.STRUCTURE_PIECE, rl, structurePiece);
     }
 
-
-
-/**************************** OLD CODE *******************************/
-//    public static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(ForgeRegistries.FEATURES, Monstervania.MOD_ID);
-//
-//    //public static final RegistryObject<VampireTowerStructure> VAMPIRE_TOWER = FEATURES.register("vampire_tower", ()-> new VampireTowerStructure(NoFeatureConfig::deserialize));
-//    public static IStructurePieceType VAMPIRE_TOWER_PIECE = VampireTowerPieces.Piece::new;
-//
-//    @SubscribeEvent
-//    public static void registerStructurePieces(RegistryEvent.Register<Feature<?>> event){
-//        Registry.register(Registry.STRUCTURE_PIECE, "VAMPIRE_TOWER".toLowerCase(Locale.ROOT), VAMPIRE_TOWER_PIECE);
-//    }
 }

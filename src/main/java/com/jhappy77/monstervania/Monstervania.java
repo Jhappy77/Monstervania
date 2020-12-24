@@ -127,9 +127,7 @@ public class Monstervania
         if(event.getWorld() instanceof ServerWorld){
             ServerWorld serverWorld = (ServerWorld)event.getWorld();
 
-            // Prevent spawning our structure in Vanilla's superflat world as
-            // people seem to want their superflat worlds free of modded structures.
-            // Also that vanilla superflat is really tricky and buggy to work with in my experience.
+            // Prevent spawning structures in Vanilla's superflat worlds
             if(serverWorld.getChunkProvider().getChunkGenerator() instanceof FlatChunkGenerator &&
                     serverWorld.getDimensionKey().equals(World.OVERWORLD)){
                 return;
