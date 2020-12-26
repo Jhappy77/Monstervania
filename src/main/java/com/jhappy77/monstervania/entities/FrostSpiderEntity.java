@@ -52,7 +52,9 @@ public class FrostSpiderEntity extends SpiderEntity {
 
     public static List<MvSpawnCondition<MvMobSpawnInfo>> spawnConditions() {
         ArrayList<MvSpawnCondition<MvMobSpawnInfo>> conditions = new ArrayList<>();
-        conditions.add(new MvSpawnCondition(new MvMobSpawnInfo(100, 1, 1)).restrictToOverworld().restrictToLand().addBiomeSpawnClause(
+        conditions.add(new MvSpawnCondition(new MvMobSpawnInfo(100, 1, 1))
+                .restrictToOverworld().restrictToLand().monsterSpawnTime()
+                .addBiomeSpawnClause(
                 new MvSpawnCondition.BiomeTemperatureClause().setMaxTemp(0.05f)
         ));
         return conditions;

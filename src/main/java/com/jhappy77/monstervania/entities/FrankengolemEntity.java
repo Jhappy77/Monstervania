@@ -178,7 +178,8 @@ public class FrankengolemEntity extends MonsterEntity implements MvDamageModifia
 
     public static List<MvSpawnCondition<MvMobSpawnInfo>> spawnConditions() {
         ArrayList<MvSpawnCondition<MvMobSpawnInfo>> conditions = new ArrayList<>();
-        conditions.add(new MvSpawnCondition<MvMobSpawnInfo>(new MvMobSpawnInfo(5, 1, 1)).restrictToLand().restrictToOverworld());
+        conditions.add(new MvSpawnCondition<MvMobSpawnInfo>(new MvMobSpawnInfo(5, 1, 1))
+                .restrictToLand().restrictToOverworld().monsterSpawnTime());
         return conditions;
     }
 }

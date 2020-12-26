@@ -214,6 +214,33 @@ public class MvSpawnCondition <T> {
 
     }
 
+    // https://minecraft.gamepedia.com/Daylight_cycle
+    public static class TimeClause implements WorldSpawnClause{
+        @Override
+        public boolean evaluateClause(WorldClauseInfo winfo) {
+            long time = winfo.getWorldIn().getWorldInfo().getDayTime();
+            if(time>minTime && time<maxTime){
+                return true;
+            }
+            return false;
+        }
+
+        private long minTime;
+        private long maxTime;
+        public TimeClause(){
+            minTime = -1;
+            maxTime = 24001;
+        }
+        public TimeClause setMinTime(long newMin){
+            minTime = newMin;
+            return this;
+        }
+        public TimeClause setMaxTime(long newMax){
+            maxTime = newMax;
+            return this;
+        }
+    }
+
     /**
      * A shortcut to restrict possible biome spawns to overworld
      */
@@ -230,6 +257,16 @@ public class MvSpawnCondition <T> {
     public MvSpawnCondition restrictToLand(){
         addBiomeSpawnClause(
                 new notBiomeSpawnClause(new BiomeCategorySpawnClause().addCategory(Biome.Category.RIVER).addCategory(Biome.Category.OCEAN))
+        );
+        return this;
+    }
+
+    /**
+     * Shortcut to restrict spawning to the typical monster spawn times (13188 and 22812)
+     */
+    public MvSpawnCondition monsterSpawnTime(){
+        addWorldSpawnClause(
+                new TimeClause().setMaxTime(22812).setMinTime(13188)
         );
         return this;
     }

@@ -4,7 +4,7 @@ import com.jhappy77.monstervania.Monstervania;
 import com.jhappy77.monstervania.util.MvSpawnCondition;
 import com.jhappy77.monstervania.util.MvStructureSpawnInfo;
 import com.jhappy77.monstervania.util.MvStructureSpawnable;
-import com.jhappy77.monstervania.world.structures.pieces.FrostSpiderPitPieces;
+import com.jhappy77.monstervania.world.structures.pieces.VampireLairSmallPieces;
 import com.mojang.serialization.Codec;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Rotation;
@@ -24,10 +24,10 @@ import org.apache.logging.log4j.Level;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FrostSpiderPitStructure extends Structure<NoFeatureConfig> implements MvStructureSpawnable {
 
+public class VampireLairSmallStructure extends Structure<NoFeatureConfig> implements MvStructureSpawnable {
 
-    public FrostSpiderPitStructure(Codec<NoFeatureConfig> codec) {
+    public VampireLairSmallStructure(Codec<NoFeatureConfig> codec) {
         super(codec);
     }
 
@@ -35,25 +35,24 @@ public class FrostSpiderPitStructure extends Structure<NoFeatureConfig> implemen
     @Override
     public String getStructureName(){
         //TODO: Change path every time you add a new structure!
-        return new ResourceLocation(Monstervania.MOD_ID, "frost_spider_pit").toString();
+        return new ResourceLocation(Monstervania.MOD_ID, "vampire_lair_small").toString();
     }
 
     @Override
     public IStartFactory<NoFeatureConfig> getStartFactory()
     {
         //TODO: Change every time you add a new structure!
-        return FrostSpiderPitStructure.Start::new;
+        return com.jhappy77.monstervania.world.structures.VampireLairSmallStructure.Start::new;
     }
 
     @Override
     public GenerationStage.Decoration getDecorationStage()
     {
-        return GenerationStage.Decoration.SURFACE_STRUCTURES;
+        //TODO: Change every time you add a new structure!
+        return GenerationStage.Decoration.UNDERGROUND_STRUCTURES;
     }
 
-    /**
-     * Handles calling up the structure's pieces class and height that structure will spawn at.
-     */
+    //Handles calling up the structure's pieces class and height that structure will spawn at.
     public static class Start extends StructureStart<NoFeatureConfig> {
         public Start(Structure<NoFeatureConfig> structureIn, int chunkX, int chunkZ, MutableBoundingBox mutableBoundingBox, int referenceIn, long seedIn) {
             super(structureIn, chunkX, chunkZ, mutableBoundingBox, referenceIn, seedIn);
@@ -66,19 +65,22 @@ public class FrostSpiderPitStructure extends Structure<NoFeatureConfig> implemen
             // Turns the chunk coordinates into actual coordinates we can use. (Gets center of that chunk)
             int x = (chunkX << 4) + 7;
             int z = (chunkZ << 4) + 7;
-            int y = chunkGenerator.getHeight(x, z, Heightmap.Type.WORLD_SURFACE_WG);
+            // Structure will be at least 25 blocks below surface, potentially more.
+            int y = chunkGenerator.getHeight(x, z, Heightmap.Type.WORLD_SURFACE_WG) - 25;
+            int range = y - 4;
+            y -= Math.random() * range;
             // OFFSET
-            BlockPos blockpos = new BlockPos(x, y-9, z);
+            BlockPos blockpos = new BlockPos(x, y, z);
 
             //TODO: Change every time you add a new structure!
-            FrostSpiderPitPieces.start(templateManagerIn, blockpos, rotation, this.components, this.rand);
+            VampireLairSmallPieces.start(templateManagerIn, blockpos, rotation, this.components, this.rand);
 
             // Sets the bounds of the structure once you are finished.
             this.recalculateStructureSize();
 
             // Where has it spawned?
             //TODO: Change every time you add a new structure!
-            Monstervania.LOGGER.log(Level.DEBUG, "Frost spider pit at: " + (blockpos.getX()) + " " + blockpos.getY() + " " + (blockpos.getZ()));
+            Monstervania.LOGGER.log(Level.DEBUG, "Small vampire lair at  " + (blockpos.getX()) + " " + blockpos.getY() + " " + (blockpos.getZ()));
         }
     }
 
@@ -90,11 +92,9 @@ public class FrostSpiderPitStructure extends Structure<NoFeatureConfig> implemen
 
     public static List<MvSpawnCondition<MvStructureSpawnInfo>> spawnConditions = new ArrayList<MvSpawnCondition<MvStructureSpawnInfo>>();
 
+    //TODO: Change every time you add a new structure!
     static {
-        spawnConditions.add(new MvSpawnCondition<>(new MvStructureSpawnInfo()).restrictToOverworld().restrictToLand()
-                .addBiomeSpawnClause(new MvSpawnCondition.BiomeTemperatureClause().setMaxTemp(0.01f))
-                // no beaches / coasts
-                .addBiomeSpawnClause(new MvSpawnCondition.notBiomeSpawnClause(new MvSpawnCondition.BiomeCategorySpawnClause().addCategory(Biome.Category.BEACH)))
+        spawnConditions.add(new MvSpawnCondition<>(new MvStructureSpawnInfo()).restrictToOverworld()
         );
     }
 

@@ -40,7 +40,8 @@ public class VampireEntity extends MonsterEntity implements MvDamageModifiable, 
 
     public static List<MvSpawnCondition<MvMobSpawnInfo>> spawnConditions() {
         ArrayList<MvSpawnCondition<MvMobSpawnInfo>> conditions = new ArrayList<>();
-        conditions.add(new MvSpawnCondition(new MvMobSpawnInfo(80, 1, 1)).restrictToOverworld().restrictToLand());
+        conditions.add(new MvSpawnCondition(new MvMobSpawnInfo(80, 1, 1))
+                .restrictToOverworld().restrictToLand().monsterSpawnTime());
         return conditions;
     }
 
@@ -90,9 +91,9 @@ public class VampireEntity extends MonsterEntity implements MvDamageModifiable, 
     }
 
     public void livingTick() {
-        if (this.attackTimer > 0) {
-            --this.attackTimer;
-        }
+//        if (this.attackTimer > 0) {
+//            --this.attackTimer;
+//        }
         if(this.isInDaylight()){
             spawnDissolveParticles();
         }
@@ -101,15 +102,17 @@ public class VampireEntity extends MonsterEntity implements MvDamageModifiable, 
 
     private void spawnDissolveParticles(){
 
-        int j = this.world.rand.nextInt(10) + 20;
-        for(int i=0; i<j; i++) {
-            float f1 = (float) ((this.world.rand.nextInt(10)) / 4 * Math.pow(-1, this.world.rand.nextInt(2)));
-            float f2 = (float) ((this.world.rand.nextInt(10)) / 4 * Math.pow(-1, this.world.rand.nextInt(2)));
-            float f3 = (float) ((this.world.rand.nextInt(10)) / 4 * Math.pow(-1, this.world.rand.nextInt(2)));
-            this.world.addParticle(this.getEnergyParticle(), this.getPosX() + f1, this.getPosY() + 1.0F + f2, this.getPosZ() + f3, 0.0D, 0.0D, 0.0D);
-            Monstervania.LOGGER.debug("Should be spawning vamp particles");
-        }
-        this.damageEntity(DamageSource.ON_FIRE, 0.5f);
+        this.world.addParticle(getEnergyParticle(), true, 0, 100, 0, 1,1,1);
+//        int j = this.world.rand.nextInt(10) + 20;
+//        for(int i=0; i<j; i++) {
+//            float f1 = (float) ((this.world.rand.nextInt(10)) / 4 * Math.pow(-1, this.world.rand.nextInt(2)));
+//            float f2 = (float) ((this.world.rand.nextInt(10)) / 4 * Math.pow(-1, this.world.rand.nextInt(2)));
+//            float f3 = (float) ((this.world.rand.nextInt(10)) / 4 * Math.pow(-1, this.world.rand.nextInt(2)));
+//            this.world.addParticle(this.getEnergyParticle(), this.getPosX() + f1, this.getPosY() + 1.0F + f2, this.getPosZ() + f3, 0.0D, 0.0D, 0.0D);
+//            Monstervania.LOGGER.debug("Should be spawning vamp particles");
+//        }
+        Monstervania.LOGGER.debug("Should be spawning vamp particles");
+        this.attackEntityFrom(DamageSource.DRYOUT, 1.0f);
     }
 
 //    public void checkIfInDaylight(){

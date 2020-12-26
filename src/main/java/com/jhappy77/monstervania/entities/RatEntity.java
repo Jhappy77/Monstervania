@@ -77,7 +77,8 @@ public class RatEntity extends MonsterEntity implements IAnimatedEntity, MvEntit
 
     public static List<MvSpawnCondition<MvMobSpawnInfo>> spawnConditions() {
         ArrayList<MvSpawnCondition<MvMobSpawnInfo>> conditions = new ArrayList<>();
-        conditions.add(new MvSpawnCondition(new MvMobSpawnInfo(50, 1, 4)).restrictToOverworld().restrictToLand()
+        conditions.add(new MvSpawnCondition(new MvMobSpawnInfo(50, 1, 4))
+                .restrictToOverworld().restrictToLand().monsterSpawnTime()
         .addWorldSpawnClause(
                 new MvSpawnCondition.PositionAltitudeClause().setMaxY(50)
         ));

@@ -86,7 +86,8 @@ public class MummifiedCreeperEntity extends CreeperEntity {
 
     public static List<MvSpawnCondition<MvMobSpawnInfo>> spawnConditions() {
         ArrayList<MvSpawnCondition<MvMobSpawnInfo>> conditions = new ArrayList<>();
-        conditions.add(new MvSpawnCondition(new MvMobSpawnInfo(100, 1, 1)).addBiomeSpawnClause(
+        conditions.add(new MvSpawnCondition(new MvMobSpawnInfo(100, 1, 1))
+                .monsterSpawnTime().addBiomeSpawnClause(
                 new MvSpawnCondition.BiomeCategorySpawnClause().addCategory(Biome.Category.DESERT)
         ));
         return conditions;

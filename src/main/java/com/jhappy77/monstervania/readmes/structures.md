@@ -46,4 +46,3 @@ Next, add boilerplate code in ConfiguredStructures.java.
 
 Finally, add a line of code in Monstervania.java in the addDimensionalSpacing function for your structure.
 
-To get your structures to spawn, add lines in BiomeLoadReaction.java

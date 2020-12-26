@@ -104,7 +104,7 @@ public class Monstervania
     }
 
     /**
-     * Will go into the world's chunkgenerator and manually add our structure spacing.
+     * Will go into the world's ChunkGenerator and manually add our structure spacing.
      * If the spacing is not added, the structure doesn't spawn.
      *
      * Use this for dimension blacklists for your structure.
@@ -112,7 +112,7 @@ public class Monstervania
      *  the map if you are blacklisting that dimension! It might have
      *  your structure in it already.)
      *
-     * Basically use this to mak absolutely sure the chunkgeneration
+     * Basically use this to make absolutely sure the chunk generation
      * can or cannot spawn your structure.
      */
     public void addDimensionalSpacing(final WorldEvent.Load event) {
@@ -124,10 +124,24 @@ public class Monstervania
                     serverWorld.getDimensionKey().equals(World.OVERWORLD)){
                 return;
             }
-
+            // Retrieves the map. We will be adding to it.
             Map<Structure<?>, StructureSeparationSettings> tempMap = new HashMap<>(serverWorld.getChunkProvider().generator.func_235957_b_().func_236195_a_());
+
+            // Add entries for our custom structures
             tempMap.put(UnconfiguredStructures.VAMPIRE_TOWER, DimensionStructuresSettings.field_236191_b_.get(UnconfiguredStructures.VAMPIRE_TOWER));
             tempMap.put(UnconfiguredStructures.FROST_SPIDER_PIT, DimensionStructuresSettings.field_236191_b_.get(UnconfiguredStructures.FROST_SPIDER_PIT));
+            tempMap.put(UnconfiguredStructures.SPHINX_BASE,
+                    DimensionStructuresSettings.field_236191_b_.get(UnconfiguredStructures.SPHINX_BASE));
+            tempMap.put(UnconfiguredStructures.VAMPIRE_LAIR_SMALL,
+                    DimensionStructuresSettings.field_236191_b_.get(UnconfiguredStructures.VAMPIRE_LAIR_SMALL));
+
+
+            /** Template
+             tempMap.put(UnconfiguredStructures.MY_STRUCT,
+             DimensionStructuresSettings.field_236191_b_.get(UnconfiguredStructures.MY_STRUCT));
+             */
+
+            // Saves the map, with all its changes
             serverWorld.getChunkProvider().generator.func_235957_b_().field_236193_d_ = tempMap;
         }
     }
