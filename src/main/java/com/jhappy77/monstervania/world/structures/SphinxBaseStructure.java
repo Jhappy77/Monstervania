@@ -71,6 +71,11 @@ public class SphinxBaseStructure extends Structure<NoFeatureConfig> implements M
             //TODO: Change every time you add a new structure!
             SphinxBasePieces.start(templateManagerIn, blockpos, rotation, this.components, this.rand);
 
+            // Lowers entire structure by 1 block
+            this.components.forEach(piece -> piece.offset(0, -1, 0));
+            // Raises the bounding box for transformSurroundingLand, causing it to allow land transform to bury it
+            this.components.forEach(piece -> piece.getBoundingBox().minY += 1);
+
             // Sets the bounds of the structure once you are finished.
             this.recalculateStructureSize();
 

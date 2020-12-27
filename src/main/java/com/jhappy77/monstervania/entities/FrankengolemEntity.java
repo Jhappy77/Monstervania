@@ -39,7 +39,6 @@ public class FrankengolemEntity extends MonsterEntity implements MvDamageModifia
 
         super(type, worldIn);
         this.stepHeight = 1.0F;
-        Monstervania.LOGGER.debug("Franken spawn world: " + this.world.toString());
     }
 
     //IronGolemEntity
@@ -93,7 +92,6 @@ public class FrankengolemEntity extends MonsterEntity implements MvDamageModifia
             float f3 = (float) ((this.world.rand.nextInt(10)) / 4 * Math.pow(-1, this.world.rand.nextInt(2)));
             this.world.addParticle(this.getEnergyParticle(), this.getPosX() + f1, this.getPosY() + 1.0F + f2, this.getPosZ() + f3, 0.0D, 0.0D, 0.0D);
         }
-        Monstervania.LOGGER.debug("Frankengolem world: " + this.world.toString());
     }
 
     private float getAttackDamage() {

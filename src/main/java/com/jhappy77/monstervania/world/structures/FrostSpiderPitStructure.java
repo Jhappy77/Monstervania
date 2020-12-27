@@ -68,10 +68,16 @@ public class FrostSpiderPitStructure extends Structure<NoFeatureConfig> implemen
             int z = (chunkZ << 4) + 7;
             int y = chunkGenerator.getHeight(x, z, Heightmap.Type.WORLD_SURFACE_WG);
             // OFFSET
-            BlockPos blockpos = new BlockPos(x, y-9, z);
+            BlockPos blockpos = new BlockPos(x, y, z);
 
             //TODO: Change every time you add a new structure!
             FrostSpiderPitPieces.start(templateManagerIn, blockpos, rotation, this.components, this.rand);
+
+
+            // Lowers entire structure
+            this.components.forEach(piece -> piece.offset(0, -9, 0));
+            // Raises the bounding box for transformSurroundingLand, causing it to allow land transform to bury it
+            this.components.forEach(piece -> piece.getBoundingBox().minY += 9);
 
             // Sets the bounds of the structure once you are finished.
             this.recalculateStructureSize();

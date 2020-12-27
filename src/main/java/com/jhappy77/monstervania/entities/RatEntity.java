@@ -50,11 +50,11 @@ public class RatEntity extends MonsterEntity implements IAnimatable, MvEntitySpa
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event)
     {
         if(event.isMoving() && !this.dataManager.get(ATTACKING)){
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.monstervania.simplewalk", true));
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.rat.walk", true));
             return PlayState.CONTINUE;
         }
         if(this.dataManager.get(ATTACKING) && !deadOrDying()){
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.monstervania.claw", false));
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.rat.claw", false));
             return PlayState.CONTINUE;
         }
         if(deadOrDying()){
@@ -65,7 +65,7 @@ public class RatEntity extends MonsterEntity implements IAnimatable, MvEntitySpa
 //            }
         }
         // Idle
-        event.getController().setAnimation(new AnimationBuilder().clearAnimations());
+        event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.rat.idle", true));
         return PlayState.CONTINUE;
     }
 
@@ -95,9 +95,6 @@ public class RatEntity extends MonsterEntity implements IAnimatable, MvEntitySpa
     {
         return this.factory;
     }
-
-
-
 
     // func_233666_p_ = registerAttributes
     public static AttributeModifierMap.MutableAttribute setCustomAttributes(){

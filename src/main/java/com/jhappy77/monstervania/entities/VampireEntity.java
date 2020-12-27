@@ -123,19 +123,25 @@ public class VampireEntity extends MonsterEntity implements MvDamageModifiable, 
 //            this.world.addParticle(this.getEnergyParticle(), this.getPosX() + f1, this.getPosY() + 1.0F + f2, this.getPosZ() + f3, 0.0D, 0.0D, 0.0D);
 //            Monstervania.LOGGER.debug("Should be spawning vamp particles");
 //        }
-        if(this.isClient){
-            for(int i=0; i<10; i++) {
-                float f1 = (float) ((this.world.rand.nextInt(10)) / 4 * Math.pow(-1, this.world.rand.nextInt(2)));
-                float f2 = (float) ((this.world.rand.nextInt(10)) / 4 * Math.pow(-1, this.world.rand.nextInt(2)));
-                float f3 = (float) ((this.world.rand.nextInt(10)) / 4 * Math.pow(-1, this.world.rand.nextInt(2)));
-                if(this.clientWorld != null)
-                    this.clientWorld.addParticle(this.getEnergyParticle(), this.getPosX() + f1, this.getPosY() + 1.0F + f2, this.getPosZ() + f3, 0.0D, 0.0D, 0.0D);
-                else
-                    Monstervania.LOGGER.debug("Somehow clientworld is null");
-            }
-            Monstervania.LOGGER.debug("Should be spawning vamp particles");
-        }
+//        if(this.isClient){
+//            for(int i=0; i<10; i++) {
+//                float f1 = (float) ((this.world.rand.nextInt(10)) / 4 * Math.pow(-1, this.world.rand.nextInt(2)));
+//                float f2 = (float) ((this.world.rand.nextInt(10)) / 4 * Math.pow(-1, this.world.rand.nextInt(2)));
+//                float f3 = (float) ((this.world.rand.nextInt(10)) / 4 * Math.pow(-1, this.world.rand.nextInt(2)));
+//                if(this.clientWorld != null)
+//                    this.clientWorld.addParticle(this.getEnergyParticle(), this.getPosX() + f1, this.getPosY() + 1.0F + f2, this.getPosZ() + f3, 0.0D, 0.0D, 0.0D);
+//                else
+//                    Monstervania.LOGGER.debug("Somehow clientworld is null");
+//            }
+//            Monstervania.LOGGER.debug("Should be spawning vamp particles");
+//        }
         this.attackEntityFrom(DamageSource.DRYOUT, 3.0f);
+        for(int i = 0; i < 10; ++i) {
+            double d0 = this.rand.nextGaussian() * 0.02D;
+            double d1 = this.rand.nextGaussian() * 0.02D;
+            double d2 = this.rand.nextGaussian() * 0.02D;
+            this.world.addParticle(ParticleTypes.POOF, this.getPosXRandom(1.0D), this.getPosYRandom(), this.getPosZRandom(1.0D), d0, d1, d2);
+        }
     }
 
 //    public void checkIfInDaylight(){
