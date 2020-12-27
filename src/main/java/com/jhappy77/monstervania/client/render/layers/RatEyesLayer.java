@@ -10,18 +10,18 @@ import net.minecraft.client.renderer.entity.model.SpiderModel;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.ResourceLocation;
 
-public class RatEyesLayer<T extends RatEntity, M extends RatModel<T>>  extends AbstractEyesLayer<T, M> {
-
-    protected static final ResourceLocation TEXTURE =  new ResourceLocation(Monstervania.MOD_ID, "textures/entity/layers/rat_eyes.png");
-
-    private static final RenderType RENDER_TYPE = RenderType.getEyes(TEXTURE);
-
-    public RatEyesLayer(IEntityRenderer<T, M> rendererIn) {
-
-        super(rendererIn);
-    }
-
-    public RenderType getRenderType() {
-        return RENDER_TYPE;
-    }
-}
+//public class RatEyesLayer<T extends RatEntity, M extends RatModel<T>>  extends AbstractEyesLayer<T, M> {
+//
+//    protected static final ResourceLocation TEXTURE =  new ResourceLocation(Monstervania.MOD_ID, "textures/entity/layers/rat_eyes.png");
+//
+//    private static final RenderType RENDER_TYPE = RenderType.getEyes(TEXTURE);
+//
+//    public RatEyesLayer(IEntityRenderer<T, M> rendererIn) {
+//
+//        super(rendererIn);
+//    }
+//
+//    public RenderType getRenderType() {
+//        return RENDER_TYPE;
+//    }
+//}

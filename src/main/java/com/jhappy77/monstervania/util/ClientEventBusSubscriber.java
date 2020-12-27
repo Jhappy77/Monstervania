@@ -21,7 +21,7 @@ public class ClientEventBusSubscriber {
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.FRANKENGOLEM.get(), FrankengolemRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.FROST_SPIDER.get(), FrostSpiderRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.MUMMIFIED_CREEPER.get(), MummifiedCreeperRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.RAT.get(), RatRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.RAT.get(), manager -> new RatRenderer(manager));
     }
 
     @SubscribeEvent

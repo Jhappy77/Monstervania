@@ -115,19 +115,6 @@ public class ModEntityTypes {
             return this;
         }
 
-//        public EntityRegistrar useClass(Class<T> c){
-//            theClass = c;
-//            if(MvSpawnable.class.isAssignableFrom(c)){
-//
-//            }
-//            return this;
-//        }
-
-//        public EntityRegistrar useSpawnPattern(MvSpawnable spawnable){
-//            //spawnables.put(name, spawnable.spawnCondition());
-//            return this;
-//        }
-
         public EntityRegistrar addSpawnConditions(List<MvSpawnCondition<MvMobSpawnInfo>> spawnConditionList){
             if(spawnables.containsKey(name)){
                 spawnables.get(name).addAll(spawnConditionList);

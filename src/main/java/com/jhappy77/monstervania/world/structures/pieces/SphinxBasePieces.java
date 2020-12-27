@@ -30,7 +30,7 @@ public class SphinxBasePieces {
         int x = pos.getX();
         int z = pos.getZ();
         BlockPos rotationOffset = new BlockPos(0,0,0).rotate(rot);
-        BlockPos blockPos = rotationOffset.add(x, pos.getY(), z);
+        BlockPos blockPos = rotationOffset.add(x, pos.getY()-2, z);
 
         //TODO: Make sure you change this every time you add a new structure!
         pieces.add(new com.jhappy77.monstervania.world.structures.pieces.SphinxBasePieces.Piece(manager, PART_1, blockPos, rot));

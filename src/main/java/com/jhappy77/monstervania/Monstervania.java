@@ -34,6 +34,8 @@ import net.minecraftforge.registries.IForgeRegistryEntry;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import software.bernie.example.GeckoLibMod;
+import software.bernie.geckolib3.GeckoLib;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -47,11 +49,20 @@ public class Monstervania
     public static final String MOD_ID = "monstervania";
     public Monstervania() {
 
+
         final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+
+        GeckoLibMod.DISABLE_IN_DEV = true;
+        GeckoLib.initialize();
 
         modEventBus.addListener(this::setup);
         modEventBus.addListener(this::doClientStuff);
         modEventBus.addGenericListener(Structure.class, this::onRegisterStructures);
+
+        // Initializes GeckoLib according to 3.0 specifications https://geckolib.com/en/latest/3.0.0/
+
+
+
 
         RegistryHandler.init();
 

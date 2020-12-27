@@ -75,27 +75,27 @@ public class ModClientEvents {
     @SubscribeEvent
     public static void onVampireAttack(AttackEntityEvent event){
 
-        Monstervania.LOGGER.info("Attack entity event");
+        //Monstervania.LOGGER.info("Attack entity event");
 
-        LivingEntity vampire = event.getEntityLiving();
-        if(vampire instanceof PlayerEntity){
-            PlayerEntity player = (PlayerEntity)vampire;
-            Monstervania.LOGGER.info("Player attacked!");
+        LivingEntity entityLiving = event.getEntityLiving();
+        if(entityLiving instanceof PlayerEntity){
+            PlayerEntity player = (PlayerEntity)entityLiving;
+            //Monstervania.LOGGER.info("Player attacked!");
             if(event.getTarget() instanceof VampireEntity){
-                Monstervania.LOGGER.info("Player attacked vampire!");
+                //Monstervania.LOGGER.info("Player attacked vampire!");
             }
             if(player.getHeldItemMainhand().getItem() == RegistryHandler.LIGHTNING_ROD.get()){
-                Monstervania.LOGGER.info("Player attacked w lightning rod!");
+               // Monstervania.LOGGER.info("Player attacked w lightning rod!");
             }
         }
 
-        if(vampire instanceof VampireEntity){
-            Monstervania.LOGGER.info("Get entity living: vampire");
+        else if(entityLiving instanceof VampireEntity){
+           // Monstervania.LOGGER.info("Get entity living: vampire");
             if(event.getTarget().isAlive()){
                 LivingEntity target = (LivingEntity) event.getTarget();
-                vampire.addPotionEffect(new EffectInstance(Effects.INSTANT_HEALTH, 10,0));
+                entityLiving.addPotionEffect(new EffectInstance(Effects.INSTANT_HEALTH, 10,0));
 
-                Monstervania.LOGGER.info("Player was attacked by vamp!");
+                //Monstervania.LOGGER.info("Player was attacked by vamp!");
                 if(event.getPlayer().getEntityWorld().isRemote){
                     String msg = TextFormatting.RED + "You have been bitten!";
                     PlayerEntity player = event.getPlayer();

@@ -1,5 +1,6 @@
 package com.jhappy77.monstervania.entities;
 
+import com.jhappy77.monstervania.goals.RatAttackGoal;
 import com.jhappy77.monstervania.util.MvEntitySpawnable;
 import com.jhappy77.monstervania.util.MvMobSpawnInfo;
 import com.jhappy77.monstervania.util.MvSpawnCondition;
@@ -14,32 +15,89 @@ import net.minecraft.entity.monster.SlimeEntity;
 import net.minecraft.entity.monster.SpiderEntity;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.world.World;
-import software.bernie.geckolib.animation.builder.AnimationBuilder;
-import software.bernie.geckolib.animation.controller.AnimationController;
-import software.bernie.geckolib.animation.controller.EntityAnimationController;
-import software.bernie.geckolib.entity.IAnimatedEntity;
-import software.bernie.geckolib.event.AnimationTestEvent;
-import software.bernie.geckolib.manager.EntityAnimationManager;
+
+//Geckolib
+import software.bernie.geckolib3.core.IAnimatable;
+import software.bernie.geckolib3.core.PlayState;
+import software.bernie.geckolib3.core.builder.AnimationBuilder;
+import software.bernie.geckolib3.core.controller.AnimationController;
+import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
+import software.bernie.geckolib3.core.manager.AnimationData;
+import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RatEntity extends MonsterEntity implements IAnimatedEntity, MvEntitySpawnable {
+public class RatEntity extends MonsterEntity implements IAnimatable, MvEntitySpawnable {
 
-    private EntityAnimationManager manager = new EntityAnimationManager();
-    private AnimationController controller = new EntityAnimationController(this, "moveController",20, this::animationPredicate);
+    private static final DataParameter<Boolean> ATTACKING = EntityDataManager.createKey(RatEntity.class, DataSerializers.BOOLEAN);
 
-//    private boolean animationPredicate(AnimationTestEvent event) {
-//    }
+    private AnimationFactory factory = new AnimationFactory(this);
 
-    public RatEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
+    public RatEntity(EntityType<? extends RatEntity> type, World worldIn)
+    {
         super(type, worldIn);
-        registerAnimationControllers();
+        this.ignoreFrustumCheck = true;
     }
+
+    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event)
+    {
+        if(event.isMoving() && !this.dataManager.get(ATTACKING)){
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.monstervania.simplewalk", true));
+            return PlayState.CONTINUE;
+        }
+        if(this.dataManager.get(ATTACKING) && !deadOrDying()){
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.monstervania.claw", false));
+            return PlayState.CONTINUE;
+        }
+        if(deadOrDying()){
+            // Death animation
+//            if (world.isRemote) {
+//                event.getController().setAnimation(new AnimationBuilder().addAnimation("death", false));
+//                return PlayState.CONTINUE;
+//            }
+        }
+        // Idle
+        event.getController().setAnimation(new AnimationBuilder().clearAnimations());
+        return PlayState.CONTINUE;
+    }
+
+    private boolean deadOrDying(){
+        return (this.dead || this.getHealth() < 0.01);
+    }
+
+    public void setAttacking(boolean attacking) {
+        this.dataManager.set(ATTACKING, attacking);
+    }
+
+    @Override
+    protected void registerData() {
+        super.registerData();
+        this.dataManager.register(ATTACKING, false);
+    }
+
+
+    @Override
+    public void registerControllers(AnimationData data)
+    {
+        data.addAnimationController(new AnimationController(this, "controller", 0, this::predicate));
+    }
+
+    @Override
+    public AnimationFactory getFactory()
+    {
+        return this.factory;
+    }
+
+
+
 
     // func_233666_p_ = registerAttributes
     public static AttributeModifierMap.MutableAttribute setCustomAttributes(){
@@ -48,24 +106,9 @@ public class RatEntity extends MonsterEntity implements IAnimatedEntity, MvEntit
                 .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.7F);
     }
 
-
-    private <E extends RatEntity> boolean animationPredicate(AnimationTestEvent<E> event) {
-        if(event.isWalking()){
-            controller.setAnimation(new AnimationBuilder().addAnimation("animation.monstervania.simplewalk", true));
-            return true;
-        }else if (false) {
-            // Attack animation
-            controller.setAnimation(new AnimationBuilder().addAnimation("animation.monstervania.claw"));
-            return true;
-        } else{
-            //play idle
-            return true;
-        }
-    }
-
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new SwimGoal(this));
-        this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.0f,true));
+        this.goalSelector.addGoal(1, new RatAttackGoal(this, 1.0f,true));
         this.goalSelector.addGoal(1, new LeapAtTargetGoal(this, 0.4F));
         this.goalSelector.addGoal(5, new WaterAvoidingRandomWalkingGoal(this, 0.8D));
         this.goalSelector.addGoal(6, new LookAtGoal(this, PlayerEntity.class, 8.0F));
@@ -102,12 +145,4 @@ public class RatEntity extends MonsterEntity implements IAnimatedEntity, MvEntit
         return SoundEvents.ENTITY_BAT_DEATH;
     }
 
-    @Override
-    public EntityAnimationManager getAnimationManager() {
-        return manager;
-    }
-
-    private void registerAnimationControllers(){
-        manager.addAnimationController(controller);
-    }
 }
