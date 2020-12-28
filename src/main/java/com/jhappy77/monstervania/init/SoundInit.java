@@ -13,6 +13,16 @@ public class SoundInit {
     public static final RegistryObject<SoundEvent> VAMPIRE_AMBIENT = SOUNDS.register("entity.vampire_entity.ambient",
             ()-> new SoundEvent(new ResourceLocation(Monstervania.MOD_ID, "entity.vampire_entity.ambient")));
 
+    public static final RegistryObject<SoundEvent> ENTITY_VAMPIRE_HURT = SOUNDS.register("entity.vampire_entity.hurt",
+            ()-> new SoundEvent(new ResourceLocation(Monstervania.MOD_ID, "entity.vampire_entity.hurt")));
+
+    public static final RegistryObject<SoundEvent> ENTITY_VAMPIRE_DEATH = registerSound("entity.vampire_entity.death");
+
+
+    public static RegistryObject<SoundEvent> registerSound(String path){
+        return SOUNDS.register(path, ()-> new SoundEvent(new ResourceLocation(Monstervania.MOD_ID, path)));
+    }
+
 
 
 }

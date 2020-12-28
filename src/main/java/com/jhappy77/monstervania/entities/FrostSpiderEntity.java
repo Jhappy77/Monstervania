@@ -10,7 +10,10 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
+import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.monster.SpiderEntity;
+import net.minecraft.entity.passive.IronGolemEntity;
+import net.minecraft.entity.passive.RabbitEntity;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.world.World;
@@ -22,6 +25,8 @@ public class FrostSpiderEntity extends SpiderEntity {
 
     public FrostSpiderEntity(EntityType<? extends FrostSpiderEntity> type, World worldIn) {
         super(type, worldIn);
+        // It will hunt rabbits now!
+        this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, RabbitEntity.class, true));
     }
 
     // func_233666_p_ = registerAttributes
@@ -34,11 +39,9 @@ public class FrostSpiderEntity extends SpiderEntity {
                 .createMutableAttribute(Attributes.FOLLOW_RANGE, 35.0D);
     }
 
-    //HuskRenderer
-
     @Override
     public boolean attackEntityAsMob(Entity entityIn){
-        Monstervania.LOGGER.debug("Frost spider attacked!");
+        //Poisons the creature it is attacking with slowness
         //EntityIn is the one being attacked
         if(entityIn.isAlive() && entityIn instanceof LivingEntity){
             LivingEntity e = (LivingEntity) entityIn;

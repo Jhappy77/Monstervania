@@ -81,7 +81,6 @@ public class FrankengolemModel <T extends FrankengolemEntity> extends EntityMode
         if (i > 0) {
             this.golemRightArm.rotateAngleX = -2.0F + 1.5F * MathHelper.func_233021_e_((float)i - partialTick, 10.0F);
             this.golemLeftArm.rotateAngleX = -2.0F + 1.5F * MathHelper.func_233021_e_((float)i - partialTick, 10.0F);
-            Monstervania.LOGGER.debug("franku attacku???");
         } else {
                 this.golemRightArm.rotateAngleX = (-0.2F + 1.5F * MathHelper.func_233021_e_(limbSwing, 13.0F)) * limbSwingAmount;
                 this.golemLeftArm.rotateAngleX = (-0.2F - 1.5F * MathHelper.func_233021_e_(limbSwing, 13.0F)) * limbSwingAmount;

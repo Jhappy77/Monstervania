@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/wall_inventory",
+  "textures": {
+    "wall": "monstervania:blocks/dark_stone_bricks_block"
+  }
+}

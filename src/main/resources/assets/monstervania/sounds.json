@@ -20,6 +20,58 @@
         "stream": true
       }
     ]
+  },
+  "entity.vampire_entity.hurt": {
+    "category": "entity",
+    "subtitle": "entity.vampire_entity.hurt",
+    "sounds": [
+      {
+        "name": "monstervania:entity/vampire_entity/hurt0",
+        "stream": true
+      },
+      {
+        "name": "monstervania:entity/vampire_entity/hurt1",
+        "stream": true
+      },
+      {
+        "name": "monstervania:entity/vampire_entity/hurt2",
+        "stream": true
+      },
+      {
+        "name": "monstervania:entity/vampire_entity/hurt3",
+        "stream": true
+      },
+      {
+        "name": "monstervania:entity/vampire_entity/hurt4",
+        "stream": true
+      },
+      {
+        "name": "monstervania:entity/vampire_entity/hurt5",
+        "stream": true
+      },
+      {
+        "name": "monstervania:entity/vampire_entity/hurt6",
+        "stream": true
+      }
+    ]
+  },
+  "entity.vampire_entity.death": {
+    "category": "entity",
+    "subtitle": "entity.vampire_entity.death",
+    "sounds": [
+      {
+        "name": "monstervania:entity/vampire_entity/death0",
+        "stream": true
+      },
+      {
+        "name": "monstervania:entity/vampire_entity/death1",
+        "stream": true
+      },
+      {
+        "name": "monstervania:entity/vampire_entity/death2",
+        "stream": true
+      }
+    ]
   }
 
 

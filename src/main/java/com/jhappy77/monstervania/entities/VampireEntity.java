@@ -16,7 +16,6 @@ import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.particles.BlockParticleData;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
@@ -55,11 +54,13 @@ public class VampireEntity extends MonsterEntity implements MvDamageModifiable, 
                 double d1 = this.rand.nextGaussian() * 0.02D;
                 double d2 = this.rand.nextGaussian() * 0.02D;
                 if(world instanceof ServerWorld){
-                    Monstervania.LOGGER.debug("In server world!");
-                    ((ServerWorld)world).spawnParticle(ParticleTypes.POOF, this.getPosX(), this.getPosY(), this.getPosZ(), 10, 0.0D, 0.0D, 0.0D, (double)0.15F);
+                    ((ServerWorld)world).spawnParticle(ParticleTypes.POOF, this.getPosX(), this.getPosY()+1, this.getPosZ(), 10, 0.0D, 0.0D, 0.0D, (double)0.15F);
                 }
                 //this.getEntityWorld().addParticle(ParticleTypes.POOF, this.getPosXRandom(1.0D), this.getPosYRandom(), this.getPosZRandom(1.0D), d0, d1, d2);
             }
+        }
+        if(this.attackTimer > 0){
+            this.attackTimer--;
         }
         super.livingTick();
     }
@@ -99,13 +100,12 @@ public class VampireEntity extends MonsterEntity implements MvDamageModifiable, 
 
     @Override
     public boolean attackEntityAsMob(Entity entityIn){
-        //Monstervania.LOGGER.debug("Vampire attacked entity as mob");
-        //EntityIn is the one being attacked
+        //If the vampire attacks a player or a villager, it heals itself by a slight amount
         this.attackTimer = 10;
         if(entityIn instanceof PlayerEntity){
-            this.heal(2);
+            this.heal(1);
         } else if (entityIn instanceof VillagerEntity){
-            this.heal(2);
+            this.heal(1);
         }
         return super.attackEntityAsMob(entityIn);
     }
@@ -121,11 +121,11 @@ public class VampireEntity extends MonsterEntity implements MvDamageModifiable, 
     }
 
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return SoundEvents.ENTITY_ZOMBIE_HURT;
+        return SoundInit.ENTITY_VAMPIRE_HURT.get();
     }
 
     protected SoundEvent getDeathSound() {
-        return SoundEvents.ENTITY_ZOMBIE_DEATH;
+        return SoundInit.ENTITY_VAMPIRE_DEATH.get();
     }
 
     protected SoundEvent getStepSound() {

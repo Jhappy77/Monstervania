@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "monstervania:dark_stone_bricks_block"
+  },
+  "result": "monstervania:dark_stone_brick_stairs",
+  "count": 1
+}

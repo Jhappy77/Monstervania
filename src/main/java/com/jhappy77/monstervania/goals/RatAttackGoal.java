@@ -3,6 +3,7 @@ package com.jhappy77.monstervania.goals;
 import com.jhappy77.monstervania.Monstervania;
 import com.jhappy77.monstervania.entities.RatEntity;
 import net.minecraft.entity.CreatureEntity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.MeleeAttackGoal;
 
 public class RatAttackGoal extends MeleeAttackGoal {
@@ -17,12 +18,22 @@ public class RatAttackGoal extends MeleeAttackGoal {
         animationTicks = 15;
     }
 
+    private boolean isCloseToReach() {
+        LivingEntity target = this.attacker.getAttackTarget();
+        if(target != null) {
+            // If the sq distance between target and attacker is less than the attack reach plus 0.5 (buffer) return true
+            return ((this.getAttackReachSqr(target) + 0.5) >= this.attacker.getDistanceSq(this.attacker.getAttackTarget()));
+        }
+        return false;
+    }
 
     @Override
     public void tick() {
         super.tick();
         // Attack Timer
-        if(super.func_234041_j_() > 10){
+        //if(super.func_234041_j_() > 10){
+        // Attack timer is less than or equal zero (fully reset)
+        if(super.func_234040_h_() && isCloseToReach()){
             //Monstervania.LOGGER.debug("Rats attack timer was active!");
             ratEntity.setAttacking(true);
             // Start counting down til animation is done.
