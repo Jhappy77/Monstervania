@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "xxx",
+    "xyx",
+    "xxx"
+  ],
+  "key": {
+    "x": {
+      "item": "monstervania:volt_dust"
+    },
+    "y": {
+      "item": "minecraft:blaze_rod"
+    }
+  },
+  "result": {
+    "item": "monstervania:lightning_wand",
+    "count": 1
+  }
+}

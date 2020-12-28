@@ -77,7 +77,7 @@ public class FrostSpiderPitStructure extends Structure<NoFeatureConfig> implemen
             // Lowers entire structure
             this.components.forEach(piece -> piece.offset(0, -9, 0));
             // Raises the bounding box for transformSurroundingLand, causing it to allow land transform to bury it
-            this.components.forEach(piece -> piece.getBoundingBox().minY += 9);
+            this.components.forEach(piece -> piece.getBoundingBox().minY += 8);
 
             // Sets the bounds of the structure once you are finished.
             this.recalculateStructureSize();

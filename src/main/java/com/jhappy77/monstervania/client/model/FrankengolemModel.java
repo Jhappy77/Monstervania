@@ -88,6 +88,8 @@ public class FrankengolemModel <T extends FrankengolemEntity> extends EntityMode
         }
     }
 
+
+
     @Override
     public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha){
         golemBody.render(matrixStack, buffer, packedLight, packedOverlay);

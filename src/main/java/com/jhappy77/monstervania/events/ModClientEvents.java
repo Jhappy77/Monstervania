@@ -84,9 +84,6 @@ public class ModClientEvents {
             if(event.getTarget() instanceof VampireEntity){
                 //Monstervania.LOGGER.info("Player attacked vampire!");
             }
-            if(player.getHeldItemMainhand().getItem() == RegistryHandler.LIGHTNING_ROD.get()){
-               // Monstervania.LOGGER.info("Player attacked w lightning rod!");
-            }
         }
 
         else if(entityLiving instanceof VampireEntity){

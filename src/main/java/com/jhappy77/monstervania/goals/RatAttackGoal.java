@@ -12,9 +12,9 @@ public class RatAttackGoal extends MeleeAttackGoal {
     }
 
     private RatEntity ratEntity;
-    private int animationTicks = 11;
+    private int animationTicks = 15;
     private void resetAnimationTicks(){
-        animationTicks = 11;
+        animationTicks = 15;
     }
 
 
@@ -23,7 +23,7 @@ public class RatAttackGoal extends MeleeAttackGoal {
         super.tick();
         // Attack Timer
         if(super.func_234041_j_() > 10){
-            Monstervania.LOGGER.debug("Rats attack timer was active!");
+            //Monstervania.LOGGER.debug("Rats attack timer was active!");
             ratEntity.setAttacking(true);
             // Start counting down til animation is done.
             resetAnimationTicks();

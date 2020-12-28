@@ -2,10 +2,9 @@ package com.jhappy77.monstervania.entities;
 
 import com.jhappy77.monstervania.Monstervania;
 import com.jhappy77.monstervania.goals.FleeSunEarlyGoal;
-import com.jhappy77.monstervania.lists.ParticleList;
+import com.jhappy77.monstervania.init.SoundInit;
 import com.jhappy77.monstervania.util.*;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -17,15 +16,15 @@ import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.particles.IParticleData;
+import net.minecraft.particles.BlockParticleData;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraft.world.server.ServerWorld;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,19 +32,9 @@ import java.util.List;
 public class VampireEntity extends MonsterEntity implements MvDamageModifiable, MvEntitySpawnable {
 
     private int attackTimer = 0;
-    private int deathTicks = 0;
-    private int ticksLightCountdown = 0;
-
-
-    private ClientWorld clientWorld;
-    private boolean isClient;
 
     public VampireEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
         super(type, worldIn);
-        if(worldIn instanceof ClientWorld){
-            this.clientWorld = (ClientWorld)worldIn;
-            isClient = true;
-        }
     }
 
 
@@ -55,6 +44,26 @@ public class VampireEntity extends MonsterEntity implements MvDamageModifiable, 
                 .restrictToOverworld().restrictToLand().monsterSpawnTime());
         return conditions;
     }
+
+    @Override
+    public void livingTick(){
+        if(this.isInDaylight()){
+            this.attackEntityFrom(DamageSource.DRYOUT, 3.5f);
+            BlockState b = this.world.getBlockState(this.getOnPosition());
+            for(int i = 0; i < 2; i++) {
+                double d0 = this.rand.nextGaussian() * 0.02D;
+                double d1 = this.rand.nextGaussian() * 0.02D;
+                double d2 = this.rand.nextGaussian() * 0.02D;
+                if(world instanceof ServerWorld){
+                    Monstervania.LOGGER.debug("In server world!");
+                    ((ServerWorld)world).spawnParticle(ParticleTypes.POOF, this.getPosX(), this.getPosY(), this.getPosZ(), 10, 0.0D, 0.0D, 0.0D, (double)0.15F);
+                }
+                //this.getEntityWorld().addParticle(ParticleTypes.POOF, this.getPosXRandom(1.0D), this.getPosYRandom(), this.getPosZRandom(1.0D), d0, d1, d2);
+            }
+        }
+        super.livingTick();
+    }
+
 
     public List<MvSpawnCondition<MvMobSpawnInfo>> getSpawnConditions(){
         return spawnConditions();
@@ -83,9 +92,9 @@ public class VampireEntity extends MonsterEntity implements MvDamageModifiable, 
         this.goalSelector.addGoal(5, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
         this.goalSelector.addGoal(8, new LookAtGoal(this, PlayerEntity.class, 8.0F));
         this.goalSelector.addGoal(8, new LookRandomlyGoal(this));
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, false));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolemEntity.class, true));
-        this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, VillagerEntity.class, true));
+        this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, VillagerEntity.class, false));
     }
 
     @Override
@@ -101,93 +110,14 @@ public class VampireEntity extends MonsterEntity implements MvDamageModifiable, 
         return super.attackEntityAsMob(entityIn);
     }
 
-    public void livingTick() {
-//        if (this.attackTimer > 0) {
-//            --this.attackTimer;
-//        }
-        if(this.isInDaylight()){
-            spawnDissolveParticles();
-        }
-        super.livingTick();
-    }
 
-    @OnlyIn(Dist.CLIENT)
-    private void spawnDissolveParticles(){
-        //Monstervania.LOGGER.debug("Vampire world: " + this.world.toString());
-        //this.world.addParticle(getEnergyParticle(), true, 0, 100, 0, 1,1,1);
-//        int j = this.world.rand.nextInt(10) + 20;
-//        for(int i=0; i<j; i++) {
-//            float f1 = (float) ((this.world.rand.nextInt(10)) / 4 * Math.pow(-1, this.world.rand.nextInt(2)));
-//            float f2 = (float) ((this.world.rand.nextInt(10)) / 4 * Math.pow(-1, this.world.rand.nextInt(2)));
-//            float f3 = (float) ((this.world.rand.nextInt(10)) / 4 * Math.pow(-1, this.world.rand.nextInt(2)));
-//            this.world.addParticle(this.getEnergyParticle(), this.getPosX() + f1, this.getPosY() + 1.0F + f2, this.getPosZ() + f3, 0.0D, 0.0D, 0.0D);
-//            Monstervania.LOGGER.debug("Should be spawning vamp particles");
-//        }
-//        if(this.isClient){
-//            for(int i=0; i<10; i++) {
-//                float f1 = (float) ((this.world.rand.nextInt(10)) / 4 * Math.pow(-1, this.world.rand.nextInt(2)));
-//                float f2 = (float) ((this.world.rand.nextInt(10)) / 4 * Math.pow(-1, this.world.rand.nextInt(2)));
-//                float f3 = (float) ((this.world.rand.nextInt(10)) / 4 * Math.pow(-1, this.world.rand.nextInt(2)));
-//                if(this.clientWorld != null)
-//                    this.clientWorld.addParticle(this.getEnergyParticle(), this.getPosX() + f1, this.getPosY() + 1.0F + f2, this.getPosZ() + f3, 0.0D, 0.0D, 0.0D);
-//                else
-//                    Monstervania.LOGGER.debug("Somehow clientworld is null");
-//            }
-//            Monstervania.LOGGER.debug("Should be spawning vamp particles");
-//        }
-        this.attackEntityFrom(DamageSource.DRYOUT, 3.0f);
-        for(int i = 0; i < 10; ++i) {
-            double d0 = this.rand.nextGaussian() * 0.02D;
-            double d1 = this.rand.nextGaussian() * 0.02D;
-            double d2 = this.rand.nextGaussian() * 0.02D;
-            this.world.addParticle(ParticleTypes.POOF, this.getPosXRandom(1.0D), this.getPosYRandom(), this.getPosZRandom(1.0D), d0, d1, d2);
-        }
-    }
-
-//    public void checkIfInDaylight(){
-//        if(this.isInDaylight()){
-//
-//            if(ticksLightCountdown == 30){
-//                this.setHealth(0);
-//            } else{
-//                Monstervania.LOGGER.debug("Should be spawning vamp particles");
-//                int j = this.world.rand.nextInt(10) + 20;
-//                for(int i=0; i<j; i++) {
-//                    float f1 = (float) ((this.world.rand.nextInt(10)) / 4 * Math.pow(-1, this.world.rand.nextInt(2)));
-//                    float f2 = (float) ((this.world.rand.nextInt(10)) / 4 * Math.pow(-1, this.world.rand.nextInt(2)));
-//                    float f3 = (float) ((this.world.rand.nextInt(10)) / 4 * Math.pow(-1, this.world.rand.nextInt(2)));
-//                    this.world.addParticle(this.getEnergyParticle(), this.getPosX() + f1, this.getPosY() + 1.0F + f2, this.getPosZ() + f3, 0.0D, 0.0D, 0.0D);
-//                }
-//                ticksLightCountdown++;
-//            }
-//
-//            //ParticleType.EXPLOSION
-//
-//        } else{
-//            ticksLightCountdown = 0;
-//        }
-//    }
-
-    protected IParticleData getEnergyParticle() {
-        return ParticleList.ELECTRIC_PARTICLE.get();
-    }
 
 
     public int getAttackTimer(){return attackTimer;}
 
-//    protected void onDeathUpdate(){
-//        ++this.deathTicks;
-//        if (this.deathTicks >= 180 && this.deathTicks <= 200) {
-//            float f = (this.rand.nextFloat() - 0.5F) * 2.0F;
-//            float f1 = (this.rand.nextFloat() - 0.5F) * 1.0F;
-//            float f2 = (this.rand.nextFloat() - 0.5F) * 2.0F;
-//            this.world.addParticle(ParticleTypes.EXPLOSION_EMITTER, this.getPosX() + (double)f, this.getPosY() + 2.0D + (double)f1, this.getPosZ() + (double)f2, 0.0D, 0.0D, 0.0D);
-//        }
-//        super.onDeathUpdate();
-//    }
 
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.ENTITY_ZOMBIE_AMBIENT;
+        return SoundInit.VAMPIRE_AMBIENT.get();
     }
 
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
@@ -206,6 +136,7 @@ public class VampireEntity extends MonsterEntity implements MvDamageModifiable, 
         this.playSound(this.getStepSound(), 0.15F, 1.0F);
     }
 
+    @Override
     public CreatureAttribute getCreatureAttribute() {
         return CreatureAttribute.UNDEAD;
     }
@@ -213,9 +144,10 @@ public class VampireEntity extends MonsterEntity implements MvDamageModifiable, 
 
     @Override
     public MvDamageModifier[] getMvDamageModifiers() {
-        MvDamageModifier[] modifiers = new MvDamageModifier[2];
+        MvDamageModifier[] modifiers = new MvDamageModifier[3];
         modifiers[0] = new MvDamageModifier(MvDamageModifierType.WOOD, 1.5F);
         modifiers[1] = new MvDamageModifier(MvDamageModifierType.FALL, 0.6F);
+        modifiers[2] = new MvDamageModifier(MvDamageModifierType.FIRE, 1.25F);
         return modifiers;
     }
 }

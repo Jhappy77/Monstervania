@@ -5,6 +5,7 @@ import com.jhappy77.monstervania.entities.FrostSpiderEntity;
 import com.jhappy77.monstervania.entities.MummifiedCreeperEntity;
 import com.jhappy77.monstervania.entities.VampireEntity;
 import com.jhappy77.monstervania.init.ConfiguredStructures;
+import com.jhappy77.monstervania.init.SoundInit;
 import com.jhappy77.monstervania.init.UnconfiguredStructures;
 import com.jhappy77.monstervania.init.ModEntityTypes;
 import com.jhappy77.monstervania.lists.ParticleList;
@@ -52,6 +53,7 @@ public class Monstervania
 
         final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
+        // Initializes GeckoLib according to 3.0 specifications https://geckolib.com/en/latest/3.0.0/
         GeckoLibMod.DISABLE_IN_DEV = true;
         GeckoLib.initialize();
 
@@ -59,11 +61,10 @@ public class Monstervania
         modEventBus.addListener(this::doClientStuff);
         modEventBus.addGenericListener(Structure.class, this::onRegisterStructures);
 
-        // Initializes GeckoLib according to 3.0 specifications https://geckolib.com/en/latest/3.0.0/
+        // Registers sounds (must be done before stuff that uses them, like items)
+        SoundInit.SOUNDS.register(modEventBus);
 
-
-
-
+        // Registers blocks and items
         RegistryHandler.init();
 
         ParticleList.PARTICLES.register(modEventBus);

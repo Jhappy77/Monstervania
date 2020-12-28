@@ -53,7 +53,8 @@ public class RatTailItem extends Item {
             // If you used the rat tail on water, randomly spawn appropriate fish in that water.
             if(worldIn.hasWater(blockpos)){
                 randomlySpawnFish(worldIn, blockpos);
-                itemstack.shrink(1);
+                if(!playerIn.isCreative())
+                    itemstack.shrink(1);
                 return ActionResult.resultConsume(itemstack);
             }
             return ActionResult.resultPass(itemstack);
