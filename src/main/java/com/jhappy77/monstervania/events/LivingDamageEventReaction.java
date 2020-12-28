@@ -34,15 +34,15 @@ public class LivingDamageEventReaction {
         Entity entitySource;
 
         // Gets enemy's item, if applicable
-        Monstervania.LOGGER.debug("Damage type is: " + source.getDamageType());
+        //Monstervania.LOGGER.debug("Damage type is: " + source.getDamageType());
         if(source instanceof EntityDamageSource){
             entitySource = ((EntityDamageSource)source).getTrueSource();
-            Monstervania.LOGGER.debug("true source is" + entitySource.toString());
+            //Monstervania.LOGGER.debug("true source is" + entitySource.toString());
             if(entitySource instanceof LivingEntity){
                 LivingEntity liveEntitySource = (LivingEntity)entitySource;
                 ItemStack heldStack = (liveEntitySource != null ? (liveEntitySource.getHeldItemMainhand()): ItemStack.EMPTY);
                 enemyItem = heldStack.getItem();
-                Monstervania.LOGGER.debug("Enemy item is: " + enemyItem.toString());
+                //Monstervania.LOGGER.debug("Enemy item is: " + enemyItem.toString());
             }
 
         }

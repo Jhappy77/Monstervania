@@ -98,7 +98,10 @@ dependencies {
     minecraft 'net.minecraftforge:forge:1.16.3-34.1.0'
     // Old: 'net.minecraftforge:forge:1.16.2-33.0.37'
 
-    implementation fg.deobf('software.bernie.geckolib:forge-1.16.3-geckolib:2.1.1')
+    //Geckolib 3.0 https://geckolib.com/en/latest/3.0.0/
+    implementation fg.deobf('software.bernie.geckolib:forge-1.16.4-geckolib:3.0.0')
+
+
     // You may put jars on which you depend on in ./libs or you may define them like so..
     // compile "some.group:artifact:version:classifier"
     // compile "some.group:artifact:version"
@@ -123,12 +126,12 @@ dependencies {
 jar {
     manifest {
         attributes([
-            "Specification-Title": "examplemod",
-            "Specification-Vendor": "examplemodsareus",
+            "Specification-Title": "monstervania",
+            "Specification-Vendor": "Jhappy77",
             "Specification-Version": "1", // We are version 1 of ourselves
             "Implementation-Title": project.name,
             "Implementation-Version": "${version}",
-            "Implementation-Vendor" :"examplemodsareus",
+            "Implementation-Vendor" :"Jhappy77",
             "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }

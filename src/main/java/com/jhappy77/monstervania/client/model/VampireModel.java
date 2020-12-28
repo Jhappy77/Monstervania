@@ -188,6 +188,11 @@ public class VampireModel<T extends VampireEntity> extends EntityModel<T> {
 //            this.right_leg.rotateAngleX = MathHelper.lerp(this.swimAnimation, this.right_leg.rotateAngleX, 0.3F * MathHelper.cos(limbSwing * 0.33333334F));
 
         //this.headwear.copyModelAngles(this.head);
+        int i = entityIn.getAttackTimer();
+        if(i>0) {
+            this.right_arm.rotateAngleX = -2.0F + 1.5F * MathHelper.func_233021_e_((float) i, 10.0F);
+            this.left_arm.rotateAngleX = -2.0F + 1.5F * MathHelper.func_233021_e_((float) i, 10.0F);
+        }
 
     }
 

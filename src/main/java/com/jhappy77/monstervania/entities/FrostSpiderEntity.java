@@ -1,6 +1,7 @@
 package com.jhappy77.monstervania.entities;
 
 import com.jhappy77.monstervania.Monstervania;
+import com.jhappy77.monstervania.util.MvMobSpawnInfo;
 import com.jhappy77.monstervania.util.MvSpawnCondition;
 import net.minecraft.client.renderer.entity.HuskRenderer;
 import net.minecraft.entity.Entity;
@@ -9,7 +10,10 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
+import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.monster.SpiderEntity;
+import net.minecraft.entity.passive.IronGolemEntity;
+import net.minecraft.entity.passive.RabbitEntity;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.world.World;
@@ -21,6 +25,8 @@ public class FrostSpiderEntity extends SpiderEntity {
 
     public FrostSpiderEntity(EntityType<? extends FrostSpiderEntity> type, World worldIn) {
         super(type, worldIn);
+        // It will hunt rabbits now!
+        this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, RabbitEntity.class, true));
     }
 
     // func_233666_p_ = registerAttributes
@@ -33,11 +39,9 @@ public class FrostSpiderEntity extends SpiderEntity {
                 .createMutableAttribute(Attributes.FOLLOW_RANGE, 35.0D);
     }
 
-    //HuskRenderer
-
     @Override
     public boolean attackEntityAsMob(Entity entityIn){
-        Monstervania.LOGGER.debug("Frost spider attacked!");
+        //Poisons the creature it is attacking with slowness
         //EntityIn is the one being attacked
         if(entityIn.isAlive() && entityIn instanceof LivingEntity){
             LivingEntity e = (LivingEntity) entityIn;
@@ -49,9 +53,11 @@ public class FrostSpiderEntity extends SpiderEntity {
         return super.attackEntityAsMob(entityIn);
     }
 
-    public static List<MvSpawnCondition> spawnConditions() {
-        ArrayList<MvSpawnCondition> conditions = new ArrayList<>();
-        conditions.add(new MvSpawnCondition(100, 1, 1).restrictToOverworld().restrictToLand().addBiomeSpawnClause(
+    public static List<MvSpawnCondition<MvMobSpawnInfo>> spawnConditions() {
+        ArrayList<MvSpawnCondition<MvMobSpawnInfo>> conditions = new ArrayList<>();
+        conditions.add(new MvSpawnCondition(new MvMobSpawnInfo(100, 1, 1))
+                .restrictToOverworld().restrictToLand().monsterSpawnTime()
+                .addBiomeSpawnClause(
                 new MvSpawnCondition.BiomeTemperatureClause().setMaxTemp(0.05f)
         ));
         return conditions;

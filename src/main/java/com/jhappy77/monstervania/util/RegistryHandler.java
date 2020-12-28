@@ -1,16 +1,10 @@
 package com.jhappy77.monstervania.util;
 
 import com.jhappy77.monstervania.Monstervania;
-import com.jhappy77.monstervania.blocks.BlockItemBase;
-import com.jhappy77.monstervania.blocks.DarkStoneBrickStairs;
-import com.jhappy77.monstervania.blocks.DarkStoneBricksBlock;
-import com.jhappy77.monstervania.blocks.DarkStoneBricksSlab;
+import com.jhappy77.monstervania.blocks.*;
 import com.jhappy77.monstervania.init.ModEntityTypes;
-import com.jhappy77.monstervania.items.Bandages;
-import com.jhappy77.monstervania.items.ItemBase;
-import com.jhappy77.monstervania.items.ModSpawnEggItem;
+import com.jhappy77.monstervania.items.*;
 import net.minecraft.block.Block;
-import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -34,11 +28,11 @@ public class RegistryHandler {
     // Items
     public static final RegistryObject<Item> VAMPIRE_FANG = ITEMS.register("vampire_fang", ItemBase::new);
     public static final RegistryObject<Item> WRAPPINGS = ITEMS.register("wrappings", ItemBase::new);
-    public static final RegistryObject<Bandages> BANDAGES = ITEMS.register("bandages", Bandages::new);
-    public static final RegistryObject<Item> LIGHTNING_ROD = ITEMS.register("lightning_rod", ItemBase::new);
+    public static final RegistryObject<BandagesItem> BANDAGES = ITEMS.register("bandages", BandagesItem::new);
+    public static final RegistryObject<Item> LIGHTNING_WAND = ITEMS.register("lightning_wand", LightningWandItem::new);
     public static final RegistryObject<Item> VOLT_DUST = ITEMS.register("volt_dust", ItemBase::new);
     public static final RegistryObject<Item> VAMPIRE_DUST = ITEMS.register("vampire_dust", ItemBase::new);
-    public static final RegistryObject<Item> RAT_TAIL = ITEMS.register("rat_tail", ItemBase::new);
+    public static final RegistryObject<Item> RAT_TAIL = ITEMS.register("rat_tail", RatTailItem::new);
 
     public static final RegistryObject<ModSpawnEggItem> VAMPIRE_VOODOO_DOLL = registerSpawnEgg("vampire_voodoo_doll", ModEntityTypes.VAMPIRE, 0x478E88, 0x303030);
     public static final RegistryObject<ModSpawnEggItem> SUMMON_FRANKENGOLEM = registerSpawnEgg("summon_frankengolem",ModEntityTypes.FRANKENGOLEM, 0x626D39, 0x0A1500);
@@ -51,11 +45,12 @@ public class RegistryHandler {
     public static final RegistryObject<Block> DARK_STONE_BRICKS_BLOCK = BLOCKS.register("dark_stone_bricks_block", DarkStoneBricksBlock::new);
     public static final RegistryObject<Block> DARK_STONE_BRICKS_SLAB = BLOCKS.register("dark_stone_bricks_slab", DarkStoneBricksSlab::new);
     public static final RegistryObject<Block> DARK_STONE_BRICK_STAIRS = BLOCKS.register("dark_stone_brick_stairs", DarkStoneBrickStairs::new);
+    public static final RegistryObject<Block> DARK_STONE_BRICK_WALL = BLOCKS.register("dark_stone_brick_wall", DarkStoneBrickWall::new);
 
     // Block Items
     public static final RegistryObject<Item> DARK_STONE_BRICKS_BLOCK_ITEM = ITEMS.register("dark_stone_bricks_block", () -> new BlockItemBase(DARK_STONE_BRICKS_BLOCK.get()));
     public static final RegistryObject<Item> DARK_STONE_BRICKS_SLAB_ITEM = ITEMS.register("dark_stone_bricks_slab", () -> new BlockItemBase(DARK_STONE_BRICKS_SLAB.get()));
     public static final RegistryObject<Item> DARK_STONE_BRICK_STAIRS_ITEM = ITEMS.register("dark_stone_brick_stairs", () -> new BlockItemBase(DARK_STONE_BRICK_STAIRS.get()));
-
+    public static final RegistryObject<Item> DARK_STONE_BRICK_WALL_ITEM = ITEMS.register("dark_stone_brick_wall", () -> new BlockItemBase(DARK_STONE_BRICK_WALL.get()));
 
 }

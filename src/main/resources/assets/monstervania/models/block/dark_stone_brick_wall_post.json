@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_wall_post",
+  "textures": {
+    "wall": "monstervania:blocks/dark_stone_bricks_block"
+  }
+}

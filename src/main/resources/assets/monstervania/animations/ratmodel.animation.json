@@ -1,8 +1,9 @@
 {
 	"format_version": "1.8.0",
 	"animations": {
-		"animation.monstervania.walk": {
-			"animation_length": 0.76,
+		"animation.rat.walk": {
+			"loop": true,
+			"animation_length": 0.55,
 			"bones": {
 				"ratHindLegRight": {
 					"rotation": {
@@ -119,10 +120,37 @@
 							"vector": [0, 0, 0]
 						}
 					}
+				},
+				"ratBody": {
+					"position": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.28": {
+							"vector": [0, 1.5, 0]
+						},
+						"0.52": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"ratHead": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.28": {
+							"vector": [12.5, 0, 0]
+						},
+						"0.52": {
+							"vector": [0, 0, 0]
+						}
+					}
 				}
 			}
 		},
-		"animation.monstervania.claw": {
+		"animation.rat.claw": {
+			"loop": true,
 			"animation_length": 0.88,
 			"bones": {
 				"ratHead": {
@@ -269,10 +297,37 @@
 							"vector": [0, 0, 0]
 						}
 					}
+				},
+				"ratBody": {
+					"position": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.4": {
+							"vector": [0, -1, 0]
+						},
+						"0.84": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"tailLower": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.28": {
+							"vector": [12.5, 0, 0]
+						},
+						"0.84": {
+							"vector": [0, 0, 0]
+						}
+					}
 				}
 			}
 		},
-		"animation.monstervania.simplewalk": {
+		"animation.rat.oldwalk": {
+			"loop": true,
 			"animation_length": 0.96,
 			"bones": {
 				"ratHindLegRight": {
@@ -434,6 +489,68 @@
 					}
 				}
 			}
+		},
+		"animation.rat.idle": {
+			"loop": true,
+			"animation_length": 1.2,
+			"bones": {
+				"ratBody": {
+					"position": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.6": {
+							"vector": [0, 0.8, 0],
+							"easing": "easeOutQuad"
+						},
+						"1.2": {
+							"vector": [0, 0, 0],
+							"easing": "easeOutQuad"
+						}
+					}
+				},
+				"ratHead": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.28": {
+							"vector": [0, 17.5, 0]
+						},
+						"0.6": {
+							"vector": [0, 0, 0]
+						},
+						"0.92": {
+							"vector": [0, -17.5, 0]
+						},
+						"1.2": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"ratTail": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.28": {
+							"vector": [0, -5, 0],
+							"easing": "step",
+							"easingArgs": [10]
+						},
+						"0.6": {
+							"vector": [0, 0, 0]
+						},
+						"0.92": {
+							"vector": [0, 5, 0]
+						},
+						"1.2": {
+							"vector": [0, 0, 0]
+						}
+					}
+				}
+			}
 		}
-	}
+	},
+	"geckolib_format_version": 2
 }

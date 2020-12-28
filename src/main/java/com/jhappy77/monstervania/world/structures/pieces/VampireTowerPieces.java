@@ -2,7 +2,7 @@ package com.jhappy77.monstervania.world.structures.pieces;
 
 import com.google.common.collect.ImmutableMap;
 import com.jhappy77.monstervania.Monstervania;
-import com.jhappy77.monstervania.init.FeaturesInit;
+import com.jhappy77.monstervania.init.UnconfiguredStructures;
 import net.minecraft.block.Blocks;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ChestTileEntity;
@@ -46,7 +46,7 @@ public class VampireTowerPieces {
 
         public Piece(TemplateManager templateManagerIn, ResourceLocation resourceLocationIn, BlockPos pos,
                      Rotation rotationIn) {
-            super(FeaturesInit.VAMPIRE_TOWER_PIECE, 0);
+            super(UnconfiguredStructures.VAMPIRE_TOWER_PIECE, 0);
             this.resourceLocation = resourceLocationIn;
             BlockPos blockpos = VampireTowerPieces.OFFSET.get(resourceLocation);
             this.templatePosition = pos.add(blockpos.getX(), blockpos.getY(), blockpos.getZ());
@@ -55,7 +55,7 @@ public class VampireTowerPieces {
         }
 
         public Piece(TemplateManager templateManagerIn, CompoundNBT tagCompound) {
-            super(FeaturesInit.VAMPIRE_TOWER_PIECE, tagCompound);
+            super(UnconfiguredStructures.VAMPIRE_TOWER_PIECE, tagCompound);
             this.resourceLocation = new ResourceLocation(tagCompound.getString("Template"));
             this.rotation = Rotation.valueOf(tagCompound.getString("Rot"));
             this.setupPiece(templateManagerIn);
@@ -81,6 +81,7 @@ public class VampireTowerPieces {
                 worldIn.setBlockState(pos, Blocks.CHEST.getDefaultState(), 2);
                 TileEntity tileentity = worldIn.getTileEntity(pos);
                 if (tileentity instanceof ChestTileEntity) {
+                    Monstervania.LOGGER.debug("I saw a chest data marker in vamptower at  " + pos.getCoordinatesAsString());
                     // here you can set any loot tables for the chests
                     // ((ChestTileEntity) tileentity).setLootTable(<resource_location_to_loottable>, rand.nextLong());
                 }

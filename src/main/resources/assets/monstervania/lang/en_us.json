@@ -7,6 +7,7 @@
   "item.monstervania.volt_dust": "Volt Dust",
   "item.monstervania.vampire_dust": "Vampire Dust",
   "item.monstervania.rat_tail": "Rat Tail",
+  "item.monstervania.lightning_wand": "Lightning Rod",
 
   "item.monstervania.vampire_voodoo_doll": "Vampire Voodoo Doll",
   "item.monstervania.summon_frankengolem": "Summon Frankengolem",
@@ -18,6 +19,7 @@
   "block.monstervania.dark_stone_bricks_block": "Dark Stone Bricks",
   "block.monstervania.dark_stone_bricks_slab": "Dark Stone Brick Slab",
   "block.monstervania.dark_stone_brick_stairs": "Dark Stone Brick Stairs",
+  "block.monstervania.dark_stone_brick_wall": "Dark Stone Brick Wall",
 
   "entity.monstervania.vampire": "Vampire",
   "entity.monstervania.frankengolem": "Frankengolem",
