@@ -14,7 +14,7 @@ public class VampireRenderer extends MobRenderer<VampireEntity, VampireModel<Vam
 
     public VampireRenderer(EntityRendererManager rendererManagerIn){
         super(rendererManagerIn, new VampireModel<>(), 0.8f);
-        this.addLayer(new VampireEyesLayer<>(this));
+        //this.addLayer(new VampireEyesLayer<>(this));
     }
 
     @Override

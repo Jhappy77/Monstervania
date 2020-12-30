@@ -78,6 +78,7 @@ public class VampireEntity extends MonsterEntity implements MvDamageModifiable, 
                 .createMutableAttribute(Attributes.ATTACK_DAMAGE, 2)
                 .createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 1)
                 .createMutableAttribute(Attributes.ATTACK_SPEED, 1.5)
+                .createMutableAttribute(Attributes.KNOCKBACK_RESISTANCE, -0.5)
                 .createMutableAttribute(Attributes.FOLLOW_RANGE, 35.0D);
     }
 
@@ -85,11 +86,11 @@ public class VampireEntity extends MonsterEntity implements MvDamageModifiable, 
     // The lower the priority number, the more likely mob is to do task
     @Override
     protected void registerGoals(){
-        super.registerGoals();
+        //super.registerGoals();
         this.goalSelector.addGoal(0, new SwimGoal(this));
         this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.0f,true));
         this.goalSelector.addGoal(0, new RestrictSunGoal(this));
-        this.goalSelector.addGoal(1, new FleeSunEarlyGoal(this, 1.0f));
+        this.goalSelector.addGoal(1, new FleeSunEarlyGoal(this, 0.5F));
         this.goalSelector.addGoal(5, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
         this.goalSelector.addGoal(8, new LookAtGoal(this, PlayerEntity.class, 8.0F));
         this.goalSelector.addGoal(8, new LookRandomlyGoal(this));
