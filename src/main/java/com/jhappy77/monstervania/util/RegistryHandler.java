@@ -5,6 +5,8 @@ import com.jhappy77.monstervania.blocks.*;
 import com.jhappy77.monstervania.init.ModEntityTypes;
 import com.jhappy77.monstervania.items.*;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.WallBlock;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -45,7 +47,7 @@ public class RegistryHandler {
     public static final RegistryObject<Block> DARK_STONE_BRICKS_BLOCK = BLOCKS.register("dark_stone_bricks_block", DarkStoneBricksBlock::new);
     public static final RegistryObject<Block> DARK_STONE_BRICKS_SLAB = BLOCKS.register("dark_stone_bricks_slab", DarkStoneBricksSlab::new);
     public static final RegistryObject<Block> DARK_STONE_BRICK_STAIRS = BLOCKS.register("dark_stone_brick_stairs", DarkStoneBrickStairs::new);
-    public static final RegistryObject<Block> DARK_STONE_BRICK_WALL = BLOCKS.register("dark_stone_brick_wall", DarkStoneBrickWall::new);
+    public static final RegistryObject<WallBlock> DARK_STONE_BRICK_WALL = BLOCKS.register("dark_stone_brick_wall", ()-> new WallBlock(Block.Properties.from(Blocks.STONE_BRICK_WALL)));
 
     // Block Items
     public static final RegistryObject<Item> DARK_STONE_BRICKS_BLOCK_ITEM = ITEMS.register("dark_stone_bricks_block", () -> new BlockItemBase(DARK_STONE_BRICKS_BLOCK.get()));

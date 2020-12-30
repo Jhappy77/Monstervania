@@ -1,21 +1,18 @@
 package com.jhappy77.monstervania;
 
-import com.jhappy77.monstervania.entities.FrankengolemEntity;
-import com.jhappy77.monstervania.entities.FrostSpiderEntity;
-import com.jhappy77.monstervania.entities.MummifiedCreeperEntity;
-import com.jhappy77.monstervania.entities.VampireEntity;
-import com.jhappy77.monstervania.init.ConfiguredStructures;
-import com.jhappy77.monstervania.init.SoundInit;
-import com.jhappy77.monstervania.init.UnconfiguredStructures;
-import com.jhappy77.monstervania.init.ModEntityTypes;
+import com.jhappy77.monstervania.entities.*;
+import com.jhappy77.monstervania.init.*;
 import com.jhappy77.monstervania.lists.ParticleList;
 import com.jhappy77.monstervania.util.RegistryHandler;
+import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
+import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.FlatChunkGenerator;
+import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.gen.settings.DimensionStructuresSettings;
 import net.minecraft.world.gen.settings.StructureSeparationSettings;
@@ -59,7 +56,7 @@ public class Monstervania
 
         modEventBus.addListener(this::setup);
         modEventBus.addListener(this::doClientStuff);
-        modEventBus.addGenericListener(Structure.class, this::onRegisterStructures);
+
 
         // Registers sounds (must be done before stuff that uses them, like items)
         SoundInit.SOUNDS.register(modEventBus);
@@ -70,9 +67,15 @@ public class Monstervania
         ParticleList.PARTICLES.register(modEventBus);
 
         ModEntityTypes.ENTITY_TYPES.register(modEventBus);
+
+        // Register Jigsaw Structures
+        JigsawStructures.DEFERRED_REGISTRY_STRUCTURE.register(modEventBus);
+
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
         //FeaturesInit.FEATURES.register(modEventBus);
+
+        modEventBus.addGenericListener(Structure.class, this::onRegisterStructures);
 
         IEventBus forgeBus = MinecraftForge.EVENT_BUS;
         forgeBus.addListener(EventPriority.NORMAL, this::addDimensionalSpacing);
@@ -86,7 +89,13 @@ public class Monstervania
             GlobalEntityTypeAttributes.put(ModEntityTypes.FRANKENGOLEM.get(), FrankengolemEntity.setCustomAttributes().create());
             GlobalEntityTypeAttributes.put(ModEntityTypes.FROST_SPIDER.get(), FrostSpiderEntity.setCustomAttributes().create());
             GlobalEntityTypeAttributes.put(ModEntityTypes.MUMMIFIED_CREEPER.get(), MummifiedCreeperEntity.setCustomAttributes().create());
-            GlobalEntityTypeAttributes.put(ModEntityTypes.RAT.get(), MummifiedCreeperEntity.setCustomAttributes().create());
+            GlobalEntityTypeAttributes.put(ModEntityTypes.RAT.get(), RatEntity.setCustomAttributes().create());
+
+            EntitySpawnPlacementRegistry.register(ModEntityTypes.VAMPIRE.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MonsterEntity::canMonsterSpawn);
+            EntitySpawnPlacementRegistry.register(ModEntityTypes.FRANKENGOLEM.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MonsterEntity::canMonsterSpawn);
+            EntitySpawnPlacementRegistry.register(ModEntityTypes.FROST_SPIDER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MonsterEntity::canMonsterSpawn);
+            EntitySpawnPlacementRegistry.register(ModEntityTypes.MUMMIFIED_CREEPER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MonsterEntity::canMonsterSpawn);
+            EntitySpawnPlacementRegistry.register(ModEntityTypes.RAT.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MonsterEntity::canMonsterSpawn);
         });
     }
 
@@ -110,6 +119,8 @@ public class Monstervania
         // If you don't do this, bad things might happen... very bad things... Spooky...
         Monstervania.LOGGER.log(Level.INFO, "Beginning to register structures...");
         UnconfiguredStructures.registerStructures(event);
+        Monstervania.LOGGER.log(Level.INFO, "Registering Jigsaw structures...");
+        JigsawStructures.setupStructures();
         Monstervania.LOGGER.log(Level.INFO, "Registering configured structures...");
         ConfiguredStructures.registerConfiguredStructures();
         Monstervania.LOGGER.log(Level.INFO, "structures registered.");
@@ -142,11 +153,11 @@ public class Monstervania
             // Add entries for our custom structures
             tempMap.put(UnconfiguredStructures.VAMPIRE_TOWER, DimensionStructuresSettings.field_236191_b_.get(UnconfiguredStructures.VAMPIRE_TOWER));
             tempMap.put(UnconfiguredStructures.FROST_SPIDER_PIT, DimensionStructuresSettings.field_236191_b_.get(UnconfiguredStructures.FROST_SPIDER_PIT));
-            tempMap.put(UnconfiguredStructures.SPHINX_BASE,
-                    DimensionStructuresSettings.field_236191_b_.get(UnconfiguredStructures.SPHINX_BASE));
+//            tempMap.put(UnconfiguredStructures.SPHINX_BASE,
+//                    DimensionStructuresSettings.field_236191_b_.get(UnconfiguredStructures.SPHINX_BASE));
             tempMap.put(UnconfiguredStructures.VAMPIRE_LAIR_SMALL,
                     DimensionStructuresSettings.field_236191_b_.get(UnconfiguredStructures.VAMPIRE_LAIR_SMALL));
-
+            tempMap.put(JigsawStructures.SPHINX.get(), DimensionStructuresSettings.field_236191_b_.get(JigsawStructures.SPHINX.get()));
 
             /** Template
              tempMap.put(UnconfiguredStructures.MY_STRUCT,

@@ -3,10 +3,7 @@ package com.jhappy77.monstervania.init;
 import com.jhappy77.monstervania.Monstervania;
 import com.jhappy77.monstervania.util.MvSpawnCondition;
 import com.jhappy77.monstervania.util.MvStructureSpawnInfo;
-import com.jhappy77.monstervania.world.structures.FrostSpiderPitStructure;
-import com.jhappy77.monstervania.world.structures.SphinxBaseStructure;
-import com.jhappy77.monstervania.world.structures.VampireLairSmallStructure;
-import com.jhappy77.monstervania.world.structures.VampireTowerStructure;
+import com.jhappy77.monstervania.world.structures.*;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.WorldGenRegistries;
@@ -31,8 +28,6 @@ public class ConfiguredStructures {
      */
 
 
-    public static Map<StructureFeature<?, ?>, List<MvSpawnCondition<MvStructureSpawnInfo>>> configuredStructureSpawnList = new HashMap<>();
-
 
     /** Template
      public static StructureFeature<?, ?> CONFIGURED_MY_STRUCTURE =
@@ -44,9 +39,9 @@ public class ConfiguredStructures {
         public static StructureFeature<?, ?> CONFIGURED_FROST_SPIDER_PIT = UnconfiguredStructures.FROST_SPIDER_PIT.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG);
         public static StructureFeature<?, ?> CONFIGURED_VAMPIRE_LAIR_SMALL =
             UnconfiguredStructures.VAMPIRE_LAIR_SMALL.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG);
-        public static StructureFeature<?, ?> CONFIGURED_SPHINX_BASE =
-            UnconfiguredStructures.SPHINX_BASE.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG);
-
+//        public static StructureFeature<?, ?> CONFIGURED_SPHINX_BASE =
+//            UnconfiguredStructures.SPHINX_BASE.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG);
+        public static StructureFeature<?, ?> CONFIGURED_SPHINX = JigsawStructures.SPHINX.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG);
 
     /*
          * Registers the configured structure which is what gets added to the biomes.
@@ -58,8 +53,9 @@ public class ConfiguredStructures {
             Registry.register(registry, new ResourceLocation(Monstervania.MOD_ID, "configured_frost_spider_pit"), CONFIGURED_FROST_SPIDER_PIT);
             Registry.register(registry, new ResourceLocation(Monstervania.MOD_ID, "configured_vampire_lair_small"),
                     CONFIGURED_VAMPIRE_LAIR_SMALL);
-            Registry.register(registry, new ResourceLocation(Monstervania.MOD_ID, "configured_sphinx_base"),
-                    CONFIGURED_SPHINX_BASE);
+//            Registry.register(registry, new ResourceLocation(Monstervania.MOD_ID, "configured_sphinx_base"),
+//                    CONFIGURED_SPHINX_BASE);
+            Registry.register(registry, new ResourceLocation(Monstervania.MOD_ID, "configured_sphinx"), CONFIGURED_SPHINX);
 
             /**
              Template:
@@ -71,7 +67,7 @@ public class ConfiguredStructures {
             addToSpawnList(CONFIGURED_VAMPIRE_TOWER, VampireTowerStructure.spawnConditions);
             addToSpawnList(CONFIGURED_FROST_SPIDER_PIT, FrostSpiderPitStructure.spawnConditions);
             addToSpawnList(CONFIGURED_VAMPIRE_LAIR_SMALL, VampireLairSmallStructure.spawnConditions);
-            addToSpawnList(CONFIGURED_SPHINX_BASE, SphinxBaseStructure.spawnConditions);
+            addToSpawnList(CONFIGURED_SPHINX, SphinxStructure.spawnConditions);
 
             /**
              Template:
@@ -92,6 +88,9 @@ public class ConfiguredStructures {
             // the restart but honestly, superflat is really buggy and shouldn't be you main focus in my opinion.
             //FlatGenerationSettings.STRUCTURES.put(UnconfiguredStructures.VAMPIRE_TOWER, CONFIGURED_VAMPIRE_TOWER);
         }
+
+    // Used for keeping track of spawn conditions for each structure
+    public static Map<StructureFeature<?, ?>, List<MvSpawnCondition<MvStructureSpawnInfo>>> configuredStructureSpawnList = new HashMap<>();
 
     /**
      * Adds a structure and its spawn conditions to the configured spawn list - this will be used for deciding where to
