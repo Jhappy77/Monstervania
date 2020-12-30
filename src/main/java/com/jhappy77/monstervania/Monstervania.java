@@ -1,9 +1,6 @@
 package com.jhappy77.monstervania;
 
-import com.jhappy77.monstervania.entities.FrankengolemEntity;
-import com.jhappy77.monstervania.entities.FrostSpiderEntity;
-import com.jhappy77.monstervania.entities.MummifiedCreeperEntity;
-import com.jhappy77.monstervania.entities.VampireEntity;
+import com.jhappy77.monstervania.entities.*;
 import com.jhappy77.monstervania.init.ConfiguredStructures;
 import com.jhappy77.monstervania.init.SoundInit;
 import com.jhappy77.monstervania.init.UnconfiguredStructures;
@@ -86,7 +83,7 @@ public class Monstervania
             GlobalEntityTypeAttributes.put(ModEntityTypes.FRANKENGOLEM.get(), FrankengolemEntity.setCustomAttributes().create());
             GlobalEntityTypeAttributes.put(ModEntityTypes.FROST_SPIDER.get(), FrostSpiderEntity.setCustomAttributes().create());
             GlobalEntityTypeAttributes.put(ModEntityTypes.MUMMIFIED_CREEPER.get(), MummifiedCreeperEntity.setCustomAttributes().create());
-            GlobalEntityTypeAttributes.put(ModEntityTypes.RAT.get(), MummifiedCreeperEntity.setCustomAttributes().create());
+            GlobalEntityTypeAttributes.put(ModEntityTypes.RAT.get(), RatEntity.setCustomAttributes().create());
         });
     }
 
