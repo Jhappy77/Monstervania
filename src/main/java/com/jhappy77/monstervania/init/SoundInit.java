@@ -10,6 +10,12 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class SoundInit {
     public static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, Monstervania.MOD_ID);
 
+    public static final RegistryObject<SoundEvent> ENTITY_RAT_AMBIENT = registerSound("entity.rat_entity.ambient");
+    public static final RegistryObject<SoundEvent> ENTITY_RAT_DEATH = registerSound("entity.rat_entity.death");
+    public static final RegistryObject<SoundEvent> ENTITY_RAT_HURT = registerSound("entity.rat_entity.hurt");
+
+
+
     public static final RegistryObject<SoundEvent> VAMPIRE_AMBIENT = SOUNDS.register("entity.vampire_entity.ambient",
             ()-> new SoundEvent(new ResourceLocation(Monstervania.MOD_ID, "entity.vampire_entity.ambient")));
 
@@ -17,6 +23,9 @@ public class SoundInit {
             ()-> new SoundEvent(new ResourceLocation(Monstervania.MOD_ID, "entity.vampire_entity.hurt")));
 
     public static final RegistryObject<SoundEvent> ENTITY_VAMPIRE_DEATH = registerSound("entity.vampire_entity.death");
+
+
+
 
 
     public static RegistryObject<SoundEvent> registerSound(String path){

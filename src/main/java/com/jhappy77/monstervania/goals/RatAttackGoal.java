@@ -22,7 +22,7 @@ public class RatAttackGoal extends MeleeAttackGoal {
         LivingEntity target = this.attacker.getAttackTarget();
         if(target != null) {
             // If the sq distance between target and attacker is less than the attack reach plus 0.5 (buffer) return true
-            return ((this.getAttackReachSqr(target) + 0.5) >= this.attacker.getDistanceSq(this.attacker.getAttackTarget()));
+            return ((this.getAttackReachSqr(target) + 0.6) >= this.attacker.getDistanceSq(this.attacker.getAttackTarget()));
         }
         return false;
     }
@@ -33,8 +33,9 @@ public class RatAttackGoal extends MeleeAttackGoal {
         // Attack Timer
         //if(super.func_234041_j_() > 10){
         // Attack timer is less than or equal zero (fully reset)
-        if(super.func_234040_h_() && isCloseToReach()){
+        if(!super.func_234040_h_() || isCloseToReach()){
             //Monstervania.LOGGER.debug("Rats attack timer was active!");
+            // Start attack animation
             ratEntity.setAttacking(true);
             // Start counting down til animation is done.
             resetAnimationTicks();

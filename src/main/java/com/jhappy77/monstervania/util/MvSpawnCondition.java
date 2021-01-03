@@ -1,8 +1,10 @@
 package com.jhappy77.monstervania.util;
 
+import net.minecraft.util.RegistryKey;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.Biomes;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 
 import java.util.ArrayList;
@@ -117,6 +119,36 @@ public class MvSpawnCondition <T> {
 
             for(Biome.Category bc : possibleBiomes){
                 if(bc == b.getCategory())
+                    return true;
+            }
+            return false;
+        }
+    }
+
+    /**
+     * A clause which checks if the category of the current biome is a match for any of the added Biome Categories
+     */
+    public static class BiomeInstanceSpawnClause implements BiomeSpawnClause{
+
+        // A list of biomes which would satisfy the clause
+        private List<RegistryKey<Biome>> possibleBiomes;
+
+        public BiomeInstanceSpawnClause(){
+            possibleBiomes = new ArrayList<>();
+        }
+
+        /**
+         * Adds a biome to the list of approved biomes for the spawn
+         * @return This object, to allow chaining
+         */
+        public BiomeInstanceSpawnClause addBiome(RegistryKey<Biome> bk){
+            possibleBiomes.add(bk);
+            return this;
+        }
+        @Override
+        public boolean evaluateClause(BiomeLoadingEvent b){
+            for(RegistryKey<Biome> bk : possibleBiomes){
+                if(bk.getLocation().toString().equalsIgnoreCase(b.getName().toString()))
                     return true;
             }
             return false;

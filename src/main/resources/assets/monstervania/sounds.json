@@ -1,4 +1,58 @@
 {
+  "entity.rat_entity.ambient": {
+    "category": "entity",
+    "subtitle": "entity.rat_entity.ambient",
+    "sounds": [
+      {
+        "name": "monstervania:entity/rat_entity/ambient0",
+        "stream": true
+      },
+      {
+        "name": "monstervania:entity/rat_entity/ambient1",
+        "stream": true
+      },
+      {
+        "name": "monstervania:entity/rat_entity/ambient2",
+        "stream": true
+      },
+      {
+        "name": "monstervania:entity/rat_entity/ambient3",
+        "stream": true
+      }
+    ]
+  },
+  "entity.rat_entity.hurt": {
+    "category": "entity",
+    "subtitle": "entity.rat_entity.hurt",
+    "sounds": [
+      {
+        "name": "monstervania:entity/rat_entity/hurt0",
+        "stream": true
+      },
+      {
+        "name": "monstervania:entity/rat_entity/hurt1",
+        "stream": true
+      },
+      {
+        "name": "monstervania:entity/rat_entity/hurt2",
+        "stream": true
+      },
+      {
+        "name": "monstervania:entity/rat_entity/hurt3",
+        "stream": true
+      }
+    ]
+  },
+  "entity.rat_entity.death": {
+    "category": "entity",
+    "subtitle": "entity.rat_entity.death",
+    "sounds": [
+      {
+        "name": "monstervania:entity/rat_entity/death0",
+        "stream": true
+      }
+    ]
+  },
   "entity.vampire_entity.ambient": {
     "category": "entity",
     "subtitle": "entity.vampire_entity.ambient",

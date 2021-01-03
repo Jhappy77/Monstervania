@@ -10,8 +10,7 @@
     {
       "weight": 1,
       "element": {
-        "location": "monstervania:sphinx_base",
-        "_comment10": "Processor JSON files can be used to randomize or replace blocks dynamically. Here, we don't do any of that.",
+        "location": "monstervania:sphinx_labyrinth",
         "processors": "minecraft:empty",
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"

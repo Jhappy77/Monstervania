@@ -57,11 +57,11 @@ public class FrankengolemEntity extends MonsterEntity implements MvDamageModifia
 
     public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
         return MobEntity.func_233666_p_()
-                .createMutableAttribute(Attributes.MAX_HEALTH, 75.0D)
+                .createMutableAttribute(Attributes.MAX_HEALTH, 60.0D)
                 .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.25D)
                 .createMutableAttribute(Attributes.KNOCKBACK_RESISTANCE, 1.0D)
                 .createMutableAttribute(Attributes.ATTACK_SPEED, 0.00000000001D)
-                .createMutableAttribute(Attributes.ATTACK_DAMAGE, 15.0D);
+                .createMutableAttribute(Attributes.ATTACK_DAMAGE, 6.0D);
 
     }
 

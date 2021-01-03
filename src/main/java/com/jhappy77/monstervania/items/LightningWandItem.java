@@ -34,25 +34,7 @@ public class LightningWandItem extends Item {
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
         ItemStack itemstack = playerIn.getHeldItem(handIn);
-        if (lightningPlaced) {
-            Monstervania.LOGGER.debug("Lightning placed!");
-            if (position != null) {
-                int y = worldIn.getHeight(Heightmap.Type.WORLD_SURFACE, position.getX(), position.getZ());
 
-                LightningBoltEntity theLightning = new LightningBoltEntity(EntityType.LIGHTNING_BOLT, worldIn);
-                theLightning.setPosition(position.getX(), y, position.getZ());
-
-                worldIn.addEntity(theLightning);
-                lightningPlaced = false;
-                damageItem(itemstack, playerIn);
-                return ActionResult.resultSuccess(itemstack);
-            } else {
-                Monstervania.LOGGER.error("The position was null");
-            }
-            lightningPlaced = false;
-            return ActionResult.resultPass(itemstack);
-        } else {
-            Monstervania.LOGGER.debug("Lightning not placed!");
             RayTraceResult raytraceresult = rayTrace(worldIn, playerIn, RayTraceContext.FluidMode.ANY);
             if (raytraceresult.getType() == RayTraceResult.Type.MISS) {
                 return ActionResult.resultPass(itemstack);
@@ -69,11 +51,26 @@ public class LightningWandItem extends Item {
                 spawnEnergyParticles(worldIn, position);
 
                 lightningPlaced = true;
-                return ActionResult.resultSuccess(itemstack);
+                return placeLightning(worldIn, playerIn, itemstack);
             }
+    }
+
+    private ActionResult<ItemStack> placeLightning(World worldIn, PlayerEntity playerIn, ItemStack itemStack){
+        Monstervania.LOGGER.debug("Lightning placed!");
+        if (position != null) {
+            int y = worldIn.getHeight(Heightmap.Type.WORLD_SURFACE, position.getX(), position.getZ());
+
+            LightningBoltEntity theLightning = new LightningBoltEntity(EntityType.LIGHTNING_BOLT, worldIn);
+            theLightning.setPosition(position.getX(), y, position.getZ());
+
+            worldIn.addEntity(theLightning);
+            lightningPlaced = false;
+            damageItem(itemStack, playerIn);
+            return ActionResult.resultSuccess(itemStack);
+        } else {
+            Monstervania.LOGGER.error("The position was null");
+            return ActionResult.resultPass(itemStack);
         }
-
-
     }
 
     private void damageItem(ItemStack itemStack, PlayerEntity playerIn) {

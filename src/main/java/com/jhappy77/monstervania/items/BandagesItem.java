@@ -18,7 +18,7 @@ public class BandagesItem extends Item {
                 .food(new Food.Builder()
                 .hunger(0)
                 .saturation(0)
-                .effect(() -> new EffectInstance(Effects.INSTANT_HEALTH, 1, 1), 1)
+                .effect(() -> new EffectInstance(Effects.INSTANT_HEALTH, 0, 1), 1)
                         .setAlwaysEdible()
                         .fastToEat()
                         .build())
@@ -42,6 +42,8 @@ public class BandagesItem extends Item {
     public SoundEvent getEatSound() {
         return SoundEvents.BLOCK_WOOL_HIT;
     }
+
+
 
     @Override
     public SoundEvent getDrinkSound(){return SoundEvents.BLOCK_WOOL_PLACE;}

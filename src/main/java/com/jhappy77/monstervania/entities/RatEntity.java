@@ -1,6 +1,7 @@
 package com.jhappy77.monstervania.entities;
 
 import com.jhappy77.monstervania.goals.RatAttackGoal;
+import com.jhappy77.monstervania.init.SoundInit;
 import com.jhappy77.monstervania.util.MvEntitySpawnable;
 import com.jhappy77.monstervania.util.MvMobSpawnInfo;
 import com.jhappy77.monstervania.util.MvSpawnCondition;
@@ -135,15 +136,15 @@ public class RatEntity extends MonsterEntity implements IAnimatable, MvEntitySpa
 
 
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.ENTITY_BAT_AMBIENT;
+        return SoundInit.ENTITY_RAT_AMBIENT.get();
     }
 
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return SoundEvents.ENTITY_BAT_HURT;
+        return SoundInit.ENTITY_RAT_HURT.get();
     }
 
     protected SoundEvent getDeathSound() {
-        return SoundEvents.ENTITY_BAT_DEATH;
+        return SoundInit.ENTITY_RAT_DEATH.get();
     }
 
 }

@@ -25,6 +25,7 @@ public class ElectricParticle extends SpriteTexturedParticle {
         this.motionX *= (0.1D+speedModifier);
         this.motionY *= (0.1D+speedModifier);
         this.motionZ *= (0.1D+speedModifier);
+        this.setAlphaF(0.99F);
 
     }
 
@@ -59,7 +60,7 @@ public class ElectricParticle extends SpriteTexturedParticle {
 
     @Override
     public IParticleRenderType getRenderType() {
-        return IParticleRenderType.PARTICLE_SHEET_OPAQUE;
+        return IParticleRenderType.PARTICLE_SHEET_TRANSLUCENT; // Used to be opaque
     }
 
     // A factory for creating particle
