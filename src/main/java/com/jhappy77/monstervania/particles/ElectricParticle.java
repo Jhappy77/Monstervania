@@ -13,9 +13,9 @@ public class ElectricParticle extends SpriteTexturedParticle {
     protected ElectricParticle(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn){
         super((ClientWorld) worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
         float f = this.rand.nextFloat() * 1.0F;
-        this.particleRed = f;
-        this.particleGreen = f;
-        this.particleBlue = f;
+        this.particleRed = 1.0f;
+        this.particleGreen = 2.0f;
+        this.particleBlue = 2.0f;
 
         this.setSize(0.2f, 0.2f);
         this.particleScale *= this.rand.nextFloat() + 0.6F;

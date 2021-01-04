@@ -4,6 +4,8 @@ import com.jhappy77.monstervania.Monstervania;
 import com.jhappy77.monstervania.util.MvDamageModifiable;
 import com.jhappy77.monstervania.util.MvDamageModifier;
 import com.jhappy77.monstervania.util.MvDamageModifierType;
+import net.minecraft.client.particle.DragonBreathParticle;
+import net.minecraft.client.particle.DripParticle;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.*;

@@ -46,9 +46,9 @@ public class JigsawStructures {
             ICE_PILLAR.get(), new StructureSeparationSettings(20 /*max*/ , 10 /* min */,  SEED++ /* seed */),
                 false);
 
-        setupMapSpacingAndLand(SKELETAL_FOUNTAIN.get(), new StructureSeparationSettings(20, 15, SEED++), false);
+        setupMapSpacingAndLand(SKELETAL_FOUNTAIN.get(), new StructureSeparationSettings(30, 25, SEED++), false);
 
-        setupMapSpacingAndLand(SLIME_CAVE_SMALL.get(), new StructureSeparationSettings(20, 10, SEED++), true);
+        setupMapSpacingAndLand(SLIME_CAVE_SMALL.get(), new StructureSeparationSettings(30, 20, SEED++), true);
 
         /* Template
         setupMapSpacingAndLand(COOL_STRUCTURE.get(), new StructureSeparationSettings(20, 10, SEED++), true);
