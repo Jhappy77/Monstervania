@@ -30,14 +30,9 @@ public class ModClientEvents {
 
     @SubscribeEvent
     public static void onBiomeLoad(BiomeLoadingEvent b){
+        BiomeLoadReaction.makeVanillaAlterations(b);
         BiomeLoadReaction.addMobSpawns(b);
         BiomeLoadReaction.addStructures(b);
-
-        //Monstervania.LOGGER.debug("Biome loading name: " + b.getName());
-        //Monstervania.LOGGER.debug("Prairie: " + Biomes.PLAINS.getRegistryName() + Biomes.PLAINS.getRegistryName().toString() + Biomes.PLAINS.getLocation());
-        //[23:28:06] [Netty Local Client IO #0/DEBUG] [co.jh.mo.Monstervania/]: Biome loading name: minecraft:snowy_taiga
-        //[23:28:06] [Netty Local Client IO #0/DEBUG] [co.jh.mo.Monstervania/]: Prairie: minecraft:worldgen/biomeminecraft:worldgen/biomeminecraft:plains
-
     }
 
     /**

@@ -141,9 +141,9 @@ public class IcePillarStructure extends Structure<NoFeatureConfig> implements Mv
 
         //TODO: Change every time you add a new structure!
         static {
-            spawnConditions.add(new MvSpawnCondition<>(new MvStructureSpawnInfo()).restrictToLand().restrictToOverworld()
+            spawnConditions.add(new MvSpawnCondition<>(new MvStructureSpawnInfo()).restrictToOverworld()
                     .addBiomeSpawnClause(new MvSpawnCondition.BiomeInstanceSpawnClause()
-                            .addBiome(Biomes.COLD_OCEAN).addBiome(Biomes.FROZEN_OCEAN).addBiome(Biomes.ICE_SPIKES).addBiome(Biomes.DEEP_FROZEN_OCEAN))
+                            .addBiome(Biomes.FROZEN_OCEAN).addBiome(Biomes.ICE_SPIKES).addBiome(Biomes.DEEP_FROZEN_OCEAN))
             );
         }
 

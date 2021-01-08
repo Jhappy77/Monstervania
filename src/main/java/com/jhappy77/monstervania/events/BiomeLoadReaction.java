@@ -5,7 +5,9 @@ import com.jhappy77.monstervania.init.ModEntityTypes;
 import com.jhappy77.monstervania.util.MvMobSpawnInfo;
 import com.jhappy77.monstervania.util.MvSpawnCondition;
 import com.jhappy77.monstervania.util.MvStructureSpawnInfo;
+import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.MobSpawnInfo;
 import net.minecraft.world.gen.feature.StructureFeature;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
@@ -14,6 +16,7 @@ import net.minecraftforge.fml.RegistryObject;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
 
 public class BiomeLoadReaction {
 
@@ -42,8 +45,6 @@ public class BiomeLoadReaction {
     }
 
     public static void addStructures(BiomeLoadingEvent b){
-//        b.getGeneration().getStructures().add(()-> ConfiguredStructures.CONFIGURED_VAMPIRE_TOWER);
-//        b.getGeneration().getStructures().add(()-> ConfiguredStructures.CONFIGURED_FROST_SPIDER_PIT);
 
         // Iterate through every structure feature registered to spawn based on their spawn conditions.
         // If it can spawn in this biome, add it to the list of configured structures.
@@ -61,5 +62,26 @@ public class BiomeLoadReaction {
         }
 
     }
+
+
+    public static class creeperRemovePredicate implements Predicate<MobSpawnInfo.Spawners> {
+
+        @Override
+        public boolean test(MobSpawnInfo.Spawners spawners) {
+            if(spawners.type == EntityType.CREEPER){
+                return true;
+            }
+            return false;
+        }
+    }
+
+
+    public static void makeVanillaAlterations(BiomeLoadingEvent event){
+        if(event.getCategory() == Biome.Category.DESERT){
+            event.getSpawns().getSpawner(EntityClassification.MONSTER).removeIf(new creeperRemovePredicate());
+        }
+    }
+
+
 
 }

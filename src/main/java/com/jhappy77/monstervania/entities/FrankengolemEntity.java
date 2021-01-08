@@ -75,7 +75,7 @@ public class FrankengolemEntity extends MonsterEntity implements MvDamageModifia
         if (this.attackCooldown > 0) {
             --this.attackCooldown;
         }
-        if(this.particleTimer == 40){
+        if(this.particleTimer == 300){
             spawnEnergyParticles();
             particleTimer = 0;
         }
@@ -85,7 +85,7 @@ public class FrankengolemEntity extends MonsterEntity implements MvDamageModifia
 
     @OnlyIn(Dist.CLIENT)
     private void spawnEnergyParticles(){
-        int j = this.world.rand.nextInt(10) + 20;
+        int j = this.world.rand.nextInt(10) + 10;
         for(int i=0; i<j; i++) {
             float f1 = (float) ((this.world.rand.nextInt(10)) / 4 * Math.pow(-1, this.world.rand.nextInt(2)));
             float f2 = (float) ((this.world.rand.nextInt(10)) / 4 * Math.pow(-1, this.world.rand.nextInt(2)));
