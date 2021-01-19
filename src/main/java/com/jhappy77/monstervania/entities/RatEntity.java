@@ -101,7 +101,7 @@ public class RatEntity extends MonsterEntity implements IAnimatable, MvEntitySpa
     public static AttributeModifierMap.MutableAttribute setCustomAttributes(){
         return MobEntity.func_233666_p_()
                 .createMutableAttribute(Attributes.MAX_HEALTH, 20.0D)
-                .createMutableAttribute(Attributes.ATTACK_DAMAGE, 2.5D)
+                .createMutableAttribute(Attributes.ATTACK_DAMAGE, 1.5D)
                 .createMutableAttribute(Attributes.ATTACK_SPEED, 1.0D)
                 .createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 1.0D)
                 .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.4D);

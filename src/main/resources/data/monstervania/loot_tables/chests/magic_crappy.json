@@ -3,8 +3,8 @@
   "pools": [
     {
       "rolls": {
-        "min": 3.0,
-        "max": 8.0,
+        "min": 2.0,
+        "max": 5.0,
         "type": "minecraft:uniform"
       },
       "entries": [
@@ -40,18 +40,18 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 4,
+          "weight": 10,
           "functions": [
             {
               "function": "minecraft:set_count",
               "count": {
                 "min": 1.0,
-                "max": 5.0,
+                "max": 4.0,
                 "type": "minecraft:uniform"
               }
             }
           ],
-          "name": "minecraft:iron_ingot"
+          "name": "minecraft:spider_eye"
         },
         {
           "type": "minecraft:item",
@@ -66,27 +66,27 @@
               }
             }
           ],
-          "name": "minecraft:gold_ingot"
+          "name": "minecraft:rabbit_foot"
         },
         {
           "type": "minecraft:item",
-          "weight": 6,
+          "weight": 8.0,
           "functions": [
             {
               "function": "minecraft:set_count",
               "count": {
                 "min": 3.0,
-                "max": 10.0,
+                "max": 7.0,
                 "type": "minecraft:uniform"
               }
             }
           ],
-          "name": "minecraft:coal"
+          "name": "minecraft:glowstone_dust"
         },
         {
           "type": "minecraft:item",
           "weight": 6,
-          "name": "minecraft:arrow",
+          "name": "minecraft:blaze_powder",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -100,8 +100,8 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:redstone",
-          "weight": 5,
+          "name": "minecraft:nether_wart",
+          "weight": 10,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -115,22 +115,22 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 4.0,
+          "weight": 10.0,
           "functions": [
             {
               "function": "minecraft:set_count",
               "count": {
                 "min": 1.0,
-                "max": 3.0,
+                "max": 2.0,
                 "type": "minecraft:uniform"
               }
             }
           ],
-          "name": "minecraft:emerald"
+          "name": "minecraft:potion"
         },
         {
           "type": "minecraft:item",
-          "weight": 5.0,
+          "weight": 10.0,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -141,7 +141,7 @@
               }
             }
           ],
-          "name": "minecraft:stick"
+          "name": "minecraft:gunpowder"
         },
         {
           "type": "minecraft:item",
@@ -156,7 +156,7 @@
               }
             }
           ],
-          "name": "minecraft:bone"
+          "name": "minecraft:magma_cream"
         }
       ]
     }

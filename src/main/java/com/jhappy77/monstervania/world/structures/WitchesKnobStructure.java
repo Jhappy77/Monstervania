@@ -1,4 +1,4 @@
-package com.jhappy77.monstervania.world.structures.template;
+package com.jhappy77.monstervania.world.structures;
 
 import com.jhappy77.monstervania.Monstervania;
 import com.jhappy77.monstervania.util.MvSpawnCondition;
@@ -13,7 +13,6 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.GenerationStage;
-import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.jigsaw.JigsawManager;
 import net.minecraft.world.gen.feature.structure.AbstractVillagePiece;
@@ -25,20 +24,20 @@ import org.apache.logging.log4j.Level;
 
 import java.util.ArrayList;
 import java.util.List;
-/*
-public class TemplateJigsawStructure extends Structure<NoFeatureConfig> implements MvStructureSpawnable {
 
-    public TemplateJigsawStructure(Codec<NoFeatureConfig> codec) {
+public class WitchesKnobStructure extends Structure<NoFeatureConfig> implements MvStructureSpawnable {
+
+    public WitchesKnobStructure(Codec<NoFeatureConfig> codec) {
         super(codec);
     }
 
     @Override
     public  IStartFactory<NoFeatureConfig> getStartFactory() {
-        return this.Start::new;
+        return Start::new;
     }
 
 
-    //TODO: Check every time you add a structure!
+
     @Override
     public GenerationStage.Decoration getDecorationStage() {
         return GenerationStage.Decoration.SURFACE_STRUCTURES;
@@ -100,7 +99,7 @@ public class TemplateJigsawStructure extends Structure<NoFeatureConfig> implemen
                     dynamicRegistryManager,
                     new VillageConfig(() -> dynamicRegistryManager.getRegistry(Registry.JIGSAW_POOL_KEY)
                             //TODO: Change every time you add a structure!
-                            .getOrDefault(new ResourceLocation(Monstervania.MOD_ID, "sphinx/start_pool")),
+                            .getOrDefault(new ResourceLocation(Monstervania.MOD_ID, "witches_knob/start_pool")),
                             // Recursivity
                             10),
                     AbstractVillagePiece::new,
@@ -116,17 +115,16 @@ public class TemplateJigsawStructure extends Structure<NoFeatureConfig> implemen
             //Reference for these lines: https://github.com/TelepathicGrunt/StructureTutorialMod/blob/1.16.3-Forge-jigsaw/src/main/java/com/telepathicgrunt/structuretutorial/structures/RunDownHouseStructure.java
             // Lines 184, 185
 
-            // Lowers entire structure by 1 block
-            //this.components.forEach(piece -> piece.offset(0, -1, 0));
+
+            this.components.forEach(piece -> piece.offset(0, 1, 0));
             // Raises the bounding box for transformSurroundingLand, causing it to allow land transform to bury it
-            this.components.forEach(piece -> piece.getBoundingBox().minY += 1);
+            //this.components.forEach(piece -> piece.getBoundingBox().minY += 1);
 
 
             // Sets the bounds of the structure once you are finished.
             this.recalculateStructureSize();
 
-            //TODO: Change every time you add a structure!
-            Monstervania.LOGGER.log(Level.DEBUG, "Sphinx at " +
+            Monstervania.LOGGER.log(Level.DEBUG, "Witches' knob at " +
                     this.components.get(0).getBoundingBox().minX + " " +
                     this.components.get(0).getBoundingBox().minY + " " +
                     this.components.get(0).getBoundingBox().minZ);
@@ -142,13 +140,11 @@ public class TemplateJigsawStructure extends Structure<NoFeatureConfig> implemen
 
     public static List<MvSpawnCondition<MvStructureSpawnInfo>> spawnConditions = new ArrayList<MvSpawnCondition<MvStructureSpawnInfo>>();
 
-    //TODO: Change every time you add a new structure!
     static {
         spawnConditions.add(new MvSpawnCondition<>(new MvStructureSpawnInfo()).restrictToLand().restrictToOverworld()
-                .addBiomeSpawnClause(new MvSpawnCondition.BiomeCategorySpawnClause().addCategory(Biome.Category.DESERT))
+                .addBiomeSpawnClause(new MvSpawnCondition.BiomeCategorySpawnClause().addCategory(Biome.Category.SWAMP))
         );
     }
 
 
 }
-*/

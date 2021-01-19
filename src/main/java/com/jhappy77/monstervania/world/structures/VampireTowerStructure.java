@@ -82,7 +82,16 @@ public class VampireTowerStructure extends Structure<NoFeatureConfig> implements
             int x = (chunkX << 4) + 7;
             int z = (chunkZ << 4) + 7;
             int y = chunkGenerator.getHeight(x, z, Heightmap.Type.WORLD_SURFACE_WG);
-            BlockPos blockpos = new BlockPos(x, y-3, z);
+
+
+            int y0 = y-3;
+            int y1 = chunkGenerator.getHeight(x+5, z, Heightmap.Type.WORLD_SURFACE_WG);
+            int y2 = chunkGenerator.getHeight(x-5, z, Heightmap.Type.WORLD_SURFACE_WG);
+            int y3 = chunkGenerator.getHeight(x, z+5, Heightmap.Type.WORLD_SURFACE_WG);
+            int y4 = chunkGenerator.getHeight(x, z-5, Heightmap.Type.WORLD_SURFACE_WG);
+            int minY = Math.min(Math.min(Math.min(Math.min(y1, y2), y3), y4), y0);
+            BlockPos blockpos = new BlockPos(x, minY, z);
+
 
             // In this case, we offset the pieces up 1 so that the doorstep is not lower than the original
             // terrain and then we extend the bounding box down by 1 to force down the land by 1 block that the

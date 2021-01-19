@@ -30,48 +30,18 @@
               }
             }
           ],
-          "name": "minecraft:string"
+          "name": "minecraft:arrow"
         },
         {
           "type": "minecraft:item",
-          "weight": 10,
+          "name": "minecraft:diamond",
+          "weight": 2,
           "functions": [
             {
               "function": "minecraft:set_count",
               "count": {
                 "min": 1.0,
-                "max": 4.0,
-                "type": "minecraft:uniform"
-              }
-            }
-          ],
-          "name": "minecraft:cobweb"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 6,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1.0,
-                "max": 5.0,
-                "type": "minecraft:uniform"
-              }
-            }
-          ],
-          "name": "minecraft:spider_eye"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 10,
-          "name": "minecraft:rabbit_foot",
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1.0,
-                "max": 4.0,
+                "max": 2.0,
                 "type": "minecraft:uniform"
               }
             }
@@ -79,33 +49,24 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:rotten_flesh",
-          "weight": 5,
+          "weight": 4.0,
           "functions": [
             {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1.0,
-                "max": 5.0,
-                "type": "minecraft:uniform"
+              "function": "minecraft:set_damage",
+              "damage": {
+                "min": 30,
+                "max": 50
               }
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 7.0,
-          "functions": [
+            },
             {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1.0,
-                "max": 3.0,
-                "type": "minecraft:uniform"
+              "function": "minecraft:enchant_with_levels",
+              "levels": {
+                "min": 5,
+                "max": 20
               }
             }
           ],
-          "name": "minecraft:rabbit"
+          "name": "minecraft:bow"
         },
         {
           "type": "minecraft:item",

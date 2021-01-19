@@ -4,7 +4,6 @@ import com.jhappy77.monstervania.Monstervania;
 import com.jhappy77.monstervania.util.MvSpawnCondition;
 import com.jhappy77.monstervania.util.MvStructureSpawnInfo;
 import com.jhappy77.monstervania.util.MvStructureSpawnable;
-import com.jhappy77.monstervania.world.structures.template.TemplateJigsawStructure;
 import com.mojang.serialization.Codec;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;

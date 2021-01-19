@@ -1,4 +1,68 @@
 {
+  "entity.frankengolem_entity.hurt": {
+    "category": "entity",
+    "subtitle": "entity.frankengolem_entity.hurt",
+    "sounds": [
+      {
+        "name": "monstervania:entity/frankengolem_entity/hurt0",
+        "stream": true
+      },
+      {
+        "name": "monstervania:entity/frankengolem_entity/hurt1",
+        "stream": true
+      },
+      {
+        "name": "monstervania:entity/frankengolem_entity/hurt2",
+        "stream": true
+      },
+      {
+        "name": "monstervania:entity/frankengolem_entity/hurt3",
+        "stream": true
+      }
+    ]
+  },
+  "entity.frankengolem_entity.death": {
+    "category": "entity",
+    "subtitle": "entity.frankengolem_entity.death",
+    "sounds": [
+      {
+        "name": "monstervania:entity/frankengolem_entity/death0",
+        "stream": true
+      }
+    ]
+  },
+  "entity.mummified_creeper_entity.fuse": {
+    "category": "entity",
+    "subtitle": "entity.mummified_creeper_entity.fuse",
+    "sounds": [
+      {
+        "name": "monstervania:entity/mummified_creeper_entity/fuse",
+        "stream": true
+      }
+    ]
+  },
+  "entity.mummified_creeper_entity.hurt": {
+    "category": "entity",
+    "subtitle": "entity.mummified_creeper_entity.hurt",
+    "sounds": [
+      {
+        "name": "monstervania:entity/mummified_creeper_entity/hurt0",
+        "stream": true
+      },
+      {
+        "name": "monstervania:entity/mummified_creeper_entity/hurt1",
+        "stream": true
+      },
+      {
+        "name": "monstervania:entity/mummified_creeper_entity/hurt2",
+        "stream": true
+      },
+      {
+        "name": "monstervania:entity/mummified_creeper_entity/hurt3",
+        "stream": true
+      }
+    ]
+  },
   "entity.rat_entity.ambient": {
     "category": "entity",
     "subtitle": "entity.rat_entity.ambient",
@@ -13,10 +77,6 @@
       },
       {
         "name": "monstervania:entity/rat_entity/ambient2",
-        "stream": true
-      },
-      {
-        "name": "monstervania:entity/rat_entity/ambient3",
         "stream": true
       }
     ]
@@ -126,8 +186,27 @@
         "stream": true
       }
     ]
+  },
+  "environment.electricity.electric": {
+    "category": "entity",
+    "subtitle": "environment.electricity.electric",
+    "sounds": [
+      {
+        "name": "monstervania:environment/electricity/electric0",
+        "stream": true
+      },
+      {
+        "name": "monstervania:environment/electricity/electric1",
+        "stream": true
+      },
+      {
+        "name": "monstervania:environment/electricity/electric2",
+        "stream": true
+      },
+      {
+        "name": "monstervania:environment/electricity/electric3",
+        "stream": true
+      }
+    ]
   }
-
-
-
 }

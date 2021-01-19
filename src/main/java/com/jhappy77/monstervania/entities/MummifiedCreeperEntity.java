@@ -1,5 +1,6 @@
 package com.jhappy77.monstervania.entities;
 
+import com.jhappy77.monstervania.init.SoundInit;
 import com.jhappy77.monstervania.util.MvMobSpawnInfo;
 import com.jhappy77.monstervania.util.MvSpawnCondition;
 import net.minecraft.entity.AreaEffectCloudEntity;
@@ -11,6 +12,8 @@ import net.minecraft.entity.monster.CreeperEntity;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.EffectType;
 import net.minecraft.potion.Effects;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
@@ -45,7 +48,7 @@ public class MummifiedCreeperEntity extends CreeperEntity {
 
             int i = this.getCreeperState();
             if (i > 0 && this.timeSinceIgnited == 0) {
-                this.playSound(SoundEvents.ENTITY_CREEPER_PRIMED, 1.0F, 2.0F);
+                this.playSound(SoundInit.ENTITY_MUMMIFIED_CREEPER_FUSE.get(), 1.0F, 2.0F);
             }
 
             this.timeSinceIgnited += i;
@@ -93,7 +96,14 @@ public class MummifiedCreeperEntity extends CreeperEntity {
         return conditions;
     }
 
+    @Override
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn){
+        return SoundInit.ENTITY_MUMMIFIED_CREEPER_HURT.get();
     }
+
+
+
+}
 // Creeper Stats
     //    public static AttributeModifierMap.MutableAttribute setCustomAttributes(){
 //        return MobEntity.func_233666_p_()

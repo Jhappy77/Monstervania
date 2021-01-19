@@ -157,10 +157,13 @@ public class Monstervania
 //                    DimensionStructuresSettings.field_236191_b_.get(UnconfiguredStructures.SPHINX_BASE));
             tempMap.put(UnconfiguredStructures.VAMPIRE_LAIR_SMALL,
                     DimensionStructuresSettings.field_236191_b_.get(UnconfiguredStructures.VAMPIRE_LAIR_SMALL));
-            tempMap.put(JigsawStructures.SPHINX.get(), DimensionStructuresSettings.field_236191_b_.get(JigsawStructures.SPHINX.get()));
+
+            tempMap.put(JigsawStructures.BIG_WINDMILL.get(), DimensionStructuresSettings.field_236191_b_.get(JigsawStructures.BIG_WINDMILL.get()));
             tempMap.put(JigsawStructures.ICE_PILLAR.get(), DimensionStructuresSettings.field_236191_b_.get(JigsawStructures.ICE_PILLAR.get()));
             tempMap.put(JigsawStructures.SKELETAL_FOUNTAIN.get(), DimensionStructuresSettings.field_236191_b_.get(JigsawStructures.SKELETAL_FOUNTAIN.get()));
             tempMap.put(JigsawStructures.SLIME_CAVE_SMALL.get(), DimensionStructuresSettings.field_236191_b_.get(JigsawStructures.SLIME_CAVE_SMALL.get()));
+            tempMap.put(JigsawStructures.SPHINX.get(), DimensionStructuresSettings.field_236191_b_.get(JigsawStructures.SPHINX.get()));
+            tempMap.put(JigsawStructures.WITCHES_KNOB.get(), DimensionStructuresSettings.field_236191_b_.get(JigsawStructures.WITCHES_KNOB.get()));
 
             /** Template
              tempMap.put(JigsawStructures.STRUCHA.get(), DimensionStructuresSettings.field_236191_b_.get(JigsawStructures.STRUCHA.get()));

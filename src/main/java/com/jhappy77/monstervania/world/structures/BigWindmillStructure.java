@@ -1,4 +1,4 @@
-package com.jhappy77.monstervania.world.structures.template;
+package com.jhappy77.monstervania.world.structures;
 
 import com.jhappy77.monstervania.Monstervania;
 import com.jhappy77.monstervania.util.MvSpawnCondition;
@@ -13,7 +13,6 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.GenerationStage;
-import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.jigsaw.JigsawManager;
 import net.minecraft.world.gen.feature.structure.AbstractVillagePiece;
@@ -25,28 +24,26 @@ import org.apache.logging.log4j.Level;
 
 import java.util.ArrayList;
 import java.util.List;
-/*
-public class TemplateJigsawStructure extends Structure<NoFeatureConfig> implements MvStructureSpawnable {
 
-    public TemplateJigsawStructure(Codec<NoFeatureConfig> codec) {
+public class BigWindmillStructure extends Structure<NoFeatureConfig> implements MvStructureSpawnable {
+    public BigWindmillStructure(Codec<NoFeatureConfig> codec) {
         super(codec);
     }
 
     @Override
     public  IStartFactory<NoFeatureConfig> getStartFactory() {
-        return this.Start::new;
+        return com.jhappy77.monstervania.world.structures.BigWindmillStructure.Start::new;
     }
 
-
-    //TODO: Check every time you add a structure!
     @Override
     public GenerationStage.Decoration getDecorationStage() {
         return GenerationStage.Decoration.SURFACE_STRUCTURES;
     }
 
 
-    // Mob spawning
-
+    /**
+     * Mob spawning
+     */
 //        private static final List<MobSpawnInfo.Spawners> STRUCTURE_MONSTERS = ImmutableList.of(
 //                new MobSpawnInfo.Spawners(EntityType.ILLUSIONER, 100, 4, 9),
 //                new MobSpawnInfo.Spawners(EntityType.VINDICATOR, 100, 4, 9)
@@ -64,10 +61,12 @@ public class TemplateJigsawStructure extends Structure<NoFeatureConfig> implemen
 //        public List<MobSpawnInfo.Spawners> getDefaultCreatureSpawnList() {
 //            return STRUCTURE_CREATURES;
 //        }
-//    /mob spawning ends
+    /** Mob spawning ends **/
 
 
-    //Extra checks to determine spawnability
+    /*
+     * Extra checks to determine spawnability
+     */
 //    @Override
 //    protected boolean func_230363_a_(ChunkGenerator chunkGenerator, BiomeProvider biomeSource, long seed, SharedSeedRandom chunkRandom, int chunkX, int chunkZ, Biome biome, ChunkPos chunkPos, NoFeatureConfig featureConfig) {
 //        int landHeight = chunkGenerator.getNoiseHeight(chunkX << 4, chunkZ << 4, Heightmap.Type.WORLD_SURFACE_WG);
@@ -75,7 +74,9 @@ public class TemplateJigsawStructure extends Structure<NoFeatureConfig> implemen
 //    }
 
 
-    //Handles calling up the structure's pieces class and height that structure will spawn at.
+    /**
+     * Handles calling up the structure's pieces class and height that structure will spawn at.
+     */
     public static class Start extends StructureStart<NoFeatureConfig> {
         public Start(Structure<NoFeatureConfig> structureIn, int chunkX, int chunkZ, MutableBoundingBox mutableBoundingBox, int referenceIn, long seedIn) {
             super(structureIn, chunkX, chunkZ, mutableBoundingBox, referenceIn, seedIn);
@@ -88,7 +89,6 @@ public class TemplateJigsawStructure extends Structure<NoFeatureConfig> implemen
             int x = (chunkX << 4) + 7;
             int z = (chunkZ << 4) + 7;
 
-            //TODO: Decide height of structure
             //int y = chunkGenerator.getHeight(x, z, Heightmap.Type.WORLD_SURFACE_WG)
             BlockPos blockpos = new BlockPos(x, 0, z);
 
@@ -100,7 +100,7 @@ public class TemplateJigsawStructure extends Structure<NoFeatureConfig> implemen
                     dynamicRegistryManager,
                     new VillageConfig(() -> dynamicRegistryManager.getRegistry(Registry.JIGSAW_POOL_KEY)
                             //TODO: Change every time you add a structure!
-                            .getOrDefault(new ResourceLocation(Monstervania.MOD_ID, "sphinx/start_pool")),
+                            .getOrDefault(new ResourceLocation(Monstervania.MOD_ID, "big_windmill/start_pool")),
                             // Recursivity
                             10),
                     AbstractVillagePiece::new,
@@ -125,8 +125,8 @@ public class TemplateJigsawStructure extends Structure<NoFeatureConfig> implemen
             // Sets the bounds of the structure once you are finished.
             this.recalculateStructureSize();
 
-            //TODO: Change every time you add a structure!
-            Monstervania.LOGGER.log(Level.DEBUG, "Sphinx at " +
+
+            Monstervania.LOGGER.log(Level.DEBUG, "Big Windmill at " +
                     this.components.get(0).getBoundingBox().minX + " " +
                     this.components.get(0).getBoundingBox().minY + " " +
                     this.components.get(0).getBoundingBox().minZ);
@@ -142,13 +142,10 @@ public class TemplateJigsawStructure extends Structure<NoFeatureConfig> implemen
 
     public static List<MvSpawnCondition<MvStructureSpawnInfo>> spawnConditions = new ArrayList<MvSpawnCondition<MvStructureSpawnInfo>>();
 
-    //TODO: Change every time you add a new structure!
     static {
-        spawnConditions.add(new MvSpawnCondition<>(new MvStructureSpawnInfo()).restrictToLand().restrictToOverworld()
-                .addBiomeSpawnClause(new MvSpawnCondition.BiomeCategorySpawnClause().addCategory(Biome.Category.DESERT))
+        spawnConditions.add(new MvSpawnCondition<>(new MvStructureSpawnInfo()).restrictToOverworld()
+                .addBiomeSpawnClause(new MvSpawnCondition.BiomeCategorySpawnClause().addCategory(Biome.Category.PLAINS))
         );
     }
 
-
 }
-*/
