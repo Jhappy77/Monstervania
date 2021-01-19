@@ -10,12 +10,14 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public class ElectricParticle extends SpriteTexturedParticle {
 
-    protected ElectricParticle(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn){
+    private final IAnimatedSprite spriteWithAge;
+
+    protected ElectricParticle(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, IAnimatedSprite spriteWithAge){
         super((ClientWorld) worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
         float f = this.rand.nextFloat() * 1.0F;
-        this.particleRed = f;
-        this.particleGreen = f;
-        this.particleBlue = f;
+        this.particleRed = 1.0f;
+        this.particleGreen = 2.0f;
+        this.particleBlue = 2.0f;
 
         this.setSize(0.2f, 0.2f);
         this.particleScale *= this.rand.nextFloat() + 0.6F;
@@ -25,7 +27,12 @@ public class ElectricParticle extends SpriteTexturedParticle {
         this.motionX *= (0.1D+speedModifier);
         this.motionY *= (0.1D+speedModifier);
         this.motionZ *= (0.1D+speedModifier);
+        this.setAlphaF(0.99F);
+        this.spriteWithAge = spriteWithAge;
+    }
 
+    public int getBrightnessForRender(float partialTick) {
+        return 15728880;
     }
 
     // Handles particle's motion, deletes when necessary
@@ -50,6 +57,7 @@ public class ElectricParticle extends SpriteTexturedParticle {
                 this.motionX *= (double)0.7F;
                 this.motionZ *= (double)0.7F;
             }
+            this.selectSpriteWithAge(spriteWithAge);
         }
 
         //Particle.java's tick method
@@ -59,7 +67,7 @@ public class ElectricParticle extends SpriteTexturedParticle {
 
     @Override
     public IParticleRenderType getRenderType() {
-        return IParticleRenderType.PARTICLE_SHEET_OPAQUE;
+        return IParticleRenderType.PARTICLE_SHEET_LIT; // Used to be opaque
     }
 
     // A factory for creating particle
@@ -74,7 +82,7 @@ public class ElectricParticle extends SpriteTexturedParticle {
 
         @Override
         public Particle makeParticle(BasicParticleType typeIn, ClientWorld worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
-            ElectricParticle p = new ElectricParticle(worldIn, x, y, z, xSpeed, ySpeed, zSpeed);
+            ElectricParticle p = new ElectricParticle(worldIn, x, y, z, xSpeed, ySpeed, zSpeed, spriteSet);
             p.setColor(1.0f, 1.0f, 1.0f);
             p.selectSpriteRandomly(spriteSet);
             return p;

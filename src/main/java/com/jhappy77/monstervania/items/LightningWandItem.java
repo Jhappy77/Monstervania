@@ -1,8 +1,12 @@
 package com.jhappy77.monstervania.items;
 
 import com.jhappy77.monstervania.Monstervania;
+import com.jhappy77.monstervania.init.SoundInit;
 import com.jhappy77.monstervania.lists.ParticleList;
+import net.minecraft.block.AirBlock;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.effect.LightningBoltEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -11,6 +15,7 @@ import net.minecraft.item.*;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceContext;
@@ -34,25 +39,7 @@ public class LightningWandItem extends Item {
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
         ItemStack itemstack = playerIn.getHeldItem(handIn);
-        if (lightningPlaced) {
-            Monstervania.LOGGER.debug("Lightning placed!");
-            if (position != null) {
-                int y = worldIn.getHeight(Heightmap.Type.WORLD_SURFACE, position.getX(), position.getZ());
 
-                LightningBoltEntity theLightning = new LightningBoltEntity(EntityType.LIGHTNING_BOLT, worldIn);
-                theLightning.setPosition(position.getX(), y, position.getZ());
-
-                worldIn.addEntity(theLightning);
-                lightningPlaced = false;
-                damageItem(itemstack, playerIn);
-                return ActionResult.resultSuccess(itemstack);
-            } else {
-                Monstervania.LOGGER.error("The position was null");
-            }
-            lightningPlaced = false;
-            return ActionResult.resultPass(itemstack);
-        } else {
-            Monstervania.LOGGER.debug("Lightning not placed!");
             RayTraceResult raytraceresult = rayTrace(worldIn, playerIn, RayTraceContext.FluidMode.ANY);
             if (raytraceresult.getType() == RayTraceResult.Type.MISS) {
                 return ActionResult.resultPass(itemstack);
@@ -67,13 +54,33 @@ public class LightningWandItem extends Item {
                 damageItem(itemstack, playerIn);
 
                 spawnEnergyParticles(worldIn, position);
-
+                // If there is snow cover, destroy it
+                if(worldIn.getBlockState(position).getBlock().getRegistryName().toString().equalsIgnoreCase("minecraft:snow")){
+                    worldIn.setBlockState(position, Blocks.AIR.getDefaultState());
+                    position.add(0, -1, 0);
+                }
+                //Monstervania.LOGGER.debug("Lighting struck block: " + worldIn.getBlockState(position).getBlock().getRegistryName().toString());
                 lightningPlaced = true;
-                return ActionResult.resultSuccess(itemstack);
+                return placeLightning(worldIn, playerIn, itemstack);
+
             }
+    }
+
+    private ActionResult<ItemStack> placeLightning(World worldIn, PlayerEntity playerIn, ItemStack itemStack){
+        if (position != null) {
+            int y = worldIn.getHeight(Heightmap.Type.WORLD_SURFACE, position.getX(), position.getZ());
+
+            LightningBoltEntity theLightning = new LightningBoltEntity(EntityType.LIGHTNING_BOLT, worldIn);
+            theLightning.setPosition(position.getX(), y, position.getZ());
+
+            worldIn.addEntity(theLightning);
+            lightningPlaced = false;
+            damageItem(itemStack, playerIn);
+            return ActionResult.resultSuccess(itemStack);
+        } else {
+            Monstervania.LOGGER.error("Could not place lightning at this location");
+            return ActionResult.resultPass(itemStack);
         }
-
-
     }
 
     private void damageItem(ItemStack itemStack, PlayerEntity playerIn) {
@@ -94,6 +101,8 @@ public class LightningWandItem extends Item {
             float f3 = (float) ((worldIn.rand.nextInt(10)) / 4 * Math.pow(-1, worldIn.rand.nextInt(2)));
             worldIn.addParticle(ParticleList.ELECTRIC_PARTICLE.get(), pos.getX() + f1, pos.getY() + 1.0F + f2, pos.getZ() + f3, 0.0D, 0.0D, 0.0D);
         }
+
+        worldIn.playSound(pos.getX(), pos.getY(), pos.getZ(), SoundInit.ENVIRONMENT_ELECTRICITY.get(), SoundCategory.PLAYERS, 1.0f, 0.8f, false);
     }
 
 

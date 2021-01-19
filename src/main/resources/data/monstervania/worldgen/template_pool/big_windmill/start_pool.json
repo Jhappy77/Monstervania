@@ -1,0 +1,17 @@
+{
+  "name": "monstervania:big_windmill/start_pool",
+
+  "fallback": "minecraft:empty",
+
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "location": "monstervania:big_windmill",
+        "processors": "minecraft:empty",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

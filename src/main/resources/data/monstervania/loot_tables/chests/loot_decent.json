@@ -1,0 +1,265 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "rolls": {
+        "min": 3.0,
+        "max": 8.0,
+        "type": "minecraft:uniform"
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:slime_ball",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "min": 3.0,
+                "max": 7.0,
+                "type": "minecraft:uniform"
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 5,
+          "name": "minecraft:cobweb",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "min": 3.0,
+                "max": 7.0,
+                "type": "minecraft:uniform"
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 7,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "min": 1.0,
+                "max": 7.0,
+                "type": "minecraft:uniform"
+              }
+            }
+          ],
+          "name": "minecraft:iron_ingot"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 7,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "min": 1.0,
+                "max": 4.0,
+                "type": "minecraft:uniform"
+              }
+            }
+          ],
+          "name": "minecraft:gold_ingot"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "min": 3.0,
+                "max": 10.0,
+                "type": "minecraft:uniform"
+              }
+            }
+          ],
+          "name": "minecraft:coal"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 7,
+          "name": "minecraft:arrow",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "min": 1.0,
+                "max": 4.0,
+                "type": "minecraft:uniform"
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:redstone",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "min": 1.0,
+                "max": 5.0,
+                "type": "minecraft:uniform"
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 7.0,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "min": 1.0,
+                "max": 3.0,
+                "type": "minecraft:uniform"
+              }
+            }
+          ],
+          "name": "minecraft:emerald"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 4.0,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "min": 1.0,
+                "max": 3.0,
+                "type": "minecraft:uniform"
+              }
+            }
+          ],
+          "name": "minecraft:ender_pearl"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "min": 1.0,
+                "max": 4.0,
+                "type": "minecraft:uniform"
+              }
+            }
+          ],
+          "name": "minecraft:bone"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 4,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "min": 1.0,
+                "max": 3.0,
+                "type": "minecraft:uniform"
+              }
+            }
+          ],
+          "name": "minecraft:diamond"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 5,
+          "name": "minecraft:experience_bottle",
+
+          "function": "minecraft:set_count",
+          "count": {
+            "min": 2.0,
+            "max": 5.0,
+            "type": "minecraft:uniform"
+          }
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 0.0,
+        "max": 3.0,
+        "type": "minecraft:uniform"
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "weight": 10,
+          "functions": [
+            {
+              "function": "minecraft:enchant_randomly"
+            }
+          ],
+          "name": "minecraft:book"
+        },
+        {
+          "weight": 4,
+          "type": "minecraft:item",
+          "name": "minecraft:iron_pickaxe",
+          "functions": [
+            {
+              "function": "minecraft:enchant_randomly"
+            }
+          ]
+        },
+        {
+          "weight": 4,
+          "type": "minecraft:item",
+          "name": "minecraft:iron_shovel",
+          "functions": [
+            {
+              "function": "minecraft:enchant_randomly"
+            }
+          ]
+        },
+        {
+          "weight": 4,
+          "type": "minecraft:item",
+          "name": "minecraft:iron_pickaxe",
+          "functions": [
+            {
+              "function": "minecraft:enchant_randomly"
+            }
+          ]
+        },
+        {
+          "weight": 4,
+          "type": "minecraft:item",
+          "name": "minecraft:enchanted_golden_apple"
+        },
+        {
+          "weight": 4,
+          "type": "minecraft:item",
+          "name": "minecraft:iron_chestplate"
+        },
+        {
+          "weight": 4,
+          "type": "minecraft:item",
+          "name": "minecraft:iron_helmet"
+        },
+        {
+          "weight": 4,
+          "type": "minecraft:item",
+          "name": "minecraft:iron_boots"
+        },
+        {
+          "weight": 4,
+          "type": "minecraft:item",
+          "name": "minecraft:iron_leggings"
+        }
+      ]
+    }
+  ]
+}

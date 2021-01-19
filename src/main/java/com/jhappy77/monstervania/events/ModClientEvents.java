@@ -14,6 +14,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.IWorld;
+import net.minecraft.world.biome.Biomes;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.entity.EntityStruckByLightningEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
@@ -29,6 +30,7 @@ public class ModClientEvents {
 
     @SubscribeEvent
     public static void onBiomeLoad(BiomeLoadingEvent b){
+        BiomeLoadReaction.makeVanillaAlterations(b);
         BiomeLoadReaction.addMobSpawns(b);
         BiomeLoadReaction.addStructures(b);
     }

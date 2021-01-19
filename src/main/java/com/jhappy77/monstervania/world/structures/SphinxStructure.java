@@ -171,7 +171,7 @@ public class SphinxStructure extends Structure<NoFeatureConfig> implements MvStr
                 // Lowers entire structure by 1 block
                 //this.components.forEach(piece -> piece.offset(0, -1, 0));
                 // Raises the bounding box for transformSurroundingLand, causing it to allow land transform to bury it
-                this.components.forEach(piece -> piece.getBoundingBox().minY += 1);
+                //this.components.forEach(piece -> piece.getBoundingBox().minY += 1);
 
 
                 // Sets the bounds of the structure once you are finished.

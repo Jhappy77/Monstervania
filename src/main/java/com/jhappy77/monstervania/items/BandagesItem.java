@@ -43,6 +43,8 @@ public class BandagesItem extends Item {
         return SoundEvents.BLOCK_WOOL_HIT;
     }
 
+
+
     @Override
     public SoundEvent getDrinkSound(){return SoundEvents.BLOCK_WOOL_PLACE;}
 }

@@ -8,6 +8,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.WorldGenRegistries;
 import net.minecraft.world.gen.feature.IFeatureConfig;
+import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.StructureFeature;
 
 import java.util.HashMap;
@@ -17,35 +18,31 @@ import java.util.Map;
 
 public class ConfiguredStructures {
 
-
-    /** Boilerplate code: Replace MY_STRUCTURE_COOL with your actual structure name
-
-
-     public static StructureFeature<?, ?> CONFIGURED_MY_STRUCTURE_COOL = UnconfiguredStructures.MY_STRUCTURE_COOL.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG);
-
-     Registry.register(registry, new ResourceLocation(Monstervania.MOD_ID, "configured_my_structure_cool"), CONFIGURED_MY_STRUCTURE_COOL);
-
-     */
-
-
-
-    /** Template
-     public static StructureFeature<?, ?> CONFIGURED_MY_STRUCTURE =
-     UnconfiguredStructures.MY_STRUCTURE.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG);
-     */
+    private static NoFeatureConfig NFC = IFeatureConfig.NO_FEATURE_CONFIG;
 
     // Static instance of our structure so we can reference it and add it to biomes easily.
-        public static StructureFeature<?, ?> CONFIGURED_VAMPIRE_TOWER = UnconfiguredStructures.VAMPIRE_TOWER.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG);
-        public static StructureFeature<?, ?> CONFIGURED_FROST_SPIDER_PIT = UnconfiguredStructures.FROST_SPIDER_PIT.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG);
-        public static StructureFeature<?, ?> CONFIGURED_VAMPIRE_LAIR_SMALL =
-            UnconfiguredStructures.VAMPIRE_LAIR_SMALL.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG);
-//        public static StructureFeature<?, ?> CONFIGURED_SPHINX_BASE =
-//            UnconfiguredStructures.SPHINX_BASE.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG);
-        public static StructureFeature<?, ?> CONFIGURED_SPHINX = JigsawStructures.SPHINX.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG);
 
-    /*
-         * Registers the configured structure which is what gets added to the biomes.
-         * Noticed we are not using a forge registry because there is none for configured structures
+    public static StructureFeature<?, ?> CONFIGURED_VAMPIRE_TOWER = UnconfiguredStructures.VAMPIRE_TOWER.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG);
+    public static StructureFeature<?, ?> CONFIGURED_FROST_SPIDER_PIT = UnconfiguredStructures.FROST_SPIDER_PIT.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG);
+    public static StructureFeature<?, ?> CONFIGURED_VAMPIRE_LAIR_SMALL =
+        UnconfiguredStructures.VAMPIRE_LAIR_SMALL.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG);
+
+
+    public static StructureFeature<?, ?> CONFIGURED_BIG_WINDMILL = JigsawStructures.BIG_WINDMILL.get().withConfiguration(NFC);
+    public static StructureFeature<?, ?> CONFIGURED_SPHINX = JigsawStructures.SPHINX.get().withConfiguration(NFC);
+    public static StructureFeature<?, ?> CONFIGURED_ICE_PILLAR = JigsawStructures.ICE_PILLAR.get().withConfiguration(NFC);
+    public static StructureFeature<?, ?> CONFIGURED_SKELETAL_FOUNTAIN = JigsawStructures.SKELETAL_FOUNTAIN.get().withConfiguration(NFC);
+    public static StructureFeature<?, ?> CONFIGURED_SLIME_CAVE_SMALL = JigsawStructures.SLIME_CAVE_SMALL.get().withConfiguration(NFC);
+    public static StructureFeature<?, ?> CONFIGURED_WITCHES_KNOB = JigsawStructures.WITCHES_KNOB.get().withConfiguration(NFC);
+
+    /** Template
+     public static StructureFeature<?, ?> CONFIGURED_MY_STRUCTURE = JigsawStructures.COOLIO.get().withConfiguration(NFC);
+     */
+
+
+
+        /*
+         * Registers the configured structure (what gets added in worldgen)
          */
         public static void registerConfiguredStructures() {
             Registry<StructureFeature<?, ?>> registry = WorldGenRegistries.CONFIGURED_STRUCTURE_FEATURE;
@@ -53,9 +50,18 @@ public class ConfiguredStructures {
             Registry.register(registry, new ResourceLocation(Monstervania.MOD_ID, "configured_frost_spider_pit"), CONFIGURED_FROST_SPIDER_PIT);
             Registry.register(registry, new ResourceLocation(Monstervania.MOD_ID, "configured_vampire_lair_small"),
                     CONFIGURED_VAMPIRE_LAIR_SMALL);
-//            Registry.register(registry, new ResourceLocation(Monstervania.MOD_ID, "configured_sphinx_base"),
-//                    CONFIGURED_SPHINX_BASE);
+
+            Registry.register(registry, new ResourceLocation(Monstervania.MOD_ID, "configured_big_windmill"),
+                    CONFIGURED_BIG_WINDMILL);
+            Registry.register(registry, new ResourceLocation(Monstervania.MOD_ID, "configured_ice_pillar"),
+                    CONFIGURED_ICE_PILLAR);
+            Registry.register(registry, new ResourceLocation(Monstervania.MOD_ID, "configured_skeletal_fountain"),
+                    CONFIGURED_SKELETAL_FOUNTAIN);
+            Registry.register(registry, new ResourceLocation(Monstervania.MOD_ID, "configured_slime_cave_small"),
+                    CONFIGURED_SLIME_CAVE_SMALL);
             Registry.register(registry, new ResourceLocation(Monstervania.MOD_ID, "configured_sphinx"), CONFIGURED_SPHINX);
+            Registry.register(registry, new ResourceLocation(Monstervania.MOD_ID, "configured_witches_knob"),
+                    CONFIGURED_WITCHES_KNOB);
 
             /**
              Template:
@@ -67,13 +73,23 @@ public class ConfiguredStructures {
             addToSpawnList(CONFIGURED_VAMPIRE_TOWER, VampireTowerStructure.spawnConditions);
             addToSpawnList(CONFIGURED_FROST_SPIDER_PIT, FrostSpiderPitStructure.spawnConditions);
             addToSpawnList(CONFIGURED_VAMPIRE_LAIR_SMALL, VampireLairSmallStructure.spawnConditions);
+
+
+            addToSpawnList(CONFIGURED_BIG_WINDMILL, BigWindmillStructure.spawnConditions);
+            addToSpawnList(CONFIGURED_ICE_PILLAR, IcePillarStructure.spawnConditions);
+            addToSpawnList(CONFIGURED_SKELETAL_FOUNTAIN, SkeletalFountainStructure.spawnConditions);
+            addToSpawnList(CONFIGURED_SLIME_CAVE_SMALL, SlimeCaveSmallStructure.spawnConditions);
             addToSpawnList(CONFIGURED_SPHINX, SphinxStructure.spawnConditions);
+            addToSpawnList(CONFIGURED_WITCHES_KNOB, WitchesKnobStructure.spawnConditions);
 
             /**
              Template:
              addToSpawnList(CONFIGURED_MY_STRUCTURE, MyStructure.spawnConditions);
              */
 
+            // Everywhere past here is util and doesn't need to be touched
+
+            // Telepathic Grunt's advice:
             // Ok so, this part may be hard to grasp but basically, just add your structure to this to
             // prevent any sort of crash or issue with other mod's custom ChunkGenerators. If they use
             // FlatGenerationSettings.STRUCTURES in it and you don't add your structure to it, the game
@@ -99,7 +115,9 @@ public class ConfiguredStructures {
      */
     public static void addToSpawnList(StructureFeature<?, ?> structureFeature, List<MvSpawnCondition<MvStructureSpawnInfo>> spawnConditionList){
             configuredStructureSpawnList.put(structureFeature, spawnConditionList);
-        }
+    }
+
+
 
 }
 

@@ -3,7 +3,8 @@ package com.jhappy77.monstervania.init;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.jhappy77.monstervania.Monstervania;
-import com.jhappy77.monstervania.world.structures.SphinxStructure;
+import com.jhappy77.monstervania.world.structures.*;
+import com.mojang.serialization.Codec;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.gen.settings.DimensionStructuresSettings;
@@ -16,27 +17,56 @@ import java.util.function.Supplier;
 
 public class JigsawStructures {
 
+    private static int SEED = 666772990;
+    private static Codec NFC = NoFeatureConfig.field_236558_a_;
+
 
     public static final DeferredRegister<Structure<?>> DEFERRED_REGISTRY_STRUCTURE = DeferredRegister.create(ForgeRegistries.STRUCTURE_FEATURES, Monstervania.MOD_ID);
 
-
+    public static final RegistryObject<Structure<NoFeatureConfig>> BIG_WINDMILL = registerStructure("big_windmill", () -> (new BigWindmillStructure(NFC)));
+    public static final RegistryObject<Structure<NoFeatureConfig>> ICE_PILLAR = registerStructure("ice_pillar", () -> (new IcePillarStructure(NoFeatureConfig.field_236558_a_)));
+    public static final RegistryObject<Structure<NoFeatureConfig>> SKELETAL_FOUNTAIN = registerStructure("skeletal_fountain", () -> (new SkeletalFountainStructure(NoFeatureConfig.field_236558_a_)));
+    public static final RegistryObject<Structure<NoFeatureConfig>> SLIME_CAVE_SMALL = registerStructure("slime_cave_small", () -> (new SlimeCaveSmallStructure(NoFeatureConfig.field_236558_a_)));
     public static final RegistryObject<Structure<NoFeatureConfig>> SPHINX = registerStructure("sphinx", () -> (new SphinxStructure(NoFeatureConfig.field_236558_a_)));
+    public static final RegistryObject<Structure<NoFeatureConfig>> WITCHES_KNOB = registerStructure("witches_knob", () -> (new WitchesKnobStructure(NFC)));
 
-    private static <T extends Structure<?>> RegistryObject<T> registerStructure(String name, Supplier<T> structure) {
-        return DEFERRED_REGISTRY_STRUCTURE.register(name, structure);
-    }
-
+    /** Template
+     public static final RegistryObject<Structure<NoFeatureConfig>> SPHINX = registerStructure("cHanGeMe", () -> (new CoolStructa(NFC)));
+     */
 
     public static void setupStructures() {
         setupMapSpacingAndLand(
                 SPHINX.get(), /* The instance of the structure */
-                new StructureSeparationSettings(20 /* maximum distance apart in chunks between spawn attempts */,
-                        10 /* minimum distance apart in chunks between spawn attempts */,
-                        1233367690 /* this modifies the seed of the structure so no two structures always spawn over each-other. Make this large and unique. */),
+                new StructureSeparationSettings(35 /* maximum distance apart in chunks between spawn attempts */,
+                        25 /* minimum distance apart in chunks between spawn attempts */,
+                        SEED++ /* this modifies the seed of the structure so no two structures always spawn over each-other. Make this large and unique. */),
                 true);
 
+        setupMapSpacingAndLand(BIG_WINDMILL.get(), new StructureSeparationSettings(35, 25, SEED++), true);
+
+        setupMapSpacingAndLand(
+            ICE_PILLAR.get(), new StructureSeparationSettings(20 /*max*/ , 10 /* min */,  SEED++ /* seed */),
+                false);
+
+        setupMapSpacingAndLand(SKELETAL_FOUNTAIN.get(), new StructureSeparationSettings(30, 25, SEED++), false);
+
+        setupMapSpacingAndLand(SLIME_CAVE_SMALL.get(), new StructureSeparationSettings(30, 20, SEED++), false);
+
+        setupMapSpacingAndLand(WITCHES_KNOB.get(), new StructureSeparationSettings(45, 25, SEED++), true);
+
+        /* Template
+        setupMapSpacingAndLand(COOL_STRUCTURE.get(), new StructureSeparationSettings(20, 10, SEED++), true);
+        */
     }
 
+
+    // Past this point: utility functions (no edits needed)
+
+
+
+    private static <T extends Structure<?>> RegistryObject<T> registerStructure(String name, Supplier<T> structure) {
+        return DEFERRED_REGISTRY_STRUCTURE.register(name, structure);
+    }
 
     /**
      * Adds the provided structure to the registry, and adds the separation settings.
